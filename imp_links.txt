@@ -1,0 +1,15 @@
+https://andela.com/insights/how-to-use-django-rest-framework-apiview-to-create-a-django-api-part-1/
+https://www.section.io/engineering-education/react-and-django-rest-framework/
+https://testdriven.io/blog/drf-views-part-1/
+https://www.geeksforgeeks.org/function-based-views-django-rest-framework/
+https://www.nintyzeros.com/2020/07/how-to-build-django-restapi-function.html
+https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+https://github.com/CleverProgrammers/twitter-clone/blob/master/src/Post.js
+https://www.geeksforgeeks.org/how-to-build-a-react-app-with-user-authentication/
+https://inmagik.com/en/blog/django-rest-and-react
+https://github.com/RodrigoBLima/django-react-login
+https://github.com/divanov11/refresh-token-interval
+
+https://vercel.com/dhanushreddy24/firstapp
+https://supabase.com/dashboard/projects
+https://blog.logrocket.com/deploy-react-app-for-free-using-vercel/
