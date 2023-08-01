@@ -27,6 +27,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 python manage.py runserver 0:8000
+python manage.py migrate auth zero --skip-checks
 
 curl -X GET http://127.0.0.1:8000/sample/sample_1/
 curl -X POST -H "Content-Type: application/json" -d '{
@@ -47,4 +48,14 @@ kill -9 12345
 {
     "username": "firstAPP",
     "password": "firstAPP@2023"
+}
+
+
+{
+    "first_name": "Dhanush",
+    "last_name": "Reddy",
+    "email": "reddydhanushreddy2424@gmail.com",
+    "username": "dhanush2424",
+    "password": "Reddy@2424",
+    "re_password": "Reddy@2424"
 }

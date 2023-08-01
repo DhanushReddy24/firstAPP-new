@@ -36,6 +36,8 @@ CORS_ORIGIN_WHITELIST = [
 
 # Application definition
 
+AUTH_USER_MODEL = 'authentication.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
     'rest_framework',
     'sample',
     'corsheaders'
@@ -115,6 +118,11 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+DJOSER = {
+    'LOGIN_FIELD':'username',
+    'USER_CREATE_PASSWORD_RETYPE': True,
 }
 
 # Password validation
