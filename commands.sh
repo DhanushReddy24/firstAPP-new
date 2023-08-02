@@ -59,3 +59,7 @@ kill -9 12345
     "password": "Reddy@2424",
     "re_password": "Reddy@2424"
 }
+
+let [authTokens, setAuthTokens] = useState(
+    {"refresh": "", "access": ""}
+  );
