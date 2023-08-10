@@ -16,33 +16,32 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform login logic or API call with username and password
-    console.log('Username:', username);
-    console.log('Password:', password);
-
-    axios.post('http://127.0.0.1:8000/user/token/', {
-      'username': username,
-      'password': password
-
-    }).then(function (response) {
-      localStorage.setItem('authTokens', JSON.stringify(response.data))
+  const postData = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/user/token/', {
+        'username': username,
+        'password': password
+  
+      });
       console.log('access token')
       console.log(response.data);
-    })
+      localStorage.setItem('authTokens', JSON.stringify(response.data))
+      navigate('/sample_1/')
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
-    // Reset form fields
-    //setUsername('');
-    //setPassword('');
-
-    let path = '/sample_1/'; 
-    navigate(path);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Username:', username);
+    console.log('Password:', password);
+    postData();
   };
 
   return (
   <div>
-    <p>Hello User</p>
+    <p>Hello User please login</p>
 
     <form onSubmit={handleSubmit}>
       <label>Username</label>
@@ -52,6 +51,7 @@ function Login() {
       <input type="password" name="password" onChange={handlePasswordChange} /><br/>
 
       <input type="submit" value="Login" /><a href="/register/" class="ml-2">Register</a>
+     <br /> <a href="/sample_1/" class="ml-2">Sample_1</a>
     </form>
 
   </div>

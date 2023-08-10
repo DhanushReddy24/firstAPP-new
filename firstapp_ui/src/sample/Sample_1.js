@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Sample_1Post from "./Sample_1Post";
+import {useNavigate} from 'react-router-dom';
+import ReactDOM from "react-dom";
 import FlipMove from "react-flip-move";
+import Sample_1Post from "./Sample_1Post";
 import Logout from '../authentication/Logout';
 
 function Sample_1() {
 
   const [data, setdata] = useState([]); 
-  let [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": "null", "access": "null"}) 
+  const navigate = useNavigate();
+  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null}) 
   
   const fetchData = async () => {
     try {
@@ -25,8 +28,20 @@ function Sample_1() {
     }
   };
 
-  useEffect(() => { fetchData(); }, []);
-
+  useEffect(() => {
+    if (authTokens.access != null) {
+      console.log('fetching data')
+      ReactDOM.unstable_deferredUpdates(() => {
+        fetchData(); 
+      });
+    }
+    else{
+      console.log(authTokens.access)
+      console.log('redirect to login')
+      navigate('/login/');
+    }
+  }, []);
+  
   return (
     <div>
       <h1>Hello Sample 1 react page</h1>
@@ -47,6 +62,7 @@ function Sample_1() {
       </FlipMove>
       <a href="/sample_1_post/">Post</a>
       <Logout />
+      <a href="/login/">Login</a>
 
     </div>
   );
