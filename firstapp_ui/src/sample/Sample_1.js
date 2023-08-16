@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
-import ReactDOM from "react-dom";
+import {useNavigate, Link, useParams} from 'react-router-dom';
 import FlipMove from "react-flip-move";
 import Sample_1Post from "./Sample_1Post";
 import Logout from '../authentication/Logout';
@@ -10,12 +9,18 @@ function Sample_1() {
 
   const [data, setdata] = useState([]); 
   const navigate = useNavigate();
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null}) 
+  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const { pk } = useParams(); 
   
-  const fetchData = async () => {
+  const fetchData = async (pk) => {
     try {
+      let apiUrl = 'http://127.0.0.1:8000/sample/sample_1/';
+      if (pk) {
+        apiUrl+=`${pk}`
+      }
+      console.log(apiUrl)
       console.log(authTokens.access)
-      const response = await axios.get('http://127.0.0.1:8000/sample/sample_1/',{
+      const response = await axios.get(apiUrl,{
         'headers': { 
           'Content-Type':'application/json',
           'Authorization': 'JWT ' +String(authTokens.access) 
@@ -30,17 +35,22 @@ function Sample_1() {
 
   useEffect(() => {
     if (authTokens.access != null) {
-      console.log('fetching data')
-      ReactDOM.unstable_deferredUpdates(() => {
-        fetchData(); 
-      });
+      console.log(pk)
+      if (pk) {
+        console.log('fetching data of '+`${pk}`)
+        fetchData(pk);
+      }
+      else{
+        console.log('fetching data')
+        fetchData();
+      }
     }
     else{
       console.log(authTokens.access)
       console.log('redirect to login')
       navigate('/login/');
     }
-  }, []);
+  }, [pk]);
   
   return (
     <div>
@@ -57,12 +67,14 @@ function Sample_1() {
             address={row.address}
             time={row.created_at}
           />
+          <Link to={`/sample_1/${row.id}/`}>Go to Reply Component with PK {row.id}</Link>
         </div>
         ))}
       </FlipMove>
-      <a href="/sample_1_post/">Post</a>
+      <Link to="/sample_1_post/">Post</Link>
       <Logout />
-      <a href="/login/">Login</a>
+      <Link to="/login/">Login</Link><br />
+      <Link to="/sample_1/">Sample_1</Link>
 
     </div>
   );

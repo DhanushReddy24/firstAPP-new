@@ -5,5 +5,7 @@ app_name = 'sample'
 
 urlpatterns = [
     path('sample_1/', Sample_1APIView, name='sample_1'),
+    path('sample_1/<int:pk>/', Sample_1APIView, name='sample_1'),
     path('sample_2/', Sample_2APIView, name='sample_2'),
+    path('sample_2/<int:pk>/', Sample_2APIView, name='sample_2'),
 ]
