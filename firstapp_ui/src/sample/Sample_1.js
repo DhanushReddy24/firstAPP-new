@@ -4,14 +4,18 @@ import {useNavigate, Link, useParams} from 'react-router-dom';
 import FlipMove from "react-flip-move";
 import Sample_1Post from "./Sample_1Post";
 import Logout from '../authentication/Logout';
+import { useUser } from '../authentication/UserContext';
+
 
 function Sample_1() {
 
   const [data, setdata] = useState([]); 
   const navigate = useNavigate();
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const { pk } = useParams(); 
-  
+  const { user } = useUser();
+
   const fetchData = async (pk) => {
     try {
       let apiUrl = 'http://127.0.0.1:8000/sample/sample_1/';
@@ -34,6 +38,8 @@ function Sample_1() {
   };
 
   useEffect(() => {
+    console.log('user')
+    console.log(userData)
     if (authTokens.access != null) {
       console.log(pk)
       if (pk) {
@@ -66,6 +72,7 @@ function Sample_1() {
             age={row.age}
             address={row.address}
             time={row.created_at}
+            imageUrl={row.image}
           />
           <Link to={`/sample_1/${row.id}/`}>Go to Reply Component with PK {row.id}</Link>
         </div>

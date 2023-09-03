@@ -1,0 +1,8 @@
+.chat-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Additional styling for the chat container */
+  

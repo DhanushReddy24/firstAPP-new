@@ -63,3 +63,31 @@ kill -9 12345
 let [authTokens, setAuthTokens] = useState(
     {"refresh": "", "access": ""}
   );
+
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'localhost', '127.0.0.1']
+
+#####################################################################
+
+http://127.0.0.1:8000/connection/tweet/
+
+http://127.0.0.1:8000/user/token/
+{
+    "username": "siddanth2000",
+    "password": "Macherla@2000"
+}
+
+http://127.0.0.1:8000/connection/message/1/
+{
+    "message": "How r u",
+    "user": 2,
+    "opp_user": 6
+}
+
+http://127.0.0.1:8000/sample/sample_1/
+{
+    "username": "dhanush2001",
+    "firstname": "Dhanush",
+    "lastname": "Reddy",
+    "age": 22,
+    "address": "Nizamabad",
+}

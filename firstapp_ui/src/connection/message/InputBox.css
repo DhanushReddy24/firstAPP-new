@@ -1,0 +1,23 @@
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-left: 10px;
+  }

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { useUser } from './UserContext';
+
 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { user,setUser } = useUser();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -18,14 +21,25 @@ function Login() {
 
   const postData = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/user/token/', {
+      const token_response = await axios.post('http://127.0.0.1:8000/user/token/', {
         'username': username,
         'password': password
   
       });
       console.log('access token')
-      console.log(response.data);
-      localStorage.setItem('authTokens', JSON.stringify(response.data))
+      console.log(token_response.data);
+      localStorage.setItem('authTokens', JSON.stringify(token_response.data))
+      const user_response = await axios.get('http://127.0.0.1:8000/user/details/',{
+        'headers': { 
+          'Content-Type':'application/json',
+          'Authorization': 'JWT ' +String(token_response.data.access) 
+        },
+      });
+      console.log('user details')
+      console.log(user_response.data);
+      setUser(user_response.data);
+      localStorage.setItem('userData', JSON.stringify(user_response.data))
+      console.log(user)
       navigate('/sample_1/')
     } catch (error) {
       console.error('Error:', error);

@@ -1,0 +1,56 @@
+.chat-window {
+    flex: 3;
+    padding: 20px;
+    background-color: white;
+    overflow-y: auto;
+  }
+  
+  .chat-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .chat-header h3 {
+    margin: 0;
+    margin-left: 10px;
+  }
+  
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .message {
+    position: relative;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+  }
+  .day-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+  }
+  
+  .received {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+  }
+
+  .message-time {
+    font-size: 12px;
+    color: #090000;
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+  }
+  
+  /* Additional styling for chat window */
+  

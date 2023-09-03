@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Sample_1_Post() {
+
+  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [formData, setFormData] = useState({
     user_name: '',
     first_name: '',
@@ -17,14 +19,21 @@ function Sample_1_Post() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://127.0.0.1:8000/sample/sample_1/', {
+    axios.post('http://127.0.0.1:8000/sample/sample_1/',
+      {
         "username":user_name, 
         "firstname":first_name, 
         "lastname" :last_name, 
         "age" :age, 
         "address":address
-
-    }).then(function (response) {
+      },
+      {
+        'headers': { 
+          'Content-Type':'application/json',
+          'Authorization': 'JWT ' +String(authTokens.access) 
+        },
+      }
+    ).then(function (response) {
         console.log(response.status)
     })
     navigate('/sample_1');
@@ -57,4 +66,4 @@ function Sample_1_Post() {
   );
 }
   
-  export default Sample_1_Post;
+export default Sample_1_Post;
