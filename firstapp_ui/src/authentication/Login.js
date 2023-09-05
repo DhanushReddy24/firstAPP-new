@@ -40,7 +40,7 @@ function Login() {
       setUser(user_response.data);
       localStorage.setItem('userData', JSON.stringify(user_response.data))
       console.log(user)
-      navigate('/sample_1/')
+      navigate('/tweet/')
     } catch (error) {
       console.error('Error:', error);
     }

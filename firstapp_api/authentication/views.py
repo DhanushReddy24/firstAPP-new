@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import logout
 from .models import User
 from .serializer import UserSerializer
-
+import base64
 
 
 # Create your views here.
@@ -15,16 +15,13 @@ from .serializer import UserSerializer
 @permission_classes([IsAuthenticated])
 def UserAPIView(request):
     print('login user')
-    user = request.user
-    data = {
-        'id':user.id,
-        'username': user.username,
-        'firstname': user.first_name,
-        'lastname':user.last_name,
-        'email': user.email,
-    }
-    print(data)
-    return Response(data)
+    if request.method == 'GET':
+        print('Get')
+        User_data = User.objects.filter(id=request.user.id)
+        User_data = UserSerializer(User_data, many=True)
+        return Response(User_data.data[0])
+
+    return Response('No data', status=200)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -33,7 +30,6 @@ def UsersAPIView(request):
         print('Get')
         User_data = User.objects.exclude(id__in=[request.user.id])
         User_data = UserSerializer(User_data, many=True)
-        print(User_data.data)
         return Response(User_data.data)
 
     return Response('No data', status=200)

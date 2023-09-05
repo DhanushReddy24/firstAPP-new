@@ -28,6 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=80,unique=True)
     first_name = models.CharField(max_length=80)
     last_name = models.CharField(max_length=80)
+    image = models.ImageField(upload_to='authentication/images/',default='default.jpg')
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     objects = UserManager()

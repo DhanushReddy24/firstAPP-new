@@ -1,13 +1,28 @@
 .chat-list {
     flex: 1;
-    padding: 20px;
     border-right: 1px solid #ccc;
     background-color: #f8f8f8;
     overflow-y: auto;
   }
+
+  .profile-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(65, 173, 209);
+    padding: 10px;
+  }
+
+  .profile-barRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 10vw;
+  }
   
   .search-bar {
+    margin-top: 20px;
     margin-bottom: 20px;
+    
   }
   
   .chat-list-item {

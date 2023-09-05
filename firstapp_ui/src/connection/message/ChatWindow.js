@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ChatWindow.css";
 import axios from 'axios';
 import InputBox from "./InputBox";
+import SearchIcon from '@material-ui/icons/Search';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
 function ChatWindow({ selectedChat }) {
@@ -40,7 +42,7 @@ function ChatWindow({ selectedChat }) {
   const fetchData = async () => {
     try {
       if (selectedChat) {
-        let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat}`;
+        let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat.id}`;
 
         console.log(apiUrl)
         const response = await axios.get(apiUrl,{
@@ -64,13 +66,19 @@ function ChatWindow({ selectedChat }) {
   return (
     <div className="chat-window">
       <div className="chat-header">
+        {!selectedChat &&  ('Select a chat')}
         {selectedChat &&  ( 
-          <div>
-            <img src="profile-image.png" alt="Profile" className="profile-image" />
-            <p>Chat with {selectedChat} </p>
+          <div className="window-profile-bar">
+            <div className="window-profile-barLeft">
+              <img src={`http://127.0.0.1:8000${selectedChat.image}`} alt="Profile" className="profile-image" />
+              <p>{selectedChat.first_name} </p>
+            </div>
+            <div className="window-profile-barRight">
+              <SearchIcon fontSize="small"/>
+              <MoreVertIcon fontSize="small"/>
+            </div>
           </div>
         )}
-        {!selectedChat &&  ('Select a chat')}
       </div>
       <div className="messages">
         {selectedChat && (
@@ -79,10 +87,11 @@ function ChatWindow({ selectedChat }) {
             prevDate = formatDateTime(message.created_at).date;
 
             return (
-              <div key={message.id} className="messagess">
+              <div key={message.id} className="day-messages">
                 {showMessageDate && (
                   <span className="message-date">{formatDateTime(message.created_at).date}</span>
                 )}
+                {console.log(message.message,message.user,userData.id)}
                 <div key={message.id} className={`message ${message.user === userData.id ? "sent" : "received"}`}>
                   <p>{message.message}</p>
                   <span className="message-time">{formatDateTime(message.created_at).time}</span>

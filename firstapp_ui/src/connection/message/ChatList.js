@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import FetchData from "../../common/FetchData";
 import "./ChatList.css";
 import axios from 'axios';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import ChatIcon from '@material-ui/icons/Chat';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
 function ChatList({ onSelectChat }) {
@@ -14,6 +17,7 @@ function ChatList({ onSelectChat }) {
   const [chatList, setchatList] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
 
   const fetchData = async () => {
     try {
@@ -39,23 +43,31 @@ function ChatList({ onSelectChat }) {
   }, []);
   
   const handleChatClick = (chat) => {
-    onSelectChat(chat.id)
+    onSelectChat(chat)
     setActiveChat(chat.id);
   };
 
   return (
     <div className="chat-list">
+      <div className="profile-bar">
+        <img src={`http://127.0.0.1:8000${userData.image}`} alt="Profile" className="profile-image" />
+        <div className="profile-barRight">
+          <DonutLargeIcon fontSize="small"/>
+          <ChatIcon fontSize="small"/>
+          <MoreVertIcon fontSize="small"/>
+        </div>
+      </div>
       <div className="search-bar">
         <input type="text" placeholder="Search chats" />
       </div>
+      
       {chatList.map((chat) => (
         <div
           key={chat.id}
           className={`chat-list-item ${chat.id=== activeChat ? "active" : ""}`}
           onClick={() => handleChatClick(chat)}
-
         >
-          <img src={chat.profileImage} alt="Profile" className="profile-image" />
+          <img src={`http://127.0.0.1:8000${chat.image}`} alt="Profile" className="profile-image" />
           <div className="chat-info">
             <h4>{chat.first_name}</h4>
             <p>{chat.lastMessage}</p>
