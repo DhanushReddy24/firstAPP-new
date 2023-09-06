@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widgets from "./Widgets";
+import "./Tweet.css";
 
 function Tweet() {
   return (

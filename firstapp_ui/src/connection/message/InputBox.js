@@ -20,7 +20,7 @@ function InputBox({ selectedChat, toggleRefresh }) {
     console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat}/`
+      let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat.id}/`
       console.log(apiUrl)
       const response = await axios.post(apiUrl, formData,
         {
@@ -39,7 +39,7 @@ function InputBox({ selectedChat, toggleRefresh }) {
     }
   };
   useEffect(() => {
-    setFormData({ ...formData, ['user']: userData.id, ['opp_user']: selectedChat });
+    setFormData({ ...formData, ['user']: userData.id, ['opp_user']: selectedChat.id });
   }, [selectedChat]);
 
   return (

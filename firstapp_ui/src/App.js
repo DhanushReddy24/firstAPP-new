@@ -22,7 +22,7 @@ function App() {
         <Route path='/sample_1/:pk' element={<Sample_1 />} />
         <Route path='/sample_1_post' element={<Sample_1_Post />} />
         <Route path='/tweet' element={<Tweet />}/>
-        <Route path='/reply' element={<Reply tweetId={1} />}/>
+        <Route path='/reply' element={<Reply tweetId={1} showReplies={true} />}/>
         <Route path='/chat' element={<Chat />}/>
         <Route path='/inputbox' element={<InputBox selectedChat={6} />}/>
       </Routes>

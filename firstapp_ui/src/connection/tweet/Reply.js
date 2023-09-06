@@ -8,7 +8,11 @@ function Reply({ tweetId, showReplies }) {
 
   const fetchReplies = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/connection/reply/${tweetId}/`,{
+      let apiUrl = `http://127.0.0.1:8000/connection/reply/${tweetId}/`;
+
+      console.log(apiUrl)
+      console.log(authTokens.access)
+      const response = await axios.get(apiUrl,{
         'headers': { 
           'Content-Type':'application/json',
           'Authorization': 'JWT ' +String(authTokens.access) 
@@ -21,13 +25,14 @@ function Reply({ tweetId, showReplies }) {
   };
 
   useEffect(() => {
+    console.log('fetchReplies')
     fetchReplies();
-  }, [tweetId]);
+  }, []);
 
   return (
-    <span>
+    <div className="tweet-replies">
     {showReplies && (
-      <div className="tweet-replies">
+      <span>
         <h2 className="replies-heading">Replies:</h2>
         <ul className="replies-list">
           {replies.map((reply) => (
@@ -40,9 +45,9 @@ function Reply({ tweetId, showReplies }) {
             </li>
           ))}
         </ul>
-      </div>
-    )};
-    </span>
+      </span>
+    )}
+    </div>
   );
 }
 

@@ -18,7 +18,6 @@ function Feed() {
       ...prevState,
       [tweetId]: !prevState[tweetId],
     }));
-    console.log(showReplies)
   };
 
   const fetchData = async () => {

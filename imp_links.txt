@@ -13,3 +13,5 @@ https://github.com/divanov11/refresh-token-interval
 https://vercel.com/dhanushreddy24/firstapp
 https://supabase.com/dashboard/projects
 https://blog.logrocket.com/deploy-react-app-for-free-using-vercel/
+
+https://tech.raturi.in/multi-page-web-application-using-django-react-and-webpack?x-host=tech.raturi.in

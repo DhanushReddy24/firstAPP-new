@@ -19,6 +19,7 @@ def TweetAPIView(request):
         print('Get')
         Tweet_data = Tweet.objects.all()
         Tweet_data = TweetSerializer(Tweet_data, many=True)
+        print(Tweet_data.data)
         return Response(Tweet_data.data)
 
     elif request.method == 'POST':
@@ -34,12 +35,13 @@ def TweetAPIView(request):
         return Response('No data', status=200)
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 def TweetReplyAPIView(request,pk):
     if request.method == 'GET':
-        print('Get')
+        print('Get',pk)
         TweetReply_data = TweetReply.objects.filter(tweet=pk)
         TweetReply_data = TweetReplySerializer(TweetReply_data, many=True)
+        print(TweetReply_data.data)
         return Response(TweetReply_data.data)
 
     elif request.method == 'POST':

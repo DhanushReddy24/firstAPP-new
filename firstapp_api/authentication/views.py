@@ -9,7 +9,6 @@ from .models import User
 from .serializer import UserSerializer
 import base64
 
-
 # Create your views here.
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
