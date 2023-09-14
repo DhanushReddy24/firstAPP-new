@@ -9,6 +9,8 @@ import Tweet from './connection/tweet/Tweet';
 import Reply from './connection/tweet/Reply';
 import Chat from './connection/message/Chat';
 import InputBox from './connection/message/InputBox';
+import TweetBox from './connection/tweet/TweetBox';
+import ReplyBox from './connection/tweet/ReplyBox';
 
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
         <Route path='/reply' element={<Reply tweetId={1} showReplies={true} />}/>
         <Route path='/chat' element={<Chat />}/>
         <Route path='/inputbox' element={<InputBox selectedChat={6} />}/>
+        <Route path='/tweetbox' element={<TweetBox />}/>
+        <Route path='/replybox' element={<ReplyBox />}/>
+        ReplyBox
       </Routes>
     </div>
   );

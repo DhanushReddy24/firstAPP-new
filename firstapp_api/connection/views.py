@@ -2,7 +2,7 @@ from django.shortcuts import render
 from authentication.models import User
 from authentication.serializer import UserSerializer
 from .models import Tweet,TweetReply,Message
-from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer
+from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer,TweetSerializer_Post
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -29,13 +29,14 @@ def TweetAPIView(request):
             serializer.save()
             return Response(serializer.data, status=201)
 
+        print('error: ',serializer.errors)
         return Response(serializer.errors, status=400)
     
     else:
         return Response('No data', status=200)
 
 @api_view(['GET','POST'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def TweetReplyAPIView(request,pk):
     if request.method == 'GET':
         print('Get',pk)

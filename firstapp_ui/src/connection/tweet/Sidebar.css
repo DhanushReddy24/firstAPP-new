@@ -15,10 +15,11 @@
 }
 
 .sidebar__tweet {
-  background-color: var(--twitter-color) !important;
+  background-color: rgb(94, 188, 247) !important;
   border: none !important;
-  color: white !important;
-  font-weight: 900 !important;
+  color: rgb(255, 255, 255) !important;
+  font-size: large;
+  font-weight: bold !important;
   text-transform: inherit !important;
   border-radius: 30px !important;
   height: 50px !important;

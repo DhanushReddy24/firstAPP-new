@@ -10,12 +10,14 @@ import PublishIcon from "@material-ui/icons/Publish";
 
 
 const Post = forwardRef(
-  ({ id, displayName, username, verified, text, image, avatar, toggleReplies }, ref) => {
+  ({ id, displayName, username, userimage, verified, text, postimage, avatar, toggleReplies }, ref) => {
 
+    const completeUserImageUrl = `http://127.0.0.1:8000${userimage}`;
+    const completePostImageUrl = `http://127.0.0.1:8000${postimage}`;
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
-          <Avatar src={avatar} />
+          <Avatar src={completeUserImageUrl} />
         </div>
         <div className="post__body">
           <div className="post__header">
@@ -32,7 +34,7 @@ const Post = forwardRef(
               <p>{text}</p>
             </div>
           </div>
-          <img src={image} alt="" />
+          {postimage!==null && <img src={completePostImageUrl} alt="post image"/> }
           <div className="post__footer">
             <ChatBubbleOutlineIcon fontSize="small" />
             <RepeatIcon fontSize="small" />

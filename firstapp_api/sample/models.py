@@ -6,7 +6,7 @@ class Sample_1(models.Model):
     lastname = models.CharField(max_length=200)
     age = models.IntegerField()
     address = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/',default='default.jpg')
+    image = models.ImageField(upload_to='images/',null=True)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

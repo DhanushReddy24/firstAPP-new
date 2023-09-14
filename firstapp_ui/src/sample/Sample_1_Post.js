@@ -10,12 +10,14 @@ function Sample_1_Post() {
     first_name: '',
     last_name: '',
     age: '',
-    address: ''
+    address: '',
+    image:''
   });
-  const { user_name, first_name, last_name, age, address } = formData;
+  const { user_name, first_name, last_name, age, address, image } = formData;
   const navigate = useNavigate();
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const uploadPicture = e => setFormData({ ...formData, [e.target.name]: e.target.files[0] });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,18 +27,20 @@ function Sample_1_Post() {
         "firstname":first_name, 
         "lastname" :last_name, 
         "age" :age, 
-        "address":address
+        "address":address,
+        "image":image
       },
       {
         'headers': { 
-          'Content-Type':'application/json',
+          'Content-Type':'multipart/form-data',
           'Authorization': 'JWT ' +String(authTokens.access) 
         },
       }
     ).then(function (response) {
         console.log(response.status)
     })
-    navigate('/sample_1');
+    console.log(formData)
+    //navigate('/sample_1');
   };
 
   return (
@@ -58,6 +62,9 @@ function Sample_1_Post() {
 
       <label>Address</label>
       <input type="text" name="address" onChange={e => onChange(e)} /><br/>
+
+      <label for="image">Upload Image:</label>
+      <input type="file" name="image" accept="image/*" onChange={e => uploadPicture(e)} ></input>
 
       <input type="submit" value="Send" />
     </form>

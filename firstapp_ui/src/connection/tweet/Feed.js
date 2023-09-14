@@ -64,10 +64,11 @@ function Feed() {
               id={post.id}
               displayName={post.firstname}
               username={post.username}
+              userimage={post.userimage}
               verified={post.verified}
               text={post.tweet}
+              postimage={post.image}
               avatar='avatar'
-              image='image'
               toggleReplies={() => toggleReplies(post.id)}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />

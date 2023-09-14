@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Reply.css";
+import ReplyBox from "./ReplyBox";
 
 function Reply({ tweetId, showReplies }) {
   const [replies, setReplies] = useState([]);
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const [Refresh, setRefresh] = useState(true)
+
+  const toggleRefresh = (tweetId) => {
+    setRefresh(!Refresh)
+  };
 
   const fetchReplies = async () => {
     try {
@@ -27,13 +33,14 @@ function Reply({ tweetId, showReplies }) {
   useEffect(() => {
     console.log('fetchReplies')
     fetchReplies();
-  }, []);
+  }, [Refresh]);
 
   return (
     <div className="tweet-replies">
     {showReplies && (
       <span>
         <h2 className="replies-heading">Replies:</h2>
+        <ReplyBox tweetId={tweetId } toggleRefresh={toggleRefresh}/>
         <ul className="replies-list">
           {replies.map((reply) => (
             <li key={reply.id} className="reply-item">

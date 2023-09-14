@@ -3,7 +3,7 @@ from .models import Tweet,TweetReply,Message
 
 # Register your models here.
 class TweetAdmin(admin.ModelAdmin):
-    list_display = ['id','user','tweet','created_at']
+    list_display = ['id','user','tweet','image','created_at']
 
 class TweetReplyAdmin(admin.ModelAdmin):
     list_display = [field.name for field in TweetReply._meta.get_fields()]

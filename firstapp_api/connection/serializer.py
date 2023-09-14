@@ -5,18 +5,29 @@ class TweetSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
     firstname = serializers.SerializerMethodField()
     verified = serializers.SerializerMethodField()
+    userimage = serializers.SerializerMethodField()
+
     class Meta:
         model = Tweet
-        fields = ['id','tweet','user','firstname','username','verified','created_at']
+        fields = ['id','tweet','user','firstname','username','userimage','image','verified','created_at']
     
     def get_username(self, obj):
         return obj.user.username
 
     def get_firstname(self, obj):
         return obj.user.first_name
+    
+    def get_userimage(self, obj):
+        return obj.user.image.url
 
     def get_verified(self, obj):
         return True
+
+class TweetSerializer_Post(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Tweet
+        fields = '__all__'
 
 class TweetReplySerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()

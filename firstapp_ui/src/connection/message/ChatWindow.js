@@ -34,7 +34,7 @@ function ChatWindow({ selectedChat }) {
     return {date:formattedDate, time:formattedTime}
   }
 
-  const toggleRefresh = (tweetId) => {
+  const toggleRefresh = () => {
     setRefresh(!Refresh)
     console.log(Refresh)
   };
