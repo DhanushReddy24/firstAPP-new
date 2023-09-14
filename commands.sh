@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 git status
 git add .
-git commit -m 'commit'
+git commit -m 'general'
 git push -u origin main
 git pull origin main
 git clone <http url>
