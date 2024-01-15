@@ -12,9 +12,17 @@ function Feed() {
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const navigate = useNavigate();
   const [showReplies, setShowReplies] = useState({});
+  const [showLikes, setShowLikes] = useState({});
+
 
   const toggleReplies = (tweetId) => {
     setShowReplies((prevState) => ({
+      ...prevState,
+      [tweetId]: !prevState[tweetId],
+    }));
+  };
+  const toggleLikes = (tweetId) => {
+    setShowLikes((prevState) => ({
       ...prevState,
       [tweetId]: !prevState[tweetId],
     }));
@@ -70,6 +78,8 @@ function Feed() {
               postimage={post.image}
               avatar='avatar'
               toggleReplies={() => toggleReplies(post.id)}
+              isLike={showLikes[post.id]}
+              toggleLikes={() => toggleLikes(post.id)}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
           </div>

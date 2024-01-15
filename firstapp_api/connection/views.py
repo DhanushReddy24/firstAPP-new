@@ -6,6 +6,7 @@ from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer,T
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Count
 
 def get_users(ids):
     users_data = User.objects.exclude(id__in=ids)
@@ -19,7 +20,6 @@ def TweetAPIView(request):
         print('Get')
         Tweet_data = Tweet.objects.all()
         Tweet_data = TweetSerializer(Tweet_data, many=True)
-        print(Tweet_data.data)
         return Response(Tweet_data.data)
 
     elif request.method == 'POST':
@@ -42,7 +42,6 @@ def TweetReplyAPIView(request,pk):
         print('Get',pk)
         TweetReply_data = TweetReply.objects.filter(tweet=pk)
         TweetReply_data = TweetReplySerializer(TweetReply_data, many=True)
-        print(TweetReply_data.data)
         return Response(TweetReply_data.data)
 
     elif request.method == 'POST':
@@ -90,3 +89,16 @@ def MessageAPIView(request,pk):
     
     else:
         return Response('No data', status=200)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def TweetCountAPIView(request):
+    if request.method == 'GET':
+        print('Get')
+        Tweet_data = Tweet.objects.values('user').annotate(total=Count('id'))
+        #Tweet_data = TweetSerializer(Tweet_data, many=True)
+        return Response(Tweet_data)
+    
+    else:
+        return Response('No data', status=200)
+

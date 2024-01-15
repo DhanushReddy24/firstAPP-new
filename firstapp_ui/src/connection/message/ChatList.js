@@ -57,10 +57,12 @@ function ChatList({ onSelectChat }) {
           <MoreVertIcon fontSize="small"/>
         </div>
       </div>
+
       <div className="search-bar">
         <input type="text" placeholder="Search chats" />
       </div>
-      
+
+      <div className="chat-list-items">
       {chatList.map((chat) => (
         <div
           key={chat.id}
@@ -73,7 +75,9 @@ function ChatList({ onSelectChat }) {
             <p>{chat.lastMessage}</p>
           </div>
         </div>
+        
       ))}
+      </div>
     </div>
   );
 }

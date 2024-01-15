@@ -1,24 +1,27 @@
 .chat-window {
     flex:3;
     background-color: white;
-    overflow-y: auto;
   }
   
   .chat-header {
     align-items: center;
     margin-bottom: 20px;
+    position: fixed;
+    width: 75%;
+    z-index: 2;
   }
 
    .window-profile-bar {
     display: flex;
-    background-color: rgb(65, 173, 209);
     justify-content: space-between;
+    background-color: rgb(65, 173, 209);
+    
+
   }
   .window-profile-barLeft {
     display: flex;
     align-items: center;
     min-width: 10vw;
-    padding: 10px;
   }
 
   .window-profile-barRight {
@@ -30,18 +33,22 @@
   
   
   .messages {
-    padding: 10px 50px 10px 50px;
+    padding: 10px 50px 20px 50px;
+    background-color: #09000023;
+    margin-top: 60px;
+    margin-bottom: 90px; 
   }
 
   .day-messages {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 15px;
   }
   
   .message {
     position: relative;
-    padding: 10px;
+    padding: 5px 5px;
     border-radius: 8px;
     max-width: 80%;
   }

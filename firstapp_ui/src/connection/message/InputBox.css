@@ -1,23 +1,41 @@
   
   .input-container {
+    position: fixed;
+    bottom: 0;
+    margin-top: 20px;
+    background-color: rgb(113, 197, 225);
+    width: 75%;
+    padding: 15px 0px;
+
+  }
+  .input-container-items {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    justify-content: space-between;
   }
-  
-  input {
-    flex-grow: 1;
-    padding: 8px;
+  .input-container-items input {
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    align-items: center;
+    font-size: large;
   }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 15px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+ .moodicon{
+  flex: 0.2;
+  color: #0000009f;
+  padding: 10px;
+ }
+ .addicon{
+  flex: 0.2;
+  color: #0000009f;
+  padding: 10px;
+ }
+ .input-field{
+  flex: 5;
+  padding: 15px;
+
+ }
+ .sendicon{
+  flex: 0.2;
+  color: #0000009f;
+  padding: 10px;
+ }

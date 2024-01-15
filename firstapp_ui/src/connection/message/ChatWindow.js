@@ -91,7 +91,6 @@ function ChatWindow({ selectedChat }) {
                 {showMessageDate && (
                   <span className="message-date">{formatDateTime(message.created_at).date}</span>
                 )}
-                {console.log(message.message,message.user,userData.id)}
                 <div key={message.id} className={`message ${message.user === userData.id ? "sent" : "received"}`}>
                   <p>{message.message}</p>
                   <span className="message-time">{formatDateTime(message.created_at).time}</span>

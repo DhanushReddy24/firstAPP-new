@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import "./TweetBox.css";
 import { Avatar } from "@material-ui/core";
 import { Button } from "@material-ui/core";
+
 
 
 function TweetBox() {
@@ -13,6 +14,10 @@ function TweetBox() {
   const [formData, setFormData] = useState({'user':userData.id});
   const navigate = useNavigate();
 
+  const linkStyle = {
+    textDecoration: "none", // Remove underline
+    color: "inherit", // Inherit color from parent
+  };
 
   const onChange = e => (
       setFormData(prevFormData =>({ ...prevFormData, [e.target.name]: e.target.value }))
@@ -53,10 +58,17 @@ function TweetBox() {
           <Avatar src="https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-1/c0.33.200.200a/p200x200/51099653_766820610355014_8315780769297465344_o.jpg?_nc_cat=101&_nc_sid=7206a8&_nc_ohc=c1qBHkwAgVsAX8KynKU&_nc_ht=scontent-bom1-1.xx&oh=340b05bea693dd1671296e0c2d004bb3&oe=5F84CA62" />
           <input type="text" name="tweet" value={formData.tweet} placeholder="What's happening?" onChange={e => onChange(e)}/><br/>
         </div>
+        
         <input type="file" name="image" accept="image/*" placeholder="Optional: select image" onChange={e => uploadPicture(e)} className="tweetBox__imageInput" ></input><br/>
-        <Button type="submit" className="tweetBox__button">
-          Tweet
-        </Button>
+        <div className='buttons'>
+          <Button type="cancel" className='cancel__button' onClick={e => navigate('/tweet/')} >
+            Cancel
+          </Button>
+
+          <Button type="submit" className="tweetBox__button">
+            Tweet
+          </Button>
+        </div>
       </form>
     </div>
 

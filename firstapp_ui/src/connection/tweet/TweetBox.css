@@ -20,6 +20,9 @@
   .tweetBox__input > input:focus {
     outline: none;
   }
+  .buttons{
+    text-align: right; 
+  }
   .tweetBox__button {
     background-color: rgb(94, 188, 247) !important;
     border: none !important;
@@ -29,8 +32,20 @@
     border-radius: 20px !important;
     height: 45px !important;
     margin-top: 20px !important;
-    margin-left: auto !important;
+    margin-left: 10px !important;
   }
+  .cancel__button{
+    background-color: rgba(97, 112, 121, 0.596) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 20px !important;
+    height: 45px !important;
+    margin-top: 20px !important;
+    margin-left: 10px !important;
+  }
+
   .tweetBox__imageInput {
     border: none;
     padding: 15px;

@@ -1,6 +1,8 @@
 .chat-container {
     display: flex;
     margin: 0 auto;
+    height: 100%;
+    overflow: auto;
   }
   
   /* Additional styling for the chat container */

@@ -11,7 +11,7 @@ import Chat from './connection/message/Chat';
 import InputBox from './connection/message/InputBox';
 import TweetBox from './connection/tweet/TweetBox';
 import ReplyBox from './connection/tweet/ReplyBox';
-
+import Main from './test/Main';
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route path='/inputbox' element={<InputBox selectedChat={6} />}/>
         <Route path='/tweetbox' element={<TweetBox />}/>
         <Route path='/replybox' element={<ReplyBox />}/>
-        ReplyBox
+        <Route path='/main' element={<Main />}/>
       </Routes>
     </div>
   );

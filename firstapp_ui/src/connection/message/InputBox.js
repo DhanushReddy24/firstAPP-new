@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import "./InputBox.css";
 import axios from 'axios';
+import SendIcon from "@material-ui/icons/Send";
+import MoodIcon from "@material-ui/icons/Mood";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import IconButton from '@material-ui/core/IconButton';
+
 
 function InputBox({ selectedChat, toggleRefresh }) {
 
@@ -45,8 +50,13 @@ function InputBox({ selectedChat, toggleRefresh }) {
   return (
     <div className="input-container">
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Type your message..." name="message" value={formData.message} onChange={e => onChange(e)}/>
-        <button type="submit">Send</button>
+        <div className='input-container-items'>
+          <MoodIcon fontSize="large"  className='moodicon'/>
+          <AddPhotoAlternateIcon fontSize="large" className='addicon'/>
+          <input type="text" placeholder="Type your message..." name="message" value={formData.message} onChange={e => onChange(e) } className='input-field'/>
+
+          <span onClick={handleSubmit} ><SendIcon fontSize="large" className='sendicon' /></span>
+        </div>
       </form>
     </div>
   );
