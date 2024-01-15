@@ -1,0 +1,55 @@
+First APP
+
+Heroic
+xikixem552@carpetra.com
+
+Vercel
+https://firstapp-five-theta.vercel.app/
+
+Railway Postgres
+https://railway.app/project/23e7f73a-1c5d-4499-8244-aba28c81b81a/plugin/6e3fcd50-eaed-49b2-9130-79b464b4f2ba
+
+Supabase
+https://supabase.com/dashboard/project/qmrccyxpiylzlgwfsbjp/editor
+
+Github
+reddydhanushreddy2424@gmail.com
+
+Admin user
+—firstapp2023@gmail.com
+—First
+—App
+—firstAPP@2023
+
+Users
+—reddydhanushreddy2424@gmail.com
+—Dhanush
+—Reddy
+—Reddy@2424
+--18.733806, 77.881278
+
+—macherlasiddanth2000@gmail.com
+—Siddanth
+—Macherla
+—Macherla@2000
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'firstAPP_DB',
+        'USER' : 'postgres',
+        'PASSWORD' : 'firstAPP',
+        'HOST' : 'localhost',
+        'PORT' : '5432'
+    }
+}
+
+Mapbox
+https://account.mapbox.com/
+—firstapp2023@gmail.com
+—FirstAPP
+—firstapp2023
+—firstAPP@2023
+
+
