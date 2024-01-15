@@ -1,0 +1,12 @@
+.Map {
+    width: 90vw;
+    height: 90vh;
+    position: absolute; 
+    top: 0; 
+    bottom: 0;
+  }
+
+  Marker{
+    left: 1000px;
+    position: absolute; 
+  }
