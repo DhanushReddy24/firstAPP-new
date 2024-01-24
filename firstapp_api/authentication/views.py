@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import logout
-from .models import User
-from .serializer import UserSerializer
+from .models import User, UserLocation
+from .serializer import UserSerializer, UserLocationSerializer
 import base64
 
 # Create your views here.
@@ -40,5 +40,21 @@ def LogoutAPIView(request):
     logout(request)
     print('logout')
     return Response(status=status.HTTP_205_RESET_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserLocationAPIView(request, pk=None):
+    if request.method == 'GET':
+        print('Get')
+        if pk==None:
+            UserLocation_data = UserLocation.objects.all()
+            UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
+            return Response(UserLocation_data.data)
+        else:
+            UserLocation_data = UserLocation.objects.filter(user=pk)
+            UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
+            return Response(UserLocation_data.data)
+
+    return Response('No data', status=200)
 
 

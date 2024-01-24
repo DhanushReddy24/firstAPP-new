@@ -17,6 +17,7 @@ reddydhanushreddy2424@gmail.com
 
 Admin user
 —firstapp2023@gmail.com
+-firstAPP2023
 —First
 —App
 —firstAPP@2023
@@ -32,6 +33,7 @@ Users
 —Siddanth
 —Macherla
 —Macherla@2000
+-17.332903, 78.579838
 
 
 DATABASES = {

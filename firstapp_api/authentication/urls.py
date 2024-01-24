@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import LogoutAPIView,UserAPIView,UsersAPIView
+from .views import LogoutAPIView,UserAPIView,UsersAPIView,UserLocationAPIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -15,4 +15,6 @@ urlpatterns = [
     path('logout/', LogoutAPIView, name='logout'),
     path('details/', UserAPIView, name='details'),
     path('users/', UsersAPIView, name='users'),
+    path('userlocation/', UserLocationAPIView, name='userlocation'),
+    path('userlocation/<int:pk>/', UserLocationAPIView, name='userlocation'),
 ]

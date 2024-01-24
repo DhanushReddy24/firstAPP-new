@@ -41,3 +41,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.username
+
+class UserLocation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user)
