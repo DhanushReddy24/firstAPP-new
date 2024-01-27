@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ChatWindow.css";
 import axios from 'axios';
 import InputBox from "./InputBox";
-import SearchIcon from '@material-ui/icons/Search';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 function ChatWindow({ selectedChat }) {

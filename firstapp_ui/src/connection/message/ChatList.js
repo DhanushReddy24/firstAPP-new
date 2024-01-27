@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import FetchData from "../../common/FetchData";
 import "./ChatList.css";
 import axios from 'axios';
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import ChatIcon from '@material-ui/icons/Chat';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import ChatIcon from '@mui/icons-material/Chat';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 function ChatList({ onSelectChat }) {

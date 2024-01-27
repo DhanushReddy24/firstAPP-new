@@ -1,13 +1,13 @@
 import React, { forwardRef } from "react";
 import "./Post.css";
-import { Avatar } from "@material-ui/core";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import RepeatIcon from "@material-ui/icons/Repeat";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ReplyIcon from '@material-ui/icons/Reply';
-import PublishIcon from "@material-ui/icons/Publish";
+import { Avatar } from "@mui/material";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ReplyIcon from '@mui/icons-material/Reply';
+import PublishIcon from "@mui/icons-material/Publish";
 
 
 const Post = forwardRef(

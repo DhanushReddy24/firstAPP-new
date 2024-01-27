@@ -1,11 +1,11 @@
 import React, { forwardRef } from "react";
 import "./Sample_1Post.css";
-import { Avatar } from "@material-ui/core";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import RepeatIcon from "@material-ui/icons/Repeat";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import PublishIcon from "@material-ui/icons/Publish";
+import { Avatar } from "@mui/material";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import PublishIcon from "@mui/icons-material/Publish";
 
 function Sample_1Post({ Id, username, firstname, lastname, age, address, time, imageUrl }){
 

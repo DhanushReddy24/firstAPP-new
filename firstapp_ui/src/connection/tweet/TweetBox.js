@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import "./TweetBox.css";
-import { Avatar } from "@material-ui/core";
-import { Button } from "@material-ui/core";
+import { Avatar } from "@mui/material";
+import { Button } from "@mui/material";
 
 
 

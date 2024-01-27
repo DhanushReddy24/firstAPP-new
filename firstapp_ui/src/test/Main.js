@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 //import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css';
 import ReactMapGL, {Marker, Source, Layer, GeolocateControl, NavigationControl, Popup} from 'react-map-gl';
 import mapboxgl from "mapbox-gl"
-import PlaceIcon from "@material-ui/icons/Place";
+import PlaceIcon from "@mui/icons-material/Place";
 
 function Main() {
 

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import "./InputBox.css";
 import axios from 'axios';
-import SendIcon from "@material-ui/icons/Send";
-import MoodIcon from "@material-ui/icons/Mood";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import IconButton from '@material-ui/core/IconButton';
+import SendIcon from "@mui/icons-material/Send";
+import MoodIcon from "@mui/icons-material/Mood";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import IconButton from '@mui/material/IconButton';
 
 
 function InputBox({ selectedChat, toggleRefresh }) {
