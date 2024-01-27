@@ -16,6 +16,7 @@ function ChatWindow({ selectedChat }) {
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [chatMessages, setchatMessages] = useState([])
   const [Refresh, setRefresh] = useState(true)
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   let prevDate = null;
 
   const formatDateTime = (datetime)=>{
@@ -42,7 +43,7 @@ function ChatWindow({ selectedChat }) {
   const fetchData = async () => {
     try {
       if (selectedChat) {
-        let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat.id}`;
+        let apiUrl = `${apiDomain}/connection/message/${selectedChat.id}`;
 
         console.log(apiUrl)
         const response = await axios.get(apiUrl,{
@@ -70,7 +71,7 @@ function ChatWindow({ selectedChat }) {
         {selectedChat &&  ( 
           <div className="window-profile-bar">
             <div className="window-profile-barLeft">
-              <img src={`http://127.0.0.1:8000${selectedChat.image}`} alt="Profile" className="profile-image" />
+              <img src={`${apiDomain}${selectedChat.image}`} alt="Profile" className="profile-image" />
               <p>{selectedChat.first_name} </p>
             </div>
             <div className="window-profile-barRight">

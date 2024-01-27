@@ -6,7 +6,7 @@ function Sample_1_Post() {
 
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [formData, setFormData] = useState({
-    user_name: '',
+    username: '',
     first_name: '',
     last_name: '',
     age: '',
@@ -14,6 +14,7 @@ function Sample_1_Post() {
     image:''
   });
   const { user_name, first_name, last_name, age, address, image } = formData;
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,15 +22,7 @@ function Sample_1_Post() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://127.0.0.1:8000/sample/sample_1/',
-      {
-        "username":user_name, 
-        "firstname":first_name, 
-        "lastname" :last_name, 
-        "age" :age, 
-        "address":address,
-        "image":image
-      },
+    axios.post(`${apiDomain}/sample/sample_1/`,formData,
       {
         'headers': { 
           'Content-Type':'multipart/form-data',
@@ -49,7 +42,7 @@ function Sample_1_Post() {
 
     <form onSubmit={handleSubmit}>
       <label>User name</label>
-      <input type="text" name="user_name" onChange={e => onChange(e)}/><br/>
+      <input type="text" name="username" onChange={e => onChange(e)}/><br/>
 
       <label>First name</label>
       <input type="text" name="first_name" onChange={e => onChange(e)}/><br/>

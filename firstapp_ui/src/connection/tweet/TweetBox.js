@@ -12,6 +12,7 @@ function TweetBox() {
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({'user':userData.id});
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const linkStyle = {
@@ -29,7 +30,7 @@ function TweetBox() {
     console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `http://127.0.0.1:8000/connection/tweet/`
+      let apiUrl = `${apiDomain}/connection/tweet/`
       console.log(apiUrl)
       const response = await axios.post(apiUrl, formData,
         {

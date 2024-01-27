@@ -6,12 +6,15 @@ import {useNavigate} from 'react-router-dom';
 function Logout() {
   
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const handleLogout = async() => {
     console.log('logout',authTokens.access)
       try  {
-        const response = await axios.post('http://127.0.0.1:8000/user/logout/', 
+        let apiUrl = `${apiDomain}/user/logout/`
+        console.log(apiUrl)
+        const response = await axios.post(apiUrl, 
           {
             'refresh_token': authTokens.refresh 
           },

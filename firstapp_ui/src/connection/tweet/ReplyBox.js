@@ -7,6 +7,7 @@ function ReplyBox({tweetId, toggleRefresh}) {
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({'user': userData.id, 'tweet': tweetId});
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const onChange = e => (
@@ -18,7 +19,7 @@ function ReplyBox({tweetId, toggleRefresh}) {
     console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `http://127.0.0.1:8000/connection/reply/${tweetId}/`
+      let apiUrl = `${apiDomain}/connection/reply/${tweetId}/`
       console.log(apiUrl)
       const response = await axios.post(apiUrl, formData,
         {

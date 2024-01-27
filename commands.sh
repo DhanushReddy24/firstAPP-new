@@ -64,9 +64,14 @@ kill -9 12345
     "re_password": "Reddy@2424"
 }
 
-let [authTokens, setAuthTokens] = useState(
-    {"refresh": "", "access": ""}
-  );
+{
+    "first_name": "Dummy",
+    "last_name": "Fake",
+    "email": "fakedummy2024@gmail.com",
+    "username": "dummy2024",
+    "password": "Fake@2024",
+    "re_password": "Fake@2024"
+}
 
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'localhost', '127.0.0.1']
 

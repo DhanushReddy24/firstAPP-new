@@ -13,6 +13,7 @@ function Feed() {
   const navigate = useNavigate();
   const [showReplies, setShowReplies] = useState({});
   const [showLikes, setShowLikes] = useState({});
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
 
   const toggleReplies = (tweetId) => {
@@ -30,7 +31,7 @@ function Feed() {
 
   const fetchData = async () => {
     try {
-      let apiUrl = 'http://127.0.0.1:8000/connection/tweet/';
+      let apiUrl = `${apiDomain}/connection/tweet/`;
 
       console.log(apiUrl)
       console.log(authTokens.access)

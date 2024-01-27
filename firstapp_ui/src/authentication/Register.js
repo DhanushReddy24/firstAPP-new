@@ -11,24 +11,24 @@ function Register() {
     password: '',
     re_password: ''
   });
-  const { username,first_name, last_name, email, password, re_password } = formData;
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post('http://127.0.0.1:8000/user/auth/users/', {
-        "username":username,
-        "first_name":first_name, 
-        "last_name" :last_name, 
-        "email" :email, 
-        "password":password, 
-        "re_password":re_password
+  const handleSubmit = async(event) => {
+    try {
+      let apiUrl = `${apiDomain}/user/auth/users/`
+      console.log(apiUrl)
 
-    }).then(function (response) {
-        if (response.status == 200) {navigate('/login/');}
-      })
+      event.preventDefault();
+      console.log(formData)
+      const response = await axios.post(apiUrl, formData)
+      console.log(response.status)
+      navigate('/login/')
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   return (
@@ -37,7 +37,7 @@ function Register() {
 
     <form onSubmit={handleSubmit}>
       <label>User name</label>
-      <input type="text" name="first_name" onChange={e => onChange(e)}/><br/>
+      <input type="text" name="username" onChange={e => onChange(e)}/><br/>
 
       <label>First name</label>
       <input type="text" name="first_name" onChange={e => onChange(e)}/><br/>

@@ -13,6 +13,7 @@ function InputBox({ selectedChat, toggleRefresh }) {
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({});
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
 
   const onChange = e => (
@@ -25,7 +26,7 @@ function InputBox({ selectedChat, toggleRefresh }) {
     console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `http://127.0.0.1:8000/connection/message/${selectedChat.id}/`
+      let apiUrl = `${apiDomain}/connection/message/${selectedChat.id}/`
       console.log(apiUrl)
       const response = await axios.post(apiUrl, formData,
         {

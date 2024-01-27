@@ -13,15 +13,16 @@ function ChatList({ onSelectChat }) {
     { id: 2, first_name: 'Friend 2',lastMessage: '27/08/2023'},
     // ... more chat items
   ];
-  //const { chatList1, loading } = FetchData("http://127.0.0.1:8000/user/users/");
+  //const { chatList1, loading } = FetchData(`${apiDomain}/user/users/");
   const [chatList, setchatList] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
-
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  
   const fetchData = async () => {
     try {
-      let apiUrl = "http://127.0.0.1:8000/user/users/";
+      let apiUrl = `${apiDomain}/user/users/`;
 
       console.log(apiUrl)
       const response = await axios.get(apiUrl,{
@@ -50,7 +51,7 @@ function ChatList({ onSelectChat }) {
   return (
     <div className="chat-list">
       <div className="profile-bar">
-        <img src={`http://127.0.0.1:8000${userData.image}`} alt="Profile" className="profile-image" />
+        <img src={`${apiDomain}${userData.image}`} alt="Profile" className="profile-image" />
         <div className="profile-barRight">
           <DonutLargeIcon fontSize="small"/>
           <ChatIcon fontSize="small"/>
@@ -69,7 +70,7 @@ function ChatList({ onSelectChat }) {
           className={`chat-list-item ${chat.id=== activeChat ? "active" : ""}`}
           onClick={() => handleChatClick(chat)}
         >
-          <img src={`http://127.0.0.1:8000${chat.image}`} alt="Profile" className="profile-image" />
+          <img src={`${apiDomain}${chat.image}`} alt="Profile" className="profile-image" />
           <div className="chat-info">
             <h4>{chat.first_name}</h4>
             <p>{chat.lastMessage}</p>

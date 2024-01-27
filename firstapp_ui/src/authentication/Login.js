@@ -10,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { user,setUser } = useUser();
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -21,7 +22,10 @@ function Login() {
 
   const postData = async () => {
     try {
-      const token_response = await axios.post('http://127.0.0.1:8000/user/token/', {
+      let apiUrl = `${apiDomain}/user/token/`;
+      console.log(apiUrl)
+
+      const token_response = await axios.post(apiUrl, {
         'username': username,
         'password': password
   
@@ -29,7 +33,10 @@ function Login() {
       console.log('access token')
       console.log(token_response.data);
       localStorage.setItem('authTokens', JSON.stringify(token_response.data))
-      const user_response = await axios.get('http://127.0.0.1:8000/user/details/',{
+
+      apiUrl = `${apiDomain}/user/details/`;
+      console.log(apiUrl)
+      const user_response = await axios.get(apiUrl,{
         'headers': { 
           'Content-Type':'application/json',
           'Authorization': 'JWT ' +String(token_response.data.access) 

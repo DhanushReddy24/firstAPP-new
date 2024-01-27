@@ -7,6 +7,7 @@ function Reply({ tweetId, showReplies }) {
   const [replies, setReplies] = useState([]);
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [Refresh, setRefresh] = useState(true)
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
   const toggleRefresh = (tweetId) => {
     setRefresh(!Refresh)
@@ -14,7 +15,7 @@ function Reply({ tweetId, showReplies }) {
 
   const fetchReplies = async () => {
     try {
-      let apiUrl = `http://127.0.0.1:8000/connection/reply/${tweetId}/`;
+      let apiUrl = `${apiDomain}/connection/reply/${tweetId}/`;
 
       console.log(apiUrl)
       console.log(authTokens.access)

@@ -19,6 +19,7 @@ function Main() {
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [Refresh, setRefresh] = useState(true)
   const [PopupUser, setPopupUser] = useState(null)
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
   const [viewPort, setviewPort] =useState({
     latitude: 18.733806, 
@@ -55,7 +56,7 @@ function Main() {
     }
     const getUserLocations = async () => {
       try {
-        let apiUrl = "http://127.0.0.1:8000/user/userlocation/";
+        let apiUrl = `${apiDomain}/user/userlocation/`;
         console.log(apiUrl)
 
         let response = await axios.get(apiUrl,{
@@ -68,7 +69,7 @@ function Main() {
         setUserLocations(data)
         console.log('userlocations',userlocations)
 
-        apiUrl = `http://127.0.0.1:8000/user/userlocation/${userData.id}/`;
+        apiUrl = `${apiDomain}/user/userlocation/${userData.id}/`;
         console.log(apiUrl)
 
         response = await axios.get(apiUrl,{

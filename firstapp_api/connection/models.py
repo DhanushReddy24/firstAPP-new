@@ -4,7 +4,7 @@ from authentication.models import User
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tweet = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/connection/tweet/',null=True)
+    image = models.ImageField(upload_to='images/connection/tweet/',null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

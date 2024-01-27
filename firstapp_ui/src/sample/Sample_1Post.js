@@ -9,7 +9,9 @@ import PublishIcon from "@mui/icons-material/Publish";
 
 function Sample_1Post({ Id, username, firstname, lastname, age, address, time, imageUrl }){
 
-  const completeImageUrl = `http://127.0.0.1:8000${imageUrl}`;
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  
+  const completeImageUrl = `${apiDomain}${imageUrl}`;
 
   return (
     <div className="post">

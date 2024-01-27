@@ -15,10 +15,11 @@ function Sample_1() {
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const { pk } = useParams(); 
   const { user } = useUser();
+  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
   const fetchData = async (pk) => {
     try {
-      let apiUrl = 'http://127.0.0.1:8000/sample/sample_1/';
+      let apiUrl = `${apiDomain}/sample/sample_1/`;
       if (pk) {
         apiUrl+=`${pk}`
       }

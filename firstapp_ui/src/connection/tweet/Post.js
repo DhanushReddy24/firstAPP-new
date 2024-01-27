@@ -13,8 +13,10 @@ import PublishIcon from "@mui/icons-material/Publish";
 const Post = forwardRef(
   ({ id, displayName, username, userimage, verified, text, postimage, avatar, toggleReplies,isLike=false,toggleLikes}, ref) => {
 
-    const completeUserImageUrl = `http://127.0.0.1:8000${userimage}`;
-    const completePostImageUrl = `http://127.0.0.1:8000${postimage}`;
+    const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+    
+    const completeUserImageUrl = `${apiDomain}${userimage}`;
+    const completePostImageUrl = `${apiDomain}${postimage}`;
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
