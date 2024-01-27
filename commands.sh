@@ -2,9 +2,13 @@ source /Users/dhanush/Desktop/firstAPP/firstAPP_env/bin/activate
 nvm use 20.2.0
 npm run build
 npm start
-npm install <name> -force
+npm config set legacy-peer-deps true
+npm install <name> --force --legacy-peer-deps
+npm install --force --legacy-peer-deps
+npm cache clean --force
 npx create-react-app <my-app>
-
+npm config set legacy-peer-deps true
+react-app-rewired
 
 cd /Users/dhanush/Desktop/firstAPP/firstAPP-new/firstapp_api
 cd /Users/dhanush/Desktop/firstAPP/firstAPP-new/firstapp_ui
