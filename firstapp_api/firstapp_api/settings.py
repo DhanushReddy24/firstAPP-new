@@ -27,14 +27,14 @@ SECRET_KEY = 'django-insecure-zhb!0ztxi&&vl@u#hxta=l!%%8f8-%tm+_@kmvaq0ts9&fx=y4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hooksup-api.vercel.app']
+ALLOWED_HOSTS = ['hooksup-api.vercel.app','127.0.0.1']
 
 #CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://hooksup.vercel.app',
-    'https://hooksup-api.vercel.app/',
+    'https://hooksup-api.vercel.app',
 ]
 
 # Application definition
@@ -104,9 +104,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
-        'USER' : 'postgres',
+        'USER' : 'postgres.qmrccyxpiylzlgwfsbjp',
         'PASSWORD' : 'firstAPP@2023',
-        'HOST' : 'db.qmrccyxpiylzlgwfsbjp.supabase.co',
+        'HOST' : 'aws-0-ap-south-1.pooler.supabase.com',
         'PORT' : '5432'
 
     }
