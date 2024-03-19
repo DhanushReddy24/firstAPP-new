@@ -12,6 +12,8 @@ import Chat from './connection/message/Chat';
 import InputBox from './connection/message/InputBox';
 import TweetBox from './connection/tweet/TweetBox';
 import ReplyBox from './connection/tweet/ReplyBox';
+import Explore from './connection/tweet/Explore';
+import Profile from './connection/tweet/Profile';
 import Main from './test/Main';
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
         <Route path='/tweetbox' element={<TweetBox />}/>
         <Route path='/replybox' element={<ReplyBox />}/>
         <Route path='/main' element={<Main />}/>
+        <Route path='/explore' element={<Explore />}/>
+        <Route path='/profile' element={<Profile />}/>
       </Routes>
     </div>
   );
