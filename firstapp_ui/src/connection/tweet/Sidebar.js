@@ -20,12 +20,12 @@ function Sidebar() {
     <div className="sidebar">
       <WebhookIcon className="sidebar__twitterIcon" />
 
-      <SidebarOption active Icon={HomeIcon} text="Home" />
+      <SidebarOption active Icon={HomeIcon} text="Home" to="/Tweet" />
       <SidebarOption Icon={SearchIcon} text="Explore" to="/Explore"/>
       <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
       <SidebarOption Icon={MailOutlineIcon} text="Messages" to="/chat"/>
       <SidebarOption Icon={MapIcon} text="Maps" to="/main" />
-      <SidebarOption Icon={ListAltIcon} text="Lists" />
+      <SidebarOption Icon={ListAltIcon} text="Articles" to="/Articles" />
       <SidebarOption Icon={PermIdentityIcon} text="Profile" to="/profile"/>
       <SidebarOption Icon={MoreHorizIcon} text="More" />
 

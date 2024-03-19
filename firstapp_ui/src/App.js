@@ -15,6 +15,7 @@ import ReplyBox from './connection/tweet/ReplyBox';
 import Explore from './connection/tweet/Explore';
 import Profile from './connection/tweet/Profile';
 import Main from './test/Main';
+import Articles from './connection/tweet/Articles';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path='/main' element={<Main />}/>
         <Route path='/explore' element={<Explore />}/>
         <Route path='/profile' element={<Profile />}/>
+        <Route path='/Articles' element={<Articles />}/>
       </Routes>
     </div>
   );

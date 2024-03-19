@@ -1,0 +1,35 @@
+/* profile.css */
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .profile-image img {
+    width: 200px; /* Adjust image width as needed */
+    border-radius: 50%;
+  }
+  
+  .profile-details {
+    margin-left: 20px;
+  }
+  
+  .profile-details h2 {
+    margin-top: 0;
+  }
+  
+  .profile-details p {
+    margin-bottom: 5px;
+  }
+  
+  .profile-components {
+    margin-top: 20px;
+  }
+  
+  .sample-component {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  

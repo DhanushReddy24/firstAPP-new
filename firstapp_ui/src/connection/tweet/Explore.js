@@ -7,6 +7,9 @@ import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import {useNavigate} from 'react-router-dom';
 import "./Explore.css";
+import Sidebar from "./Sidebar";
+import Widgets from "./Widgets";
+
 
 
 
@@ -59,7 +62,10 @@ export default function Explore() {
 
   return (
     <div className="feed_center">
-    <Box sx={{ width: 500, minHeight: 393 }}>
+
+    <Sidebar />
+
+    <Box sx={{ width: 1000, minHeight: 393 }}>
       <Masonry columns={4} spacing={2}>
 
         {posts.map((post) => {
@@ -73,6 +79,8 @@ export default function Explore() {
         })}
       </Masonry>
     </Box>
+
+    <Widgets />
     </div>
   );
 }
