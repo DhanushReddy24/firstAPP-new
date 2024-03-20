@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tweet,TweetReply,Message
+from .models import Tweet,TweetReply,Message,TweetLike
 
 class TweetSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
@@ -48,3 +48,9 @@ class MessageSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'created_at': {'format': '%Y-%m-%d %H:%M:%S'}  # Format the datetime field
         }
+
+class TweetLikeSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = TweetLike
+        fields = ['id','user','tweet','created_at']

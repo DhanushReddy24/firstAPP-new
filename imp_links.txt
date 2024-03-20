@@ -15,3 +15,8 @@ https://supabase.com/dashboard/projects
 https://blog.logrocket.com/deploy-react-app-for-free-using-vercel/
 
 https://tech.raturi.in/multi-page-web-application-using-django-react-and-webpack?x-host=tech.raturi.in
+
+https://github.com/pedrojunqueira/django-file_manager/blob/master/website/files/azure_file_controller.py
+https://github.com/misaelnieto/vercel-storage/blob/main/vercel_storage/blob.py
+
+https://forum.djangoproject.com/t/doing-a-join-on-a-django-queryset/11072

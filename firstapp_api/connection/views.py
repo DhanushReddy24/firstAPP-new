@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from authentication.models import User
+from django.http import JsonResponse
+import json
+from django.core.serializers import serialize
 from authentication.serializer import UserSerializer
-from .models import Tweet,TweetReply,Message
-from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer,TweetSerializer_Post
+from .models import Tweet,TweetReply,Message,TweetLike
+from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer,TweetLikeSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -68,14 +71,6 @@ def MessageAPIView(request,pk):
         Message_data = Message_data_sender.union(Message_data_receiver)
         Message_data = Message_data.order_by('created_at')
         Message_data = MessageSerializer(Message_data, many=True)
-        '''
-        users_data = get_users([pk,request.user.id])
-        
-        response_data = {
-            'Message_data' : Message_data.data,
-            'users_data' : users_data.data
-        }
-        '''
         return Response(Message_data.data)
 
     elif request.method == 'POST':
@@ -98,6 +93,30 @@ def TweetCountAPIView(request):
         Tweet_data = Tweet.objects.values('user').annotate(total=Count('id'))
         #Tweet_data = TweetSerializer(Tweet_data, many=True)
         return Response(Tweet_data)
+    
+    else:
+        return Response('No data', status=200)
+
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def TweetLikeAPIView(request):
+    if request.method == 'GET':
+        print('Get')
+        Tweet_data = Tweet.objects.all()
+        TweetLike_data = TweetLike.objects.select_related('tweet').all()
+        serialized_data = serialize("json", TweetLike_data)
+        serialized_data = json.loads(serialized_data)
+        Tweet_data = TweetSerializer(Tweet_data, many=True)
+        return JsonResponse(serialized_data,safe=False)
+
+    elif request.method == 'POST':
+        print('POST')
+        serializer = TweetLikeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
     
     else:
         return Response('No data', status=200)
