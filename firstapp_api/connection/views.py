@@ -1,15 +1,12 @@
 from django.shortcuts import render
 from authentication.models import User
-from django.http import JsonResponse
-import json
-from django.core.serializers import serialize
 from authentication.serializer import UserSerializer
 from .models import Tweet,TweetReply,Message,TweetLike
-from .serializer import TweetSerializer,TweetReplySerializer,MessageSerializer,TweetLikeSerializer
+from .serializer import TweetSerializer,TweetSerializer_Post,TweetReplySerializer,MessageSerializer,TweetLikeSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from django.db.models import Count
+from django.db.models import Count, Case, When, BooleanField, Subquery, OuterRef, Value, Q
 
 def get_users(ids):
     users_data = User.objects.exclude(id__in=ids)
@@ -21,13 +18,25 @@ def get_users(ids):
 def TweetAPIView(request):
     if request.method == 'GET':
         print('Get')
-        Tweet_data = Tweet.objects.all()
+        tweetlike_ids_for_user = TweetLike.objects.filter(user=request.user).values('tweet')
+        Tweet_data = Tweet.objects.annotate(
+        is_like=Case(
+            When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_like')),
+            default=False,
+            output_field=BooleanField()
+        ),
+        is_dislike=Case(
+            When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_dislike')),
+            default=False,
+            output_field=BooleanField()
+        )
+        )
         Tweet_data = TweetSerializer(Tweet_data, many=True)
         return Response(Tweet_data.data)
 
     elif request.method == 'POST':
         print('POST')
-        serializer = TweetSerializer(data=request.data)
+        serializer = TweetSerializer_Post(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -102,21 +111,32 @@ def TweetCountAPIView(request):
 def TweetLikeAPIView(request):
     if request.method == 'GET':
         print('Get')
-        Tweet_data = Tweet.objects.all()
-        TweetLike_data = TweetLike.objects.select_related('tweet').all()
-        serialized_data = serialize("json", TweetLike_data)
-        serialized_data = json.loads(serialized_data)
-        Tweet_data = TweetSerializer(Tweet_data, many=True)
-        return JsonResponse(serialized_data,safe=False)
+        TweetLike_data = TweetLike.objects.all()
+        TweetLike_data = TweetLikeSerializer(TweetLike_data, many=True)
+        return Response(TweetLike_data.data)
 
     elif request.method == 'POST':
         print('POST')
-        serializer = TweetLikeSerializer(data=request.data)
+        print(request.data)
+        if 'is_like' in request.data and request.data['is_like']:
+            request.data['is_dislike'] = False
+        if 'is_dislike' in request.data and request.data['is_dislike']:
+            request.data['is_like'] = False
+        print(request.data)
+        TweetLike_data = TweetLike.objects.filter(Q(tweet=request.data['tweet']) & Q(user=request.data['user']))
+        print(TweetLike_data.exists())
+        if TweetLike_data.exists():
+            serializer = TweetLikeSerializer(TweetLike_data.first(), data=request.data)
+        else:
+            serializer = TweetLikeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
+        '''
+        return Response('No data', status=200)
+        '''
     
     else:
         return Response('No data', status=200)

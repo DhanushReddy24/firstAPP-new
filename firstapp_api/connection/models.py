@@ -31,7 +31,9 @@ class Message(models.Model):
 class TweetLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=-1)
     tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE,default=-1)
+    is_like = models.BooleanField(default=False)
+    is_dislike = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.tweet
+        return self.tweet.tweet
