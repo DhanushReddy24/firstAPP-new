@@ -111,22 +111,24 @@ def TweetCountAPIView(request):
 def TweetLikeAPIView(request):
     if request.method == 'GET':
         print('Get')
-        TweetLike_data = TweetLike.objects.all()
+        TweetLike_data = TweetLike.objects.filter(user=request.user)
         TweetLike_data = TweetLikeSerializer(TweetLike_data, many=True)
-        return Response(TweetLike_data.data)
+        tweet_like = {}
+        for tweetlike in TweetLike_data.data:
+            tweet_like[tweetlike['tweet']]=[tweetlike['is_like'],tweetlike['is_dislike']]
+        return Response(tweet_like)
 
     elif request.method == 'POST':
         print('POST')
-        print(request.data)
+        request_data = request.data.copy()
         if 'is_like' in request.data and request.data['is_like']:
-            request.data['is_dislike'] = False
+            request_data['is_dislike'] = False
         if 'is_dislike' in request.data and request.data['is_dislike']:
-            request.data['is_like'] = False
-        print(request.data)
+            request_data['is_like'] = False
         TweetLike_data = TweetLike.objects.filter(Q(tweet=request.data['tweet']) & Q(user=request.data['user']))
         print(TweetLike_data.exists())
         if TweetLike_data.exists():
-            serializer = TweetLikeSerializer(TweetLike_data.first(), data=request.data)
+            serializer = TweetLikeSerializer(TweetLike_data.first(), data=request_data)
         else:
             serializer = TweetLikeSerializer(data=request.data)
         if serializer.is_valid():
@@ -134,9 +136,6 @@ def TweetLikeAPIView(request):
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
-        '''
-        return Response('No data', status=200)
-        '''
     
     else:
         return Response('No data', status=200)

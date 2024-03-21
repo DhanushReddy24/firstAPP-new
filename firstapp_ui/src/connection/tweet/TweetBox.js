@@ -41,7 +41,7 @@ function TweetBox() {
         }
       )
       console.log(response.status);
-      setFormData({ ...formData, ['tweet']: '',['image']: '', });
+      setFormData({ ...formData, ['tweet']: null,['image']: null, });
       
     }
     catch (error) {
