@@ -140,3 +140,17 @@ def TweetLikeAPIView(request):
     else:
         return Response('No data', status=200)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def TweetLikeCountAPIView(request):
+    if request.method == 'GET':
+        print('Get')
+        tweet_like_counts = (TweetLike.objects.filter(is_like=True).values('tweet').annotate(like_count=Count('tweet')))
+        tweet_likecount = {}
+        for tweetlike in tweet_like_counts:
+            tweet_likecount[tweetlike['tweet']]=tweetlike['like_count']
+        return Response(tweet_likecount)
+
+    else:
+        return Response('No data', status=200)
+

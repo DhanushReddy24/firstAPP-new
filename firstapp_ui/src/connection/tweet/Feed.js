@@ -15,6 +15,7 @@ function Feed() {
   const navigate = useNavigate();
   const [showReplies, setShowReplies] = useState({});
   const [showLikes, setShowLikes] = useState({});
+  const [showLikeCount, setShowLikeCount] = useState({});
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
 
@@ -37,13 +38,22 @@ function Feed() {
         ...prevState,
         [tweetId]: [!prevState[tweetId] ? true : !prevState[tweetId][0],prevState[tweetId] ? prevState[tweetId][0] ? prevState[tweetId][1] : false : false],
       }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+      }));
       updatedFormData['is_like'] = !showLikes[tweetId] ? true : !showLikes[tweetId][0];
+
     }
     else {
       console.log('dislike')
       setShowLikes((prevState) => ({
         ...prevState,
         [tweetId]: [prevState[tweetId] ? prevState[tweetId][1] ? prevState[tweetId][0] : false : false, !prevState[tweetId] ? true : !prevState[tweetId][1]],
+      }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
       }));
       updatedFormData['is_dislike'] = !showLikes[tweetId] ? true : !showLikes[tweetId][1];
     }
@@ -100,6 +110,19 @@ function Feed() {
       setShowLikes(like_response.data);
       console.log(showLikes)
 
+      apiUrl = `${apiDomain}/connection/tweetlikecount/`;
+
+      console.log(apiUrl)
+      console.log(authTokens.access)
+      const likecount_response = await axios.get(apiUrl,{
+        'headers': { 
+          'Content-Type':'application/json',
+          'Authorization': 'JWT ' +String(authTokens.access) 
+        }
+      });
+      setShowLikeCount(likecount_response.data);
+      console.log(showLikeCount)
+
     } 
     catch (error) {
       console.error('Error fetching data:', error);
@@ -140,6 +163,7 @@ function Feed() {
               isLike={showLikes[post.id] ? showLikes[post.id][0] : null}
               isdisLike={showLikes[post.id] ? showLikes[post.id][1] : null}
               toggleLikes={(like) => toggleLikes(post.id,like)}
+              likecount = {showLikeCount[post.id] ? showLikeCount[post.id] : null}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
           </div>

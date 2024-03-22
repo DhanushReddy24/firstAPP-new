@@ -15,7 +15,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 
 const Post = forwardRef(
-  ({ id, displayName, username, userimage, verified, text, postimage, avatar, toggleReplies,isLike,isdisLike,toggleLikes}, ref) => {
+  ({ id, displayName, username, userimage, verified, text, postimage, avatar, toggleReplies,isLike,isdisLike,toggleLikes, likecount}, ref) => {
 
     const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
     
@@ -48,6 +48,7 @@ const Post = forwardRef(
             <div className="likeicons">
               <span onClick={() => toggleLikes(true)} >
                 {isLike? (<ThumbUpIcon fontSize="small" className="favorite-icon-like" />):((<ThumbUpOffAltIcon fontSize="small" />))}
+                <div>{likecount}</div>
               </span>
               <div className="likeicons-separator"></div>
               <span onClick={() => toggleLikes(false)} >
