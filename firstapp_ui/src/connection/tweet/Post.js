@@ -48,8 +48,8 @@ const Post = forwardRef(
             <div className="likeicons">
               <span onClick={() => toggleLikes(true)} >
                 {isLike? (<ThumbUpIcon fontSize="small" className="favorite-icon-like" />):((<ThumbUpOffAltIcon fontSize="small" />))}
-                <div>{likecount}</div>
               </span>
+              <span>{likecount? (<div className="like-count">{likecount}</div>): null} </span>
               <div className="likeicons-separator"></div>
               <span onClick={() => toggleLikes(false)} >
                 {isdisLike? (<ThumbDownIcon fontSize="small" className="favorite-icon-like" />):((<ThumbDownOffAltIcon fontSize="small" />))}
