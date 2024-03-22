@@ -41,7 +41,7 @@ function TweetBox() {
         }
       )
       console.log(response.status);
-      setFormData({ ...formData, ['tweet']: '',['image']: '', });
+      setFormData({ ...formData, ['tweet']: null,['image']: null, });
       
     }
     catch (error) {
@@ -72,7 +72,8 @@ function TweetBox() {
         </div>
       </form>
     </div>
-
+    <p>hello</p>
+    <img src="https://drive.google.com/uc?export=view&id=1ghe4MvKzO1DezN5AgjqZ56ldnly8Ps-O" alt="drive-image"/>
   </div>
   );
 }

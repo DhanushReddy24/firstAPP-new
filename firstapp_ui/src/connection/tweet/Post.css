@@ -51,3 +51,21 @@
 .favorite-icon-like {
   color: red;
 }
+
+.likeicons {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.likeicons-separator {
+  border-left: 1px solid black;
+  height: 20px;
+  margin: 0 8px;
+}
+
+.like-count {
+  padding: 4px;
+}

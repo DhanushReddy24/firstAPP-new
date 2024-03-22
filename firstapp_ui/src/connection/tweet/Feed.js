@@ -10,9 +10,12 @@ import {useNavigate} from 'react-router-dom';
 function Feed() {
   const [posts, setPosts] = useState([]);
   const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
+  const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
+  const [formData, setFormData] = useState({'user':userData.id});
   const navigate = useNavigate();
   const [showReplies, setShowReplies] = useState({});
   const [showLikes, setShowLikes] = useState({});
+  const [showLikeCount, setShowLikeCount] = useState({});
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
 
 
@@ -22,11 +25,62 @@ function Feed() {
       [tweetId]: !prevState[tweetId],
     }));
   };
-  const toggleLikes = (tweetId) => {
-    setShowLikes((prevState) => ({
-      ...prevState,
-      [tweetId]: !prevState[tweetId],
-    }));
+
+  const toggleLikes = async(tweetId, like) => {
+
+    let updatedFormData = {
+      'user': userData.id,
+      'tweet': tweetId,
+    };
+    if (like===true) {
+      console.log('like')
+      setShowLikes((prevState) => ({
+        ...prevState,
+        [tweetId]: [!prevState[tweetId] ? true : !prevState[tweetId][0],prevState[tweetId] ? prevState[tweetId][0] ? prevState[tweetId][1] : false : false],
+      }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+      }));
+      updatedFormData['is_like'] = !showLikes[tweetId] ? true : !showLikes[tweetId][0];
+
+    }
+    else {
+      console.log('dislike')
+      setShowLikes((prevState) => ({
+        ...prevState,
+        [tweetId]: [prevState[tweetId] ? prevState[tweetId][1] ? prevState[tweetId][0] : false : false, !prevState[tweetId] ? true : !prevState[tweetId][1]],
+      }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+      }));
+      updatedFormData['is_dislike'] = !showLikes[tweetId] ? true : !showLikes[tweetId][1];
+    }
+    //console.log(tweetId,!showLikes[tweetId] ? true : !showLikes[tweetId][0])
+    //postLike()
+    
+    try {
+      console.log(updatedFormData)  
+      let apiUrl = `${apiDomain}/connection/tweetlike/`
+      console.log(apiUrl)
+      const response = await axios.post(apiUrl, updatedFormData,
+        {
+          'headers': { 
+            'Content-Type':'multipart/form-data',
+            'Authorization': 'JWT ' +String(authTokens.access) 
+          },
+        }
+      )
+      console.log(response.status);
+      //const { tweet, is_like, ...updatedFormData } = formData;
+      //setFormData(updatedFormData);
+      //setFormData({ ...formData, ['tweet']: null,['is_like']: null, });
+      
+    }
+    catch (error) {
+      console.error('Error while posting data:', error);
+    }
   };
 
   const fetchData = async () => {
@@ -42,6 +96,33 @@ function Feed() {
         }
       });
       setPosts(response.data);
+
+      apiUrl = `${apiDomain}/connection/tweetlike/`;
+
+      console.log(apiUrl)
+      console.log(authTokens.access)
+      const like_response = await axios.get(apiUrl,{
+        'headers': { 
+          'Content-Type':'application/json',
+          'Authorization': 'JWT ' +String(authTokens.access) 
+        }
+      });
+      setShowLikes(like_response.data);
+      console.log(showLikes)
+
+      apiUrl = `${apiDomain}/connection/tweetlikecount/`;
+
+      console.log(apiUrl)
+      console.log(authTokens.access)
+      const likecount_response = await axios.get(apiUrl,{
+        'headers': { 
+          'Content-Type':'application/json',
+          'Authorization': 'JWT ' +String(authTokens.access) 
+        }
+      });
+      setShowLikeCount(likecount_response.data);
+      console.log(showLikeCount)
+
     } 
     catch (error) {
       console.error('Error fetching data:', error);
@@ -79,8 +160,10 @@ function Feed() {
               postimage={post.image}
               avatar='avatar'
               toggleReplies={() => toggleReplies(post.id)}
-              isLike={showLikes[post.id]}
-              toggleLikes={() => toggleLikes(post.id)}
+              isLike={showLikes[post.id] ? showLikes[post.id][0] : null}
+              isdisLike={showLikes[post.id] ? showLikes[post.id][1] : null}
+              toggleLikes={(like) => toggleLikes(post.id,like)}
+              likecount = {showLikeCount[post.id] ? showLikeCount[post.id] : null}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
           </div>

@@ -1,15 +1,17 @@
 from rest_framework import serializers
-from .models import Tweet,TweetReply,Message
+from .models import Tweet,TweetReply,Message,TweetLike
 
 class TweetSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
     firstname = serializers.SerializerMethodField()
     verified = serializers.SerializerMethodField()
     userimage = serializers.SerializerMethodField()
+    is_like = serializers.BooleanField()
+    is_dislike = serializers.BooleanField()
 
     class Meta:
         model = Tweet
-        fields = ['id','tweet','user','firstname','username','userimage','image','verified','created_at']
+        fields = ['id','tweet','user','firstname','username','userimage','image','verified','created_at','is_like','is_dislike']
     
     def get_username(self, obj):
         return obj.user.username
@@ -18,7 +20,9 @@ class TweetSerializer(serializers.ModelSerializer):
         return obj.user.first_name
     
     def get_userimage(self, obj):
-        return obj.user.image.url
+        if obj.user.image:
+            return obj.user.image.url
+        return None
 
     def get_verified(self, obj):
         return True
@@ -48,3 +52,9 @@ class MessageSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'created_at': {'format': '%Y-%m-%d %H:%M:%S'}  # Format the datetime field
         }
+
+class TweetLikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TweetLike
+        fields = ['id','user','tweet','is_like','is_dislike','created_at']
