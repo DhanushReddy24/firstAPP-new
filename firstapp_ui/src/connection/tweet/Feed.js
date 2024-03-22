@@ -53,7 +53,7 @@ function Feed() {
       }));
       setShowLikeCount((prevState) => ({
         ...prevState,
-        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+        [tweetId]: !showLikeCount[tweetId] ? 0 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
       }));
       updatedFormData['is_dislike'] = !showLikes[tweetId] ? true : !showLikes[tweetId][1];
     }
