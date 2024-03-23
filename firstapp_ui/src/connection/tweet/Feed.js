@@ -130,11 +130,12 @@ function Feed() {
   };
 
   useEffect(() => {
-    if (authTokens.access != null) {
+    if (authTokens.access != null && new Date().getTime() < authTokens.expirationTime) {
       console.log('fetching data')
       fetchData();
     }
     else{
+      localStorage.removeItem('authTokens');
       console.log('redirect to login')
       navigate('/login/');
     }

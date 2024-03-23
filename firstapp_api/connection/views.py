@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from authentication.models import User
 from authentication.serializer import UserSerializer
-from .models import Tweet,TweetReply,Message,TweetLike
-from .serializer import TweetSerializer,TweetSerializer_Post,TweetReplySerializer,MessageSerializer,TweetLikeSerializer
+from .models import Tweet,TweetReply,Message,TweetLike, Notification
+from .serializer import TweetSerializer,TweetSerializer_Post,TweetReplySerializer,MessageSerializer,TweetLikeSerializer, NotificationSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -154,3 +154,23 @@ def TweetLikeCountAPIView(request):
     else:
         return Response('No data', status=200)
 
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def NotificationAPIView(request):
+    if request.method == 'GET':
+        print('Get')
+        Notification_data = Notification.objects.filter(Q(user=request.user) & Q(is_read=False))
+        Notification_data = NotificationSerializer(Notification_data, many=True)
+        return Response(Notification_data.data, status=200)
+
+    elif request.method == 'POST':
+        print('POST')
+        serializer = NotificationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
+    
+    else:
+        return Response('No data', status=200)

@@ -32,7 +32,14 @@ function Login() {
       });
       console.log('access token')
       console.log(token_response.data);
-      localStorage.setItem('authTokens', JSON.stringify(token_response.data))
+      //localStorage.setItem('authTokens', JSON.stringify(token_response.data))
+
+      const expirationTime = new Date().getTime() + 60*60*1000; // 30 seconds from now
+      localStorage.setItem('authTokens', JSON.stringify({ 
+        expirationTime: expirationTime,
+        access: token_response.data.access,
+        refresh: token_response.data.refresh
+       }));
 
       apiUrl = `${apiDomain}/user/details/`;
       console.log(apiUrl)
