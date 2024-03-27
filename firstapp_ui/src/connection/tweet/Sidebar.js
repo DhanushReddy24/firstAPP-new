@@ -1,7 +1,6 @@
 import React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import SidebarOption from "./SidebarOption";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";

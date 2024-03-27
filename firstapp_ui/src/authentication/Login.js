@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
 import { useUser } from './UserContext';
-
-
+import  ApiDataIOManager  from '../common/ApiDataIOManager';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { user,setUser } = useUser();
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const utils = ApiDataIOManager();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -20,40 +18,41 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const postData = async () => {
+  const postDataToApi = async (url, formData) => {
     try {
-      let apiUrl = `${apiDomain}/user/token/`;
-      console.log(apiUrl)
-
-      const token_response = await axios.post(apiUrl, {
-        'username': username,
-        'password': password
-  
-      });
-      console.log('access token')
-      console.log(token_response.data);
-      //localStorage.setItem('authTokens', JSON.stringify(token_response.data))
-
-      const expirationTime = new Date().getTime() + 60*60*1000; // 30 seconds from now
+      const response = await utils.postData(url,formData);
+      const expirationTime = new Date().getTime() + 60*60*1000;
       localStorage.setItem('authTokens', JSON.stringify({ 
         expirationTime: expirationTime,
-        access: token_response.data.access,
-        refresh: token_response.data.refresh
+        access: response.data.access,
+        refresh: response.data.refresh
        }));
+      return response
+    } catch (error) {
+      console.error('Error posting data:', error);
+      return { status: 'error', data: null };
+    }
+  };
 
-      apiUrl = `${apiDomain}/user/details/`;
-      console.log(apiUrl)
-      const user_response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(token_response.data.access) 
-        },
-      });
-      console.log('user details')
-      console.log(user_response.data);
-      setUser(user_response.data);
-      localStorage.setItem('userData', JSON.stringify(user_response.data))
-      console.log(user)
+  const fetchDataFromApi = async (url, setData) => {
+    try {
+      const response = await utils.fetchData(url);
+      setData(response.data);
+      localStorage.setItem('userData', JSON.stringify(response.data))
+      return response
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return { status: 'error', data: null };
+    }
+  };
+
+  const postData = async () => {
+    try {
+      let url = 'user/token/'
+      const token_response = await postDataToApi(url,{'username': username, 'password': password})
+
+      url = 'user/details/'
+      const user_response = await fetchDataFromApi(url,setUser)
       navigate('/tweet/')
     } catch (error) {
       console.error('Error:', error);
@@ -62,9 +61,8 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
     postData();
+    
   };
 
   return (

@@ -11,7 +11,6 @@ from rest_framework.permissions import IsAuthenticated
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def Sample_1APIView(request,pk=None):
-    print(request.user.first_name)
     if request.method == 'GET':
         print('Get')
         if pk!=None:
@@ -21,7 +20,6 @@ def Sample_1APIView(request,pk=None):
         else:
             Sample_1_data = Sample_1.objects.all()
             Sample_1_data = Sample_1Serializer(Sample_1_data, many=True)
-            print(Sample_1_data.data)
             return Response(Sample_1_data.data)
 
     elif request.method == 'POST':
@@ -30,7 +28,7 @@ def Sample_1APIView(request,pk=None):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
-
+        print('Error: ',serializer.errors)
         return Response(serializer.errors, status=400)
     
     else:

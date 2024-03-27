@@ -6,20 +6,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import ReactMapGL, {Marker, Source, Layer, GeolocateControl, NavigationControl, Popup} from 'react-map-gl';
 import mapboxgl from "mapbox-gl"
 import PlaceIcon from "@mui/icons-material/Place";
+import  ApiDataIOManager from '../common/ApiDataIOManager';
 
 function Main() {
 
   const [mapboxAccessToken, setmapboxAccessToken] = useState('pk.eyJ1IjoiZmlyc3RhcHAyMDIzIiwiYSI6ImNscmVvdmhoMTFnaXMybXMwaDdtOTZkM2sifQ.6huSBXAt0Q_fGTtUPFNCAg')
-
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
   const [userlocations, setUserLocations] = useState([]);
   const [coords, setCoords] = useState([]);
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [Refresh, setRefresh] = useState(true)
   const [PopupUser, setPopupUser] = useState(null)
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const utils = ApiDataIOManager();
 
   const [viewPort, setviewPort] =useState({
     latitude: 18.733806, 
@@ -56,33 +55,18 @@ function Main() {
     }
     const getUserLocations = async () => {
       try {
-        let apiUrl = `${apiDomain}/user/userlocation/`;
-        console.log(apiUrl)
-
-        let response = await axios.get(apiUrl,{
-          'headers': { 
-            'Content-Type':'application/json',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          }
-        });
+        let url = `user/userlocation/`;
+        let response = await utils.fetchData(url);
         let data = await response.data
         setUserLocations(data)
         console.log('userlocations',userlocations)
 
-        apiUrl = `${apiDomain}/user/userlocation/${userData.id}/`;
-        console.log(apiUrl)
-
-        response = await axios.get(apiUrl,{
-          'headers': { 
-            'Content-Type':'application/json',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          }
-        });
+        url = `user/userlocation/${userData.id}/`;
+        response = await utils.fetchData(url);
         data = await response.data
         setStart({latitude:data[0].latitude,longitude:data[0].longitude})
         console.log('start-data',data[0])
         console.log('start',start)
-
       } 
       catch (error) {
         console.error('Error while fetching UserLocations data:', error);

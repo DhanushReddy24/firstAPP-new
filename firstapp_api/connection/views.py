@@ -111,7 +111,7 @@ def TweetCountAPIView(request):
 def TweetLikeAPIView(request):
     if request.method == 'GET':
         print('Get')
-        TweetLike_data = TweetLike.objects.filter(user=request.user)
+        TweetLike_data = TweetLike.objects.filter(Q(user=request.user) & (Q(is_like=True) | Q(is_dislike=True)))
         TweetLike_data = TweetLikeSerializer(TweetLike_data, many=True)
         tweet_like = {}
         for tweetlike in TweetLike_data.data:

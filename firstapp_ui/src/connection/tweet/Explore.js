@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-// import * as React from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
-import {useNavigate} from 'react-router-dom';
 import "./Explore.css";
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 
 const heights = [150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80];
@@ -22,22 +19,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Explore() {
     const [posts, setPosts] = useState([]);
-    const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
-    const navigate = useNavigate();
     const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+    const utils = ApiDataIOManager();
   
     const fetchData = async () => {
       try {
-        let apiUrl = `${apiDomain}/connection/tweet/`;
-  
-        console.log(apiUrl)
-        console.log(authTokens.access)
-        const response = await axios.get(apiUrl,{
-          'headers': { 
-            'Content-Type':'application/json',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          }
-        });
+        let url = `connection/tweet/`;
+        const response = await utils.fetchData(url);
         setPosts(response.data);
         console.log(response.data);
       } 
@@ -47,14 +35,7 @@ export default function Explore() {
     };
   
     useEffect(() => {
-      if (authTokens.access != null) {
-        console.log('fetching data')
         fetchData();
-      }
-      else{
-        console.log('redirect to login')
-        navigate('/login/');
-      }
     }, []);
 
   return (

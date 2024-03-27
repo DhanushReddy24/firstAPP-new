@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ChatWindow.css";
-import axios from 'axios';
 import InputBox from "./InputBox";
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function ChatWindow({ selectedChat }) {
   const chatMessages1 = [
     { id: 1, text: 'Hi',time: '29/08/2023', sender:'me'},
     { id: 2, text: 'Hello',time: '27/08/2023',sender:'him'},
   ];
-
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [chatMessages, setchatMessages] = useState([])
   const [Refresh, setRefresh] = useState(true)
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const utils = ApiDataIOManager();
   let prevDate = null;
 
   const formatDateTime = (datetime)=>{
@@ -43,15 +41,8 @@ function ChatWindow({ selectedChat }) {
   const fetchData = async () => {
     try {
       if (selectedChat) {
-        let apiUrl = `${apiDomain}/connection/message/${selectedChat.id}`;
-
-        console.log(apiUrl)
-        const response = await axios.get(apiUrl,{
-          'headers': { 
-            'Content-Type':'application/json',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          }
-        });
+        let url = `connection/message/${selectedChat.id}`;
+        const response = await utils.fetchData(url)
         setchatMessages(response.data);
       }
     } 

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Reply.css";
 import ReplyBox from "./ReplyBox";
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function Reply({ tweetId, showReplies }) {
   const [replies, setReplies] = useState([]);
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [Refresh, setRefresh] = useState(true)
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const utils = ApiDataIOManager();
 
   const toggleRefresh = (tweetId) => {
     setRefresh(!Refresh)
@@ -15,16 +15,8 @@ function Reply({ tweetId, showReplies }) {
 
   const fetchReplies = async () => {
     try {
-      let apiUrl = `${apiDomain}/connection/reply/${tweetId}/`;
-
-      console.log(apiUrl)
-      console.log(authTokens.access)
-      const response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
+      let url = `connection/reply/${tweetId}/`;
+      const response = await utils.fetchData(url);
       setReplies(response.data);
     } catch (error) {
       console.error("Error fetching replies:", error);
@@ -32,7 +24,6 @@ function Reply({ tweetId, showReplies }) {
   };
 
   useEffect(() => {
-    console.log('fetchReplies')
     fetchReplies();
   }, [Refresh]);
 
