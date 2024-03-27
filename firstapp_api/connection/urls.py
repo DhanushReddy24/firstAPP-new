@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TweetAPIView,TweetReplyAPIView,MessageAPIView,TweetCountAPIView,TweetLikeAPIView, TweetLikeCountAPIView
+from .views import TweetAPIView,TweetReplyAPIView,MessageAPIView,TweetCountAPIView,TweetLikeAPIView, TweetLikeCountAPIView, NotificationAPIView
 
 
 app_name = 'connections'
@@ -11,4 +11,5 @@ urlpatterns = [
     path('tweetcount/', TweetCountAPIView, name='tweetcount'),
     path('tweetlike/', TweetLikeAPIView, name='tweetlike'),
     path('tweetlikecount/', TweetLikeCountAPIView, name='tweetlike'),
+    path('notification/', NotificationAPIView, name='notification'),
 ]

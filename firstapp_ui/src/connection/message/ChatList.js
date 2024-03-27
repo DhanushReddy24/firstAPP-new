@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import FetchData from "../../common/FetchData";
 import "./ChatList.css";
-import axios from 'axios';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function ChatList({ onSelectChat }) {
   const chatList1 = [
@@ -16,23 +14,15 @@ function ChatList({ onSelectChat }) {
   //const { chatList1, loading } = FetchData(`${apiDomain}/user/users/");
   const [chatList, setchatList] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
-  
+  const utils = ApiDataIOManager();
+
   const fetchData = async () => {
     try {
-      let apiUrl = `${apiDomain}/user/users/`;
-
-      console.log(apiUrl)
-      const response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
+      let url = `user/users/`;
+      const response = await utils.fetchData(url)
       setchatList(response.data);
-      
     } 
     catch (error) {
       console.error('Error fetching data:', error);

@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 import "./TweetBox.css";
 import { Avatar } from "@mui/material";
 import { Button } from "@mui/material";
-
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function TweetBox() {
 
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({'user':userData.id});
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const navigate = useNavigate();
+  const utils = ApiDataIOManager();
 
   const linkStyle = {
     textDecoration: "none", // Remove underline
@@ -27,21 +24,12 @@ function TweetBox() {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `${apiDomain}/connection/tweet/`
-      console.log(apiUrl)
-      const response = await axios.post(apiUrl, formData,
-        {
-          'headers': { 
-            'Content-Type':'multipart/form-data',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          },
-        }
-      )
+      let url = `connection/tweet/`
+      const response = await utils.postData(url,formData);
       console.log(response.status);
-      setFormData({ ...formData, ['tweet']: null,['image']: null, });
+      setFormData({ ...formData, ['tweet']: '',['image']: '', });
       
     }
     catch (error) {

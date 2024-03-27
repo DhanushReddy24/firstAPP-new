@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
 import "./InputBox.css";
-import axios from 'axios';
 import SendIcon from "@mui/icons-material/Send";
 import MoodIcon from "@mui/icons-material/Mood";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import IconButton from '@mui/material/IconButton';
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function InputBox({ selectedChat, toggleRefresh }) {
 
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({});
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
-  const navigate = useNavigate();
+  const utils = ApiDataIOManager();
 
   const onChange = e => (
     setFormData(prevFormData =>({ ...prevFormData, [e.target.name]: e.target.value }))
@@ -23,19 +18,10 @@ function InputBox({ selectedChat, toggleRefresh }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `${apiDomain}/connection/message/${selectedChat.id}/`
-      console.log(apiUrl)
-      const response = await axios.post(apiUrl, formData,
-        {
-          'headers': { 
-            'Content-Type':'application/json',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          },
-        }
-      )
+      let url = `connection/message/${selectedChat.id}/`
+      const response = await utils.postData(url, formData)
       console.log(response.status);
       toggleRefresh();
       setFormData({ ...formData, ['message']: '' });

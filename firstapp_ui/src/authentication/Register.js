@@ -1,36 +1,25 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import  ApiDataIOManager from '../common/ApiDataIOManager';
 
 function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    re_password: ''
-  });
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const [formData, setFormData] = useState();
   const navigate = useNavigate();
+  const utils = ApiDataIOManager();
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async(event) => {
     try {
-      let apiUrl = `${apiDomain}/user/auth/users/`
-      console.log(apiUrl)
-
+      let url = `user/auth/users/`
       event.preventDefault();
       console.log(formData)
-      const response = await axios.post(apiUrl, formData)
-      console.log(response.status)
+      const response = await utils.postData(url, formData)
       navigate('/login/')
     } catch (error) {
       console.error('Error:', error);
     }
   }
-
   return (
   <div>
     <p>Sign Up</p>

@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Post from "./Post";
 import Reply from "./Reply";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
-import {useNavigate} from 'react-router-dom';
-
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function Feed() {
   const [posts, setPosts] = useState([]);
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
-  const [formData, setFormData] = useState({'user':userData.id});
-  const navigate = useNavigate();
   const [showReplies, setShowReplies] = useState({});
   const [showLikes, setShowLikes] = useState({});
   const [showLikeCount, setShowLikeCount] = useState({});
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
-
+  const utils = ApiDataIOManager();
 
   const toggleReplies = (tweetId) => {
     setShowReplies((prevState) => ({
@@ -40,7 +34,7 @@ function Feed() {
       }));
       setShowLikeCount((prevState) => ({
         ...prevState,
-        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+        [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId] ? prevState[tweetId]+1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
       }));
       updatedFormData['is_like'] = !showLikes[tweetId] ? true : !showLikes[tweetId][0];
 
@@ -53,30 +47,16 @@ function Feed() {
       }));
       setShowLikeCount((prevState) => ({
         ...prevState,
-        [tweetId]: !showLikeCount[tweetId] ? 0 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
+        [tweetId]: !showLikeCount[tweetId] ? 0 : !showLikes[tweetId][0] ? prevState[tweetId] : prevState[tweetId]-1 
       }));
       updatedFormData['is_dislike'] = !showLikes[tweetId] ? true : !showLikes[tweetId][1];
     }
-    //console.log(tweetId,!showLikes[tweetId] ? true : !showLikes[tweetId][0])
-    //postLike()
     
     try {
       console.log(updatedFormData)  
-      let apiUrl = `${apiDomain}/connection/tweetlike/`
-      console.log(apiUrl)
-      const response = await axios.post(apiUrl, updatedFormData,
-        {
-          'headers': { 
-            'Content-Type':'multipart/form-data',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          },
-        }
-      )
+      let url = `connection/tweetlike/`
+      const response = await utils.postData(url, updatedFormData,)
       console.log(response.status);
-      //const { tweet, is_like, ...updatedFormData } = formData;
-      //setFormData(updatedFormData);
-      //setFormData({ ...formData, ['tweet']: null,['is_like']: null, });
-      
     }
     catch (error) {
       console.error('Error while posting data:', error);
@@ -85,44 +65,19 @@ function Feed() {
 
   const fetchData = async () => {
     try {
-      let apiUrl = `${apiDomain}/connection/tweet/`;
-
-      console.log(apiUrl)
-      console.log(authTokens.access)
-      const response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
+      let url = `connection/tweet/`;
+      const response = await utils.fetchData(url);
       setPosts(response.data);
 
-      apiUrl = `${apiDomain}/connection/tweetlike/`;
-
-      console.log(apiUrl)
-      console.log(authTokens.access)
-      const like_response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
+      url = `connection/tweetlike/`;
+      const like_response = await utils.fetchData(url);
       setShowLikes(like_response.data);
       console.log(showLikes)
 
-      apiUrl = `${apiDomain}/connection/tweetlikecount/`;
-
-      console.log(apiUrl)
-      console.log(authTokens.access)
-      const likecount_response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
+      url = `connection/tweetlikecount/`;
+      const likecount_response = await utils.fetchData(url);
       setShowLikeCount(likecount_response.data);
       console.log(showLikeCount)
-
     } 
     catch (error) {
       console.error('Error fetching data:', error);
@@ -130,14 +85,7 @@ function Feed() {
   };
 
   useEffect(() => {
-    if (authTokens.access != null) {
-      console.log('fetching data')
       fetchData();
-    }
-    else{
-      console.log('redirect to login')
-      navigate('/login/');
-    }
   }, []);
 
   return (

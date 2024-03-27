@@ -1,63 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {useNavigate, Link, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import FlipMove from "react-flip-move";
 import Sample_1Post from "./Sample_1Post";
 import Logout from '../authentication/Logout';
-import { useUser } from '../authentication/UserContext';
+import  ApiDataIOManager  from '../common/ApiDataIOManager';
 
 
 function Sample_1() {
 
   const [data, setdata] = useState([]); 
-  const navigate = useNavigate();
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
-  const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const { pk } = useParams(); 
-  const { user } = useUser();
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
+  const utils = ApiDataIOManager();
 
-  const fetchData = async (pk) => {
+  const fetchDataFromApi = async (url, setData) => {
     try {
-      let apiUrl = `${apiDomain}/sample/sample_1/`;
-      if (pk) {
-        apiUrl+=`${pk}`
-      }
-      console.log(apiUrl)
-      console.log(authTokens.access)
-      const response = await axios.get(apiUrl,{
-        'headers': { 
-          'Content-Type':'application/json',
-          'Authorization': 'JWT ' +String(authTokens.access) 
-        }
-      });
-      setdata(response.data);
-    } 
-    catch (error) {
+      const response = await utils.fetchData(url);
+      console.log(response.data)
+      setData(response.data);
+    } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    console.log('user')
-    console.log(userData)
-    if (authTokens.access != null) {
-      console.log(pk)
+    let url = 'sample/sample_1/';
       if (pk) {
-        console.log('fetching data of '+`${pk}`)
-        fetchData(pk);
+        url+=`${pk}`
       }
-      else{
-        console.log('fetching data')
-        fetchData();
-      }
-    }
-    else{
-      console.log(authTokens.access)
-      console.log('redirect to login')
-      navigate('/login/');
-    }
-  }, [pk]);
+      fetchDataFromApi(url, setdata)
+    }, [pk]);
   
   return (
     <div>

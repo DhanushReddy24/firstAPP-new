@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tweet,TweetReply,Message,TweetLike
+from .models import Tweet,TweetReply,Message,TweetLike,Notification
 
 class TweetSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
@@ -58,3 +58,9 @@ class TweetLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TweetLike
         fields = ['id','user','tweet','is_like','is_dislike','created_at']
+
+class NotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Notification
+        fields = ['id','user','from_user','message','notification_type','is_read','created_at']

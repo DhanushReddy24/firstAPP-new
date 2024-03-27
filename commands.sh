@@ -106,3 +106,6 @@ http://127.0.0.1:8000/sample/sample_1/
     "age": 22,
     "address": "Nizamabad",
 }
+
+
+&& new Date().getTime() < authTokens.expirationTime

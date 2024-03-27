@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import  ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function ReplyBox({tweetId, toggleRefresh}) {
 
-  const [authTokens, setauthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : {"refresh": null, "access": null})
   const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
   const [formData, setFormData] = useState({'user': userData.id, 'tweet': tweetId});
-  const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
-  const navigate = useNavigate();
+  const utils = ApiDataIOManager();
 
   const onChange = e => (
       setFormData(prevFormData =>({ ...prevFormData, [e.target.name]: e.target.value }))
@@ -19,26 +16,16 @@ function ReplyBox({tweetId, toggleRefresh}) {
     console.log('send')
     try {
       console.log(formData)  
-      let apiUrl = `${apiDomain}/connection/reply/${tweetId}/`
-      console.log(apiUrl)
-      const response = await axios.post(apiUrl, formData,
-        {
-          'headers': { 
-            'Content-Type':'multipart/form-data',
-            'Authorization': 'JWT ' +String(authTokens.access) 
-          },
-        }
-      )
+      let url = `connection/reply/${tweetId}/`
+      const response = await utils.postData(url,formData);
       console.log(response.status);
       toggleRefresh();
       setFormData({ ...formData, ['reply']: '',});
-      
     }
     catch (error) {
       console.error('Error while posting data:', error);
     }
   };
-
   return (
     <div className='replybox'>
       <form onSubmit={handleSubmit}>
