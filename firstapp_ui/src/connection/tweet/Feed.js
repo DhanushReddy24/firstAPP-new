@@ -20,12 +20,19 @@ function Feed() {
     }));
   };
 
-  const toggleLikes = async(tweetId, like) => {
+  const toggleLikes = async(tweetId, tweetuserId, like) => {
 
     let updatedFormData = {
       'user': userData.id,
       'tweet': tweetId,
     };
+    let notiFormData = {
+      'user': tweetuserId,
+      'from_user': userData.id,
+      'tweet': tweetId,
+      'notification_type': 'TL'
+    };
+
     if (like===true) {
       console.log('like')
       setShowLikes((prevState) => ({
@@ -37,6 +44,7 @@ function Feed() {
         [tweetId]: !showLikeCount[tweetId] ? 1 : !showLikes[tweetId] ? prevState[tweetId]+1 : !showLikes[tweetId][0] ? prevState[tweetId]+1 : prevState[tweetId]-1 
       }));
       updatedFormData['is_like'] = !showLikes[tweetId] ? true : !showLikes[tweetId][0];
+      notiFormData['message'] = !showLikes[tweetId] ? 'Liked your tweet' : !showLikes[tweetId][0] ? 'Liked your tweet' : 'Like cancelled for tweet' ; 
 
     }
     else {
@@ -50,12 +58,16 @@ function Feed() {
         [tweetId]: !showLikeCount[tweetId] ? 0 : !showLikes[tweetId] ? prevState[tweetId] : !showLikes[tweetId][0] ? prevState[tweetId] : prevState[tweetId]-1 
       }));
       updatedFormData['is_dislike'] = !showLikes[tweetId] ? true : !showLikes[tweetId][1];
+      notiFormData['message'] = !showLikes[tweetId] ? 'Disliked your tweet' : !showLikes[tweetId][1] ? 'Disliked your tweet' : 'Dislike cancelled for tweet' ; 
     }
     
     try {
-      console.log(updatedFormData)  
+      //console.log(updatedFormData)  
       let url = `connection/tweetlike/`
-      const response = await utils.postData(url, updatedFormData,)
+      let response = await utils.postData(url, updatedFormData,)
+      console.log(response.status);
+      url = `connection/notification/`
+      response = await utils.postData(url, notiFormData,)
       console.log(response.status);
     }
     catch (error) {
@@ -110,7 +122,7 @@ function Feed() {
               toggleReplies={() => toggleReplies(post.id)}
               isLike={showLikes[post.id] ? showLikes[post.id][0] : null}
               isdisLike={showLikes[post.id] ? showLikes[post.id][1] : null}
-              toggleLikes={(like) => toggleLikes(post.id,like)}
+              toggleLikes={(like) => toggleLikes(post.id,post.user,like)}
               likecount = {showLikeCount[post.id] ? showLikeCount[post.id] : null}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />

@@ -21,7 +21,7 @@ function Sidebar() {
 
       <SidebarOption active Icon={HomeIcon} text="Home" />
       <SidebarOption Icon={SearchIcon} text="Explore" to="/Explore"/>
-      <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
+      <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" to="/notification"/>
       <SidebarOption Icon={MailOutlineIcon} text="Messages" to="/chat"/>
       <SidebarOption Icon={MapIcon} text="Maps" to="/main" />
       <SidebarOption Icon={ListAltIcon} text="Lists" />

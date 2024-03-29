@@ -1,26 +1,30 @@
 .post {
-  display: flex;
   align-items: flex-start;
   border-bottom: 1px solid var(--twitter-background);
   padding-bottom: 10px;
 }
 
 .post__body {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 10px;
+  align-content: center;
+  align-items: center;
 }
 
 .post__body > img {
   border-radius: 20px;
   width: 800px;
-  height: 500px
-
+  height: 500px  
 }
 
 .post__footer {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 800px;
+  align-content: center;
+  align-items: center;
 }
 
 .post__headerDescription {

@@ -2,12 +2,4 @@
     display: flex;
     flex-direction: row;
   }
-  .Sidebar{
-    flex: 1
-  }
-  .Feed{
-    flex: 1
-  }
-  .Widgets{
-    flex: 1
-  }
+  

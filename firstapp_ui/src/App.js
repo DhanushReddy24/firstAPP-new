@@ -14,6 +14,7 @@ import TweetBox from './connection/tweet/TweetBox';
 import ReplyBox from './connection/tweet/ReplyBox';
 import Explore from './connection/tweet/Explore';
 import Profile from './connection/tweet/Profile';
+import Notification from './connection/tweet/Notification';
 import Main from './test/Main';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/main' element={<Main />}/>
         <Route path='/explore' element={<Explore />}/>
         <Route path='/profile' element={<Profile />}/>
+        <Route path='/notification' element={<Notification showNotifications={true} />}/>
       </Routes>
     </div>
   );
