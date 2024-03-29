@@ -19,8 +19,7 @@
 .feed__header {
   position: sticky;
   top: 0;
-  background-color: white;
-  z-index: 100;
+  z-index: 1;
   border: 1px solid var(--twitter-background);
   padding: 15px 20px;
 }

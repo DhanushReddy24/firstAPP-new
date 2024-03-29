@@ -3,14 +3,7 @@ import  ApiDataIOManager  from '../common/ApiDataIOManager';
 
 function Sample_1_Post() {
 
-  const [formData, setFormData] = useState({
-    username: '',
-    firstname: '',
-    lastname: '',
-    age: '',
-    address: '',
-    image:''
-  });
+  const [formData, setFormData] = useState();
   const utils = ApiDataIOManager();
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });

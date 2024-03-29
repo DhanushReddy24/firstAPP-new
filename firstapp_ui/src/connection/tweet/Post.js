@@ -4,8 +4,6 @@ import { Avatar } from "@mui/material";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import RepeatIcon from "@mui/icons-material/Repeat";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ReplyIcon from '@mui/icons-material/Reply';
 import PublishIcon from "@mui/icons-material/Publish";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';

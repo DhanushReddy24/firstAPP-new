@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./Reply.css";
 import ReplyBox from "./ReplyBox";
 import  ApiDataIOManager from '../../common/ApiDataIOManager';
