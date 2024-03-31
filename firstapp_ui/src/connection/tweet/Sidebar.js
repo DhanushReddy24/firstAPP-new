@@ -23,7 +23,7 @@ function Sidebar() {
       <SidebarOption Icon={SearchIcon} text="Explore" to="/Explore"/>
       <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" to="/notification"/>
       <SidebarOption Icon={MailOutlineIcon} text="Messages" to="/chat"/>
-      <SidebarOption Icon={MapIcon} text="Maps" to="/main" />
+      <SidebarOption Icon={MapIcon} text="Maps" to="/maps" />
       <SidebarOption Icon={ListAltIcon} text="Lists" />
       <SidebarOption Icon={PermIdentityIcon} text="Profile" to="/profile"/>
       <SidebarOption Icon={MoreHorizIcon} text="More" />

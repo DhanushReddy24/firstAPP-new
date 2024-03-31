@@ -53,7 +53,7 @@ def UserLocationAPIView(request, pk=None):
         else:
             UserLocation_data = UserLocation.objects.filter(user=pk)
             UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
-            return Response(UserLocation_data.data)
+            return Response(UserLocation_data.data[0])
     
     elif request.method == 'POST':
         print('POST')

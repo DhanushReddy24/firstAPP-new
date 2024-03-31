@@ -15,6 +15,7 @@ import ReplyBox from './connection/tweet/ReplyBox';
 import Explore from './connection/tweet/Explore';
 import Profile from './connection/tweet/Profile';
 import Notification from './connection/tweet/Notification';
+import Maps from './connection/tweet/Maps';
 import Main from './test/Main';
 
 function App() {
@@ -33,10 +34,11 @@ function App() {
         <Route path='/inputbox' element={<InputBox selectedChat={6} />}/>
         <Route path='/tweetbox' element={<TweetBox />}/>
         <Route path='/replybox' element={<ReplyBox />}/>
-        <Route path='/main' element={<Main />}/>
+        <Route path='/maps' element={<Maps />}/>
         <Route path='/explore' element={<Explore />}/>
         <Route path='/profile' element={<Profile />}/>
         <Route path='/notification' element={<Notification showNotifications={true} />}/>
+        <Route path='/main' element={<Main />}/>
       </Routes>
     </div>
   );
