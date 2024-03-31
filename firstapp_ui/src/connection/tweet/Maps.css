@@ -6,7 +6,7 @@
     left: 5vw;
   }
 
-  Marker{
+  .Marker{
     left: 10px;
     position: absolute; 
   }
