@@ -12,7 +12,7 @@ class TweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tweet
         fields = ['id','tweet','user','firstname','username','userimage','image','verified','created_at','is_like','is_dislike']
-    
+
     def get_username(self, obj):
         return obj.user.username
 

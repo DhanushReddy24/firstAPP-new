@@ -30,7 +30,7 @@ def TweetAPIView(request):
             default=False,
             output_field=BooleanField()
         )
-        )
+        ).order_by('-created_at')
         Tweet_data = TweetSerializer(Tweet_data, many=True)
         return Response(Tweet_data.data)
 
@@ -159,7 +159,7 @@ def TweetLikeCountAPIView(request):
 def NotificationAPIView(request):
     if request.method == 'GET':
         print('Get')
-        Notification_data = Notification.objects.filter(Q(user=request.user) & Q(is_read=False))
+        Notification_data = Notification.objects.filter(Q(user=request.user) & Q(is_read=False)).order_by('-created_at')
         Notification_data = NotificationSerializer(Notification_data, many=True)
         return Response(Notification_data.data, status=200)
 
@@ -191,6 +191,5 @@ def NotificationCountAPIView(request):
     if request.method == 'GET':
         print('Get')
         Notification_data = Notification.objects.filter(Q(user=request.user) & Q(is_read=False))
-        #Notification_data = NotificationSerializer(Notification_data, many=True)
         unread_count = Notification_data.count()
         return Response(unread_count, status=200)

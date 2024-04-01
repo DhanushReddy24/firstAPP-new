@@ -41,7 +41,7 @@ function ChatList({ onSelectChat }) {
   return (
     <div className="chat-list">
       <div className="profile-bar">
-        <img src={`${apiDomain}${userData.image}`} alt="Profile" className="profile-image" />
+        <img src={`${userData.image}`} alt="Profile" className="profile-image" />
         <div className="profile-barRight">
           <DonutLargeIcon fontSize="small"/>
           <ChatIcon fontSize="small"/>
@@ -60,7 +60,7 @@ function ChatList({ onSelectChat }) {
           className={`chat-list-item ${chat.id=== activeChat ? "active" : ""}`}
           onClick={() => handleChatClick(chat)}
         >
-          <img src={`${apiDomain}${chat.image}`} alt="Profile" className="profile-image" />
+          <img src={`${chat.image}`} alt="Profile" className="profile-image" />
           <div className="chat-info">
             <h4>{chat.first_name}</h4>
             <p>{chat.lastMessage}</p>
