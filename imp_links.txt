@@ -20,3 +20,5 @@ https://github.com/pedrojunqueira/django-file_manager/blob/master/website/files/
 https://github.com/misaelnieto/vercel-storage/blob/main/vercel_storage/blob.py
 
 https://forum.djangoproject.com/t/doing-a-join-on-a-django-queryset/11072
+
+https://pypi.org/project/django-cloudinary-storage/

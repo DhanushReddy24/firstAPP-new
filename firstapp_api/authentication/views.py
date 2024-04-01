@@ -41,7 +41,7 @@ def LogoutAPIView(request):
     print('logout')
     return Response(status=status.HTTP_205_RESET_CONTENT)
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def UserLocationAPIView(request, pk=None):
     if request.method == 'GET':
@@ -53,7 +53,21 @@ def UserLocationAPIView(request, pk=None):
         else:
             UserLocation_data = UserLocation.objects.filter(user=pk)
             UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
-            return Response(UserLocation_data.data)
+            return Response(UserLocation_data.data[0])
+    
+    elif request.method == 'POST':
+        print('POST')
+        UserLocation_data = UserLocation.objects.filter(user=request.data['user'])
+        print(UserLocation_data.exists())
+        if UserLocation_data.exists():
+            serializer = UserLocationSerializer(UserLocation_data.first(), data=request.data)
+        else:
+            serializer = UserLocationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
 
     return Response('No data', status=200)
 

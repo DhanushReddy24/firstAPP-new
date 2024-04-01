@@ -45,7 +45,7 @@ export default function Explore() {
 
         {posts.map((post) => {
             console.log(post.image);
-            const completePostImageUrl = `${apiDomain}${post.image}`;
+            const completePostImageUrl = `${post.image}`;
             return (
             <div key={post.id} className="post-wrapper">
               {post.image!==null && <img src={completePostImageUrl} alt="post image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> }

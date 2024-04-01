@@ -17,8 +17,8 @@ const Post = forwardRef(
 
     const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
     
-    const completeUserImageUrl = `${apiDomain}${userimage}`;
-    const completePostImageUrl = `${apiDomain}${postimage}`;
+    const completeUserImageUrl = `${userimage}`;
+    const completePostImageUrl = `${postimage}`;
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">

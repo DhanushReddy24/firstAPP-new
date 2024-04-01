@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,7 +53,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'sample',
     'connection',
-    'corsheaders'
+    'corsheaders',
+    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -110,6 +112,13 @@ DATABASES = {
         'PORT' : '5432'
 
     }
+}
+
+#Cloud File Storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'ddlh9na0e',
+    'API_KEY': '986336593322459',
+    'API_SECRET': 'GyFHDzZeC3FRyawFbs2txBlIXfU'
 }
 
 REST_FRAMEWORK = {
@@ -173,6 +182,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

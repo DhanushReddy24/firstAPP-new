@@ -27,6 +27,7 @@ git branch <name>
 git checkout <name>
 git branch -d <name>
 git push origin -d <name>
+git branch -m OLD-BRANCH-NAME NEW-BRANCH-NAME
 git remote add origin https://github.com/DhanushReddy24/firstAPP-new.git
 
 

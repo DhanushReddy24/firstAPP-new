@@ -62,7 +62,7 @@ function ChatWindow({ selectedChat }) {
         {selectedChat &&  ( 
           <div className="window-profile-bar">
             <div className="window-profile-barLeft">
-              <img src={`${apiDomain}${selectedChat.image}`} alt="Profile" className="profile-image" />
+              <img src={`${selectedChat.image}`} alt="Profile" className="profile-image" />
               <p>{selectedChat.first_name} </p>
             </div>
             <div className="window-profile-barRight">
