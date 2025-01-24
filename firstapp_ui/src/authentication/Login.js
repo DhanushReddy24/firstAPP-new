@@ -83,7 +83,7 @@ function Login() {
                   <div className="mt-2">
                     <input
                       id="email"
-                      name="email"
+                      name="username"
                       type="text"
                       required
                       autoComplete="email"
