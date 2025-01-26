@@ -1,96 +1,110 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./ChatWindow.css";
-import InputBox from "./InputBox";
+import React, { useState, useEffect, useRef } from 'react';
+import './ChatWindow.css';
+import InputBox from './InputBox';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import  ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function ChatWindow({ selectedChat }) {
   const chatMessages1 = [
-    { id: 1, text: 'Hi',time: '29/08/2023', sender:'me'},
-    { id: 2, text: 'Hello',time: '27/08/2023',sender:'him'},
+    { id: 1, text: 'Hi', time: '29/08/2023', sender: 'me' },
+    { id: 2, text: 'Hello', time: '27/08/2023', sender: 'him' },
   ];
-  const [userData, setuserData] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {"id": null})
-  const [chatMessages, setchatMessages] = useState([])
-  const [Refresh, setRefresh] = useState(true)
+  const [userData, setuserData] = useState(() =>
+    localStorage.getItem('userData')
+      ? JSON.parse(localStorage.getItem('userData'))
+      : { id: null }
+  );
+  const [chatMessages, setchatMessages] = useState([]);
+  const [Refresh, setRefresh] = useState(true);
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
   const utils = ApiDataIOManager();
   let prevDate = null;
 
-  const formatDateTime = (datetime)=>{
+  const formatDateTime = (datetime) => {
     const date = new Date(datetime);
-    const formattedDate = date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
     });
 
-    const formattedTime = date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
+    const formattedTime = date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
     });
 
-    return {date:formattedDate, time:formattedTime}
-  }
+    return { date: formattedDate, time: formattedTime };
+  };
 
   const toggleRefresh = () => {
-    setRefresh(!Refresh)
-    console.log(Refresh)
+    setRefresh(!Refresh);
+    console.log(Refresh);
   };
 
   const fetchData = async () => {
     try {
       if (selectedChat) {
         let url = `connection/message/${selectedChat.id}`;
-        const response = await utils.fetchData(url)
+        const response = await utils.fetchData(url);
         setchatMessages(response.data);
       }
-    } 
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, [selectedChat,Refresh]);
+  }, [selectedChat, Refresh]);
 
   return (
     <div className="chat-window">
       <div className="chat-header">
-        {!selectedChat &&  ('Select a chat')}
-        {selectedChat &&  ( 
+        {!selectedChat && 'Select a chat'}
+        {selectedChat && (
           <div className="window-profile-bar">
             <div className="window-profile-barLeft">
-              <img src={`${selectedChat.image}`} alt="Profile" className="profile-image" />
+              <img
+                src={`${selectedChat.image}`}
+                alt="Profile"
+                className="profile-image"
+              />
               <p>{selectedChat.first_name} </p>
             </div>
             <div className="window-profile-barRight">
-              <SearchIcon fontSize="small"/>
-              <MoreVertIcon fontSize="small"/>
+              <SearchIcon fontSize="small" />
+              <MoreVertIcon fontSize="small" />
             </div>
           </div>
         )}
       </div>
       <div className="messages">
-        {selectedChat && (
+        {selectedChat &&
           chatMessages.map((message) => {
-            const showMessageDate = formatDateTime(message.created_at).date !== prevDate;
+            const showMessageDate =
+              formatDateTime(message.created_at).date !== prevDate;
             prevDate = formatDateTime(message.created_at).date;
 
             return (
               <div key={message.id} className="day-messages">
                 {showMessageDate && (
-                  <span className="message-date">{formatDateTime(message.created_at).date}</span>
+                  <span className="message-date">
+                    {formatDateTime(message.created_at).date}
+                  </span>
                 )}
-                <div key={message.id} className={`message ${message.user === userData.id ? "sent" : "received"}`}>
+                <div
+                  key={message.id}
+                  className={`message ${message.user === userData.id ? 'sent' : 'received'}`}
+                >
                   <p>{message.message}</p>
-                  <span className="message-time">{formatDateTime(message.created_at).time}</span>
+                  <span className="message-time">
+                    {formatDateTime(message.created_at).time}
+                  </span>
                 </div>
               </div>
-            )
-          })
-        )}
+            );
+          })}
       </div>
       {selectedChat && (
         <InputBox selectedChat={selectedChat} toggleRefresh={toggleRefresh} />
