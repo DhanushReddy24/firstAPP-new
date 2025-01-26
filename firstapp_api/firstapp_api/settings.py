@@ -14,6 +14,9 @@ from pathlib import Path
 from datetime import timedelta
 import os
 import cloudinary_storage
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,21 +107,20 @@ DATABASES = {
 #cloudDATABASES
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER' : 'postgres.qmrccyxpiylzlgwfsbjp',
-        'PASSWORD' : 'firstAPP@2023',
-        'HOST' : 'aws-0-ap-south-1.pooler.supabase.com',
-        'PORT' : '5432'
-
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER' : os.getenv('DB_USER'),
+        'PASSWORD' : os.getenv('DB_PASSWORD'),
+        'HOST' : os.getenv('DB_HOST'),
+        'PORT' : os.getenv('DB_PORT')
     }
 }
 
 #Cloud File Storage
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'ddlh9na0e',
-    'API_KEY': '986336593322459',
-    'API_SECRET': 'GyFHDzZeC3FRyawFbs2txBlIXfU'
+    'CLOUD_NAME': os.getenv('CLOUBINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUBINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUBINARY_API_SECRET')
 }
 
 REST_FRAMEWORK = {

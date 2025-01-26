@@ -39,13 +39,24 @@ Users
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'firstAPP_DB',
-        'USER' : 'postgres',
-        'PASSWORD' : 'firstAPP',
-        'HOST' : 'localhost',
-        'PORT' : '5432'
+        'NAME': 'postgres',
+        'USER' : 'postgres.bioubnxfegebmlinfcnv',
+        'PASSWORD' : 'firstAPP-new@2023',
+        'HOST' : 'aws-0-ap-south-1.pooler.supabase.com',
+        'PORT' : '6543'
     }
 }
+
+'default': {
+        'ENGINE': os.getenv('ENGINE'),
+        'NAME': os.getenv('NAME'),
+        'USER' : os.getenv('USER'),
+        'PASSWORD' : os.getenv('PASSWORD'),
+        #'HOST' : os.getenv('HOST'),
+        'HOST' : 'aws-0-ap-south-1.pooler.supabase.com',
+        'PORT' : os.getenv('PORT')
+
+    }
 
 Mapbox
 https://account.mapbox.com/
