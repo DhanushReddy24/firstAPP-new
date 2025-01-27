@@ -10,6 +10,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 
 const Post = forwardRef(
@@ -24,6 +25,9 @@ const Post = forwardRef(
         <div className="post__avatar">
           <Avatar src={completeUserImageUrl} />
         </div>
+        <span onClick={() => deleteTweet(true)} >
+          <MoreHorizIcon fontSize="small"/>
+        </span>
         <div className="post__body">
           <div className="post__header">
             <div className="post__headerText">

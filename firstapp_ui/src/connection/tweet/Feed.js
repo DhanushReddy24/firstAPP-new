@@ -20,6 +20,10 @@ function Feed() {
     }));
   };
 
+  const deleteTweet = async(tweetId) => {
+    
+  }
+
   const toggleLikes = async(tweetId, tweetuserId, like) => {
 
     let updatedFormData = {
