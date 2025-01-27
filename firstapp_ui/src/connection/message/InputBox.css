@@ -1,41 +1,38 @@
-  
-  .input-container {
-    position: fixed;
-    bottom: 0;
-    margin-top: 20px;
-    background-color: rgb(113, 197, 225);
-    width: 75%;
-    padding: 15px 0px;
-
-  }
-  .input-container-items {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .input-container-items input {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    align-items: center;
-    font-size: large;
-  }
- .moodicon{
+.input-container {
+  position: fixed;
+  bottom: 0;
+  margin-top: 20px;
+  background-color: rgb(113, 197, 225);
+  width: 75%;
+  padding: 15px 0px;
+}
+.input-container-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input-container-items input {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  align-items: center;
+  font-size: large;
+}
+.moodicon {
   flex: 0.2;
   color: #0000009f;
   padding: 10px;
- }
- .addicon{
+}
+.addicon {
   flex: 0.2;
   color: #0000009f;
   padding: 10px;
- }
- .input-field{
+}
+.input-field {
   flex: 5;
   padding: 15px;
-
- }
- .sendicon{
+}
+.sendicon {
   flex: 0.2;
   color: #0000009f;
   padding: 10px;
- }
+}

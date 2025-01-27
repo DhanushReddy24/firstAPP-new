@@ -1,7 +1,6 @@
 .feed_center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Adjust the height as needed */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+}

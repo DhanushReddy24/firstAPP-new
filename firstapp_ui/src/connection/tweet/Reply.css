@@ -1,46 +1,45 @@
 .tweet-replies {
-    margin-top: 20px;
-    margin-left: 20px;
-  }
-  
-  .replies-heading {
-    font-size: 18px;
-    color: #333;
-    text-align: left;
-  }
-  
-  .replies-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .reply-item {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  .reply-text {
-    font-size: 16px;
-    color: #111;
-  }
-  
-  .reply-author {
-    font-size: 12px;
-    color: #333;
-  }
-  
-  .reply-date {
-    font-size: 12px;
-    color: #888;
-  }
-
-  .reply-content {
-    text-align: left;
-  }
-  .reply-icon {
-    display: flex;
-    align-items: left;
-    cursor: pointer;
+  margin-top: 20px;
+  margin-left: 20px;
 }
-  
+
+.replies-heading {
+  font-size: 18px;
+  color: #333;
+  text-align: left;
+}
+
+.replies-list {
+  list-style: none;
+  padding: 0;
+}
+
+.reply-item {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.reply-text {
+  font-size: 16px;
+  color: #111;
+}
+
+.reply-author {
+  font-size: 12px;
+  color: #333;
+}
+
+.reply-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.reply-content {
+  text-align: left;
+}
+.reply-icon {
+  display: flex;
+  align-items: left;
+  cursor: pointer;
+}
