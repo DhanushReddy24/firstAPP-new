@@ -1,30 +1,35 @@
-import React, { forwardRef } from "react";
-import "./Sample_1Post.css";
-import { Avatar } from "@mui/material";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import RepeatIcon from "@mui/icons-material/Repeat";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PublishIcon from "@mui/icons-material/Publish";
+import React, { forwardRef } from 'react';
+import './Sample_1Post.css';
+import { Avatar } from '@mui/material';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PublishIcon from '@mui/icons-material/Publish';
 
-function Sample_1Post({ Id, username, firstname, lastname, age, address, time, imageUrl }){
-
+function Sample_1Post({
+  Id,
+  username,
+  firstname,
+  lastname,
+  age,
+  address,
+  time,
+  imageUrl,
+}) {
   const apiDomain = process.env.REACT_APP_DJANGO_DOMAIN_NAME;
-  
+
   const completeImageUrl = `${apiDomain}${imageUrl}`;
 
   return (
     <div className="post">
-      <div className="post__avatar">
-      </div>
+      <div className="post__avatar"></div>
       <div className="post__body">
         <div className="post__header">
           <div className="post__headerText">
             <h3>
-              {firstname}{" "}{lastname}{" "}
-              <span className="post__headerSpecial">
-                @{username}
-              </span>
+              {firstname} {lastname}{' '}
+              <span className="post__headerSpecial">@{username}</span>
             </h3>
           </div>
           <div className="post__headerDescription">
@@ -44,5 +49,5 @@ function Sample_1Post({ Id, username, firstname, lastname, age, address, time, i
     </div>
   );
 }
-  
+
 export default Sample_1Post;

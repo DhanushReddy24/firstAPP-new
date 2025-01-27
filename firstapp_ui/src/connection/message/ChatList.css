@@ -1,74 +1,71 @@
 .chat-list {
-    flex: 1;
-    border-right: 1px solid #ccc;
-    background-color: #f8f8f8;
-  }
+  flex: 1;
+  border-right: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
 
-  .profile-bar {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(65, 173, 209);
-    width: 25%;
-    position: fixed;
-    z-index: 2;
-  }
+.profile-bar {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(65, 173, 209);
+  width: 25%;
+  position: fixed;
+  z-index: 2;
+}
 
-  .profile-barRight {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    min-width: 10vw;
-  }
-  
-  .search-bar {
-    margin-top: 60px;
-    background-color: rgba(65, 173, 209, 0.297);
-    padding: 10px 0px;
-    position: fixed;
-    width: 25%;
-    z-index: 2;
-  }
-  .search-bar input{
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    font-size: medium;
-  }
+.profile-barRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 10vw;
+}
 
-  .chat-list-items {
-    margin-top: 120px;
-  }
+.search-bar {
+  margin-top: 60px;
+  background-color: rgba(65, 173, 209, 0.297);
+  padding: 10px 0px;
+  position: fixed;
+  width: 25%;
+  z-index: 2;
+}
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: medium;
+}
 
-  .chat-list-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    
-  }
+.chat-list-items {
+  margin-top: 120px;
+}
 
-  .chat-list-item.active {
-    background-color: #e8e8e8;
-  }
-  
-  
-  .profile-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    padding: 10px;
-  }
-  
-  .chat-info h4 {
-    margin: 0;
-  }
-  
-  .chat-info p {
-    margin: 0;
-    color: #777;
-  }
-  
-  /* Additional styling for chat list item */
-    
+.chat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-list-item.active {
+  background-color: #e8e8e8;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.chat-info h4 {
+  margin: 0;
+}
+
+.chat-info p {
+  margin: 0;
+  color: #777;
+}
+
+/* Additional styling for chat list item */

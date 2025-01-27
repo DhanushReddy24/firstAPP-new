@@ -1,0 +1,83 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #0a192f;
+  color: #ffffff;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #112240;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #64ffda;
+  margin-bottom: 10px;
+}
+
+.app-description {
+  font-size: 1.2rem;
+  color: #d9e8f5;
+  margin-bottom: 20px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.primary-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #112240;
+  background-color: #64ffda;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.primary-button:hover {
+  background-color: #112240;
+  color: #64ffda;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #0a192f;
+  color: #d9e8f5;
+  border-top: 1px solid #64ffda;
+}
+
+.app-footer p {
+  margin: 5px 0;
+}
+
+.footer-link {
+  margin: 0 10px;
+  color: #64ffda;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: #d9e8f5;
+}
