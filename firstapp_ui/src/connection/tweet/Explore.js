@@ -5,10 +5,7 @@ import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import './Explore.css';
 import ApiDataIOManager from '../../common/ApiDataIOManager';
-
-const heights = [
-  150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80,
-];
+import Sidebar from "./Sidebar";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,10 +22,9 @@ export default function Explore() {
 
   const fetchData = async () => {
     try {
-      let url = `connection/tweet/`;
+      let url = 'connection/tweet/'; // Ensure the correct URL
       const response = await utils.fetchData(url);
       setPosts(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -39,23 +35,22 @@ export default function Explore() {
   }, []);
 
   return (
-    <div className="feed_center">
-      <Box sx={{ width: 500, minHeight: 393 }}>
-        <Masonry columns={4} spacing={2}>
+    <div className="bg-gray-100 min-h-screen flex">
+    {/* Sidebar */}
+    <div className="w-1/4 bg-white shadow">
+      <Sidebar />
+    </div>
+      <Box sx={{ width: '100%', padding: 2 }}>
+        <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
           {posts.map((post) => {
-            console.log(post.image);
             const completePostImageUrl = `${post.image}`;
             return (
               <div key={post.id} className="post-wrapper">
-                {post.image !== null && (
+                {post.image && (
                   <img
                     src={completePostImageUrl}
                     alt="post image"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                    }}
+                    className="explore-image"
                   />
                 )}
               </div>
