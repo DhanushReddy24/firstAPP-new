@@ -18,7 +18,7 @@ function Sidebar() {
     <div className="sidebar">
       <WebhookIcon className="sidebar__twitterIcon" />
 
-      <SidebarOption active Icon={HomeIcon} text="Home" />
+      <SidebarOption active Icon={HomeIcon} text="Home" to="/tweet" />
       <SidebarOption Icon={SearchIcon} text="Explore" to="/Explore" />
       <SidebarOption
         Icon={NotificationsNoneIcon}
