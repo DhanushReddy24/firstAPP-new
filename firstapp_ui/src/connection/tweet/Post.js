@@ -28,6 +28,7 @@ const Post = forwardRef(
       isdisLike,
       toggleLikes,
       likecount,
+      deleteTweet,
     },
     ref
   ) => {
@@ -40,7 +41,7 @@ const Post = forwardRef(
         <div className="post__avatar">
           <Avatar src={completeUserImageUrl} />
         </div>
-        <span onClick={() => deleteTweet(true)} >
+        <span onClick={() => deleteTweet(id)} >
           <MoreHorizIcon fontSize="small"/>
         </span>
         <div className="post__body">

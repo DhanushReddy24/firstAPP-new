@@ -197,9 +197,9 @@ def NotificationCountAPIView(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def DeleteTweetAPIView(request, pk):
+def TweetDeleteAPIView(request, pk):
     if request.method == 'POST':
         print('POST')
-        Notification_data = Notification.objects.filter(Q(user=request.user) & Q(is_read=False))
-        unread_count = Notification_data.count()
-        return Response(unread_count, status=200)
+        Tweet_data = Tweet.objects.get(id=pk)
+        Tweet_data.delete()        
+        return Response('No data', status=200)
