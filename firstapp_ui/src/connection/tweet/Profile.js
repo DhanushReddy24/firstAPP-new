@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar"; // Adjust the import path based on your folder structure
 
+
+
 const ProfilePage = () => {
+  const [profilePhoto, setProfilePhoto] = useState(
+    "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  );
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePhoto(reader.result); // Set the base64 image as the new profile photo
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const navigate = useNavigate();
+
   return (
+
+
     <div className="bg-gray-100 min-h-screen flex">
       {/* Sidebar */}
       <div className="w-1/4 bg-white shadow">
@@ -14,17 +36,35 @@ const ProfilePage = () => {
         <div className="bg-white shadow">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <img
-                alt=""
-                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                className="inline-block size-30 rounded-full ring-2 ring-white"
-              />
+              <div className="relative">
+                <img
+                  alt="Profile"
+                  src={profilePhoto}
+                  className="inline-block size-30 rounded-full ring-2 ring-white w-20 h-20 object-cover"
+                />
+                <label
+                  htmlFor="profilePhotoInput"
+                  className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1 cursor-pointer"
+                >
+                  📷
+                </label>
+                <input
+                  id="profilePhotoInput"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handlePhotoChange}
+                />
+              </div>
               <div>
                 <h1 className="text-lg font-semibold">Siddanth</h1>
                 <p className="text-sm text-gray-500">@siddu_x</p>
               </div>
             </div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              onClick={() => navigate("/chat")} // Correct placement of the function call
+            >
               Message
             </button>
           </div>
@@ -94,7 +134,7 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>  
     </div>
   );
 };
