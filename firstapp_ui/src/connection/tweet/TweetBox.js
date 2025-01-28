@@ -41,6 +41,9 @@ function TweetBox() {
       console.log(response.status);
       event.target.reset();
       setFormData({ ...formData, ['tweet']: '', ['image']: null });
+      if (response.status=200){
+        navigate('/tweet/');
+      }
     } catch (error) {
       console.error('Error while posting data:', error);
     }

@@ -1,29 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar"; // Adjust the import path based on your folder structure
-
+import ApiDataIOManager from '../../common/ApiDataIOManager';
 
 
 const ProfilePage = () => {
-  const [profilePhoto, setProfilePhoto] = useState(
-    "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-  );
+  const utils = ApiDataIOManager();
+  const [userData, setuserData] = useState();
+  const [formData, setFormData] = useState({
+    image: null,
+  });
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePhoto(reader.result); // Set the base64 image as the new profile photo
-      };
-      reader.readAsDataURL(file);
+  const fetchData = async () => {
+    try {
+      let url = `connection/profile/`;
+      const response = await utils.fetchData(url);
+      let data = await response.data;
+      setuserData(data);
+      console.log(userData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+    
+  const handlePhotoChange = async (event) => {
+    event.preventDefault();
+    //setFormData({ ...formData, [event.target.name]: event.target.files[0] });
+
+    const formData = new FormData();
+    formData.append("image", event.target.files[0]); 
+
+    try {
+      console.log('image',formData?.image);
+      let url = `user/details/`;
+      const response = await utils.putData(url, formData);
+      console.log(response.status);
+      //event.target.reset();
+      //setFormData({ ...formData, ['image']: null });
+    } catch (error) {
+      console.error('Error while posting data:', error);
     }
   };
 
   const navigate = useNavigate();
 
   return (
-
 
     <div className="bg-gray-100 min-h-screen flex">
       {/* Sidebar */}
@@ -39,7 +65,7 @@ const ProfilePage = () => {
               <div className="relative">
                 <img
                   alt="Profile"
-                  src={profilePhoto}
+                  src={userData?.image}
                   className="inline-block size-30 rounded-full ring-2 ring-white w-20 h-20 object-cover"
                 />
                 <label
@@ -50,6 +76,7 @@ const ProfilePage = () => {
                 </label>
                 <input
                   id="profilePhotoInput"
+                  name = "image"
                   type="file"
                   accept="image/*"
                   className="hidden"
@@ -57,8 +84,8 @@ const ProfilePage = () => {
                 />
               </div>
               <div>
-                <h1 className="text-lg font-semibold">Siddanth</h1>
-                <p className="text-sm text-gray-500">@siddu_x</p>
+                <h1 className="text-lg font-semibold">{userData?.first_name} {userData?.last_name}</h1>
+                <p className="text-sm text-gray-500">@{userData?.username}</p>
               </div>
             </div>
             <button

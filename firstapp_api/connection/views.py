@@ -203,3 +203,15 @@ def TweetDeleteAPIView(request, pk):
         Tweet_data = Tweet.objects.get(id=pk)
         Tweet_data.delete()        
         return Response('No data', status=200)
+
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def ProfileAPIView(request):
+    if request.method == 'GET':
+        print('Get')
+        users_data = User.objects.get(id=request.user.id)
+        users_data = UserSerializer(users_data)
+        return Response(users_data.data, status=200)
+    
+    else:
+        return Response('No data', status=200)

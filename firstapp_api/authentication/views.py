@@ -10,16 +10,26 @@ from .serializer import UserSerializer, UserLocationSerializer
 import base64
 
 # Create your views here.
-@api_view(['GET'])
+@api_view(['GET','PUT'])
 @permission_classes([IsAuthenticated])
 def UserAPIView(request):
     print('login user')
     if request.method == 'GET':
         print('Get')
-        User_data = User.objects.filter(id=request.user.id)
-        User_data = UserSerializer(User_data, many=True)
+        User_data = User.objects.get(id=request.user.id)
+        User_data = UserSerializer(User_data)
         return Response(User_data.data[0])
-
+    if request.method == 'PUT':
+        print('PUT')
+        User_data = User.objects.get(id=request.user.id)
+        #print(request.data)
+        serializer = UserSerializer(User_data, data=request.data, partial=True)
+        print(serializer.initial_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        print(serializer.errors)
+        return Response(serializer.errors, status=400)
     return Response('No data', status=200)
 
 @api_view(['GET'])
