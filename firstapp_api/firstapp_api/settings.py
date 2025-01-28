@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-zhb!0ztxi&&vl@u#hxta=l!%%8f8-%tm+_@kmvaq0ts9&fx=y4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hooksup-api.vercel.app','127.0.0.1']
+ALLOWED_HOSTS = ['hooksup-api.vercel.app','127.0.0.1','.vercel.app',]
 
 #CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGIN_REGEXES = [
