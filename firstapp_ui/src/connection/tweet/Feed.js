@@ -24,6 +24,12 @@ function Feed() {
     }));
   };
 
+  const deleteTweet = async (tweetId) => {
+    let url = `connection/tweetdelete/${tweetId}/`;
+    let response = await utils.postData(url);
+    console.log(response.status);
+  };
+
   const toggleLikes = async (tweetId, tweetuserId, like) => {
     let updatedFormData = {
       user: userData.id,
@@ -161,6 +167,7 @@ function Feed() {
               isdisLike={showLikes[post.id] ? showLikes[post.id][1] : null}
               toggleLikes={(like) => toggleLikes(post.id, post.user, like)}
               likecount={showLikeCount[post.id] ? showLikeCount[post.id] : null}
+              deleteTweet={deleteTweet}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
           </div>
