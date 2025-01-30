@@ -6,25 +6,46 @@ import ApiDataIOManager from '../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
   const utils = ApiDataIOManager();
-  const [userData, setuserData] = useState();
-  const [formData, setFormData] = useState({
+  const [userData, setuserData] = useState(() =>
+  localStorage.getItem('userData')
+    ? JSON.parse(localStorage.getItem('userData'))
+    : { id: null }
+);  const [formData, setFormData] = useState({
     image: null,
   });
+  const [posts, setPosts] = useState([]);
+  const [statdata, setStatdata] = useState([]);
 
-  const fetchData = async () => {
+  const fetchPostData = async () => {
     try {
-      let url = `connection/profile/`;
+      let url = `connection/tweet/${userData.id}`;
       const response = await utils.fetchData(url);
       let data = await response.data;
-      setuserData(data);
-      console.log(userData);
+      setPosts(data);
+      console.log(posts);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchPostData();
+  }, []);
+  
+  const fetchUserStatData = async () => {
+    try {
+      let url = `connection/usertweetstats/${userData.id}`;
+      const response = await utils.fetchData(url);
+      let data = await response.data;
+      setStatdata(data);
+      console.log(statdata);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserStatData();
   }, []);
 
     
@@ -105,7 +126,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Posts</h2>
-              <p className="text-xl font-bold">345</p>
+              <p className="text-xl font-bold">{statdata.posts}</p>
             </div>
             <div>
               <h2 className="text-gray-600">Collections</h2>
@@ -113,7 +134,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Likes</h2>
-              <p className="text-xl font-bold">11.2k</p>
+              <p className="text-xl font-bold">{statdata.likes}</p>
             </div>
           </div>
         </div>
@@ -130,36 +151,20 @@ const ProfilePage = () => {
 
         {/* Photo Gallery */}
         <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4">
-          <div className="bg-white shadow rounded-md overflow-hidden">
+        {posts.map((post) => (
+          <div key={post.id} className="post-wrapper">
+            <div className="bg-white shadow rounded-md overflow-hidden">
             <img
-              src="https://wallpaperaccess.com/full/317501.jpg"
+              src={post.image}
               alt="Photo 1"
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <p className="text-gray-600">Dr. Nancy Huels</p>
+              <p className="text-gray-600">{post.tweet}</p>
             </div>
           </div>
-          <div className="bg-white shadow rounded-md overflow-hidden">
-            <img
-              src="https://wallpaperaccess.com/full/1975274.jpg"
-              alt="Photo 2"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <p className="text-gray-600">Gary Mueller</p>
-            </div>
           </div>
-          <div className="bg-white shadow rounded-md overflow-hidden">
-            <img
-              src="https://wallpaperaccess.com/full/144168.jpg"
-              alt="Photo 3"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <p className="text-gray-600">Random User</p>
-            </div>
-          </div>
+        ))}
         </div>
       </div>  
     </div>

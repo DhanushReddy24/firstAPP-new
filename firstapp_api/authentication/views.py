@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -18,7 +18,7 @@ def UserAPIView(request):
         print('Get')
         User_data = User.objects.get(id=request.user.id)
         User_data = UserSerializer(User_data)
-        return Response(User_data.data[0])
+        return Response(User_data.data)
     if request.method == 'PUT':
         print('PUT')
         User_data = User.objects.get(id=request.user.id)
@@ -61,9 +61,10 @@ def UserLocationAPIView(request, pk=None):
             UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
             return Response(UserLocation_data.data)
         else:
-            UserLocation_data = UserLocation.objects.filter(user=pk)
-            UserLocation_data = UserLocationSerializer(UserLocation_data, many=True)
-            return Response(UserLocation_data.data[0])
+            UserLocation_data = UserLocation.objects.filter(user=pk).first()
+            #UserLocation_data = get_object_or_404(UserLocation, user=pk)
+            UserLocation_data = UserLocationSerializer(UserLocation_data)
+            return Response(UserLocation_data.data)
     
     elif request.method == 'POST':
         print('POST')

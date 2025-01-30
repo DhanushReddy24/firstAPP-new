@@ -30,9 +30,9 @@ function Maps() {
   const [Refresh, setRefresh] = useState(true);
   const [PopupUser, setPopupUser] = useState(null);
   const [viewPort, setviewPort] = useState({
-    latitude: 18.5063454,
-    longitude: 77.3558051,
-    zoom: 8,
+    latitude: 17.3616,
+    longitude: 78.4747,
+    zoom: 10.5,
     pitch: 50,
   });
   const [mapKey, setMapKey] = useState(0);
@@ -78,11 +78,13 @@ function Maps() {
       response = await utils.fetchData(url);
       data = await response.data;
       setStart(data);
-      setviewPort((prevViewport) => ({
-        ...prevViewport,
-        latitude: data.latitude,
-        longitude: data.longitude,
-      }));
+      if (data.user){
+        setviewPort((prevViewport) => ({
+          ...prevViewport,
+          latitude: data.latitude,
+          longitude: data.longitude,
+        }));
+      }
       setMapKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error('Error while fetching UserLocations data:', error);

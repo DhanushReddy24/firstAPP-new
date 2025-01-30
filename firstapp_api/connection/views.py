@@ -15,24 +15,45 @@ def get_users(ids):
 
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
-def TweetAPIView(request):
+def TweetAPIView(request,user=None):
     if request.method == 'GET':
-        print('Get')
-        tweetlike_ids_for_user = TweetLike.objects.filter(user=request.user).values('tweet')
-        Tweet_data = Tweet.objects.annotate(
-        is_like=Case(
-            When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_like')),
-            default=False,
-            output_field=BooleanField()
-        ),
-        is_dislike=Case(
-            When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_dislike')),
-            default=False,
-            output_field=BooleanField()
-        )
-        ).order_by('-created_at')
-        Tweet_data = TweetSerializer(Tweet_data, many=True)
-        return Response(Tweet_data.data)
+        if user==None:
+            print('Get')
+            tweetlike_ids_for_user = TweetLike.objects.filter(user=request.user).values('tweet')
+            Tweet_data = Tweet.objects.annotate(
+            is_like=Case(
+                When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_like')),
+                default=False,
+                output_field=BooleanField()
+            ),
+            is_dislike=Case(
+                When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_dislike')),
+                default=False,
+                output_field=BooleanField()
+            )
+            ).order_by('-created_at')
+            Tweet_data = TweetSerializer(Tweet_data, many=True)
+            return Response(Tweet_data.data, status=200)
+        if user:
+            print('Get')
+            tweetlike_ids_for_user = TweetLike.objects.filter(user=request.user).values('tweet')
+            Tweet_data = Tweet.objects.filter(user=user).annotate(
+            is_like=Case(
+                When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_like')),
+                default=False,
+                output_field=BooleanField()
+            ),
+            is_dislike=Case(
+                When(id__in=tweetlike_ids_for_user, then=TweetLike.objects.filter(Q(tweet=OuterRef('id')) & Q(user=request.user)).values('is_dislike')),
+                default=False,
+                output_field=BooleanField()
+            )
+            ).order_by('-created_at')
+            Tweet_data = TweetSerializer(Tweet_data, many=True)
+            return Response(Tweet_data.data, status=200)
+        else:
+            return Response('No data', status=200)
+            
 
     elif request.method == 'POST':
         print('POST')
@@ -204,7 +225,7 @@ def TweetDeleteAPIView(request, pk):
         Tweet_data.delete()        
         return Response('No data', status=200)
 
-@api_view(['GET','POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ProfileAPIView(request):
     if request.method == 'GET':
@@ -212,6 +233,19 @@ def ProfileAPIView(request):
         users_data = User.objects.get(id=request.user.id)
         users_data = UserSerializer(users_data)
         return Response(users_data.data, status=200)
+    
+    else:
+        return Response('No data', status=200)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserTweetStatsAPIView(request,user):
+    if request.method == 'GET':
+        print('Get')
+        Tweets_Count = Tweet.objects.filter(user=user).count()
+        Likes_Count = TweetLike.objects.filter(Q(tweet__user=user) & Q(is_like=True)).count()
+        stats = {'posts':Tweets_Count, 'likes':Likes_Count}
+        return Response(stats, status=200)
     
     else:
         return Response('No data', status=200)
