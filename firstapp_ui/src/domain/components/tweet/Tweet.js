@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from '../../../common/AppNav/Sidebar';
 import Feed from './Feed';
 import Widgets from './Widgets';
 import './Tweet.css';

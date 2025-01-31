@@ -3,7 +3,7 @@ import './InputBox.css';
 import SendIcon from '@mui/icons-material/Send';
 import MoodIcon from '@mui/icons-material/Mood';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 function InputBox({ selectedChat, toggleRefresh }) {
   const [userData, setuserData] = useState(() =>

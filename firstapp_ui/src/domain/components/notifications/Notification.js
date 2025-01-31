@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 import './Notification.css';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
 
 function Notification({ showNotifications, changeNotificationsCount }) {
   const [notifications, setNotifications] = useState([]);
