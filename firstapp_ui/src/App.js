@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sample_1 from './sample/Sample_1';
@@ -17,6 +16,7 @@ import Profile from './connection/tweet/Profile';
 import Notification from './connection/tweet/Notification';
 import Maps from './connection/tweet/Maps';
 import Main from './test/Main';
+import './App.css';
 
 function App() {
   return (
