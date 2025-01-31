@@ -53,7 +53,7 @@
 }
 
 .favorite-icon-like {
-  color: red;
+  color: rgb(0, 179, 255);
 }
 
 .likeicons {
@@ -72,4 +72,20 @@
 
 .like-count {
   padding: 4px;
+}
+
+.post__image {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.post__image.landscape {
+  width: 100%;
+  height: auto;
+}
+
+.post__image.portrait {
+  width: auto;
+  height: 100%;
 }
