@@ -36,13 +36,31 @@ const Post = forwardRef(
 
     const completeUserImageUrl = `${userimage}`;
     const completePostImageUrl = `${postimage}`;
+
+    const getImageAspectClass = (url) => {
+      const img = new Image();
+      img.src = url;
+
+      return new Promise((resolve) => {
+        img.onload = () => {
+          if (img.width > img.height) {
+            resolve('landscape');
+          } else {
+            resolve('portrait');
+          }
+        };
+      });
+    };
+
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
           <Avatar src={completeUserImageUrl} />
         </div>
-        <span onClick={() => deleteTweet(id)} >
-          <MoreHorizIcon fontSize="small"/>
+        <span 
+        // onClick={() => deleteTweet(id)        }
+        >
+          <MoreHorizIcon fontSize="small" />
         </span>
         <div className="post__body">
           <div className="post__header">
@@ -59,8 +77,16 @@ const Post = forwardRef(
               <p>{text}</p>
             </div>
           </div>
-          {postimage !== null && (
-            <img src={completePostImageUrl} alt="post image" />
+          {postimage && (
+            <img
+              src={completePostImageUrl}
+              alt="post"
+              className={`post__image`}
+              onLoad={async () => {
+                const aspectClass = await getImageAspectClass(completePostImageUrl);
+                document.querySelector('.post__image').classList.add(aspectClass);
+              }}
+            />
           )}
           <div className="post__footer">
             <ChatBubbleOutlineIcon fontSize="small" />
@@ -68,10 +94,7 @@ const Post = forwardRef(
             <div className="likeicons">
               <span onClick={() => toggleLikes(true)}>
                 {isLike ? (
-                  <ThumbUpIcon
-                    fontSize="small"
-                    className="favorite-icon-like"
-                  />
+                  <ThumbUpIcon fontSize="small" className="favorite-icon-like" />
                 ) : (
                   <ThumbUpOffAltIcon fontSize="small" />
                 )}
@@ -84,10 +107,7 @@ const Post = forwardRef(
               <div className="likeicons-separator"></div>
               <span onClick={() => toggleLikes(false)}>
                 {isdisLike ? (
-                  <ThumbDownIcon
-                    fontSize="small"
-                    className="favorite-icon-like"
-                  />
+                  <ThumbDownIcon fontSize="small" className="favorite-icon-like" />
                 ) : (
                   <ThumbDownOffAltIcon fontSize="small" />
                 )}
