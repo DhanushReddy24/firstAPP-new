@@ -27,7 +27,7 @@ function Sidebar() {
       />
       <SidebarOption Icon={MailOutlineIcon} text="Messages" to="/chat" />
       <SidebarOption Icon={MapIcon} text="Maps" to="/maps" />
-      <SidebarOption Icon={ListAltIcon} text="Lists" />
+      <SidebarOption Icon={ListAltIcon} text="Jobs" to='/jobs' />
       <SidebarOption Icon={PermIdentityIcon} text="Profile" to="/profile" />
       <SidebarOption Icon={MoreHorizIcon} text="More" />
 
