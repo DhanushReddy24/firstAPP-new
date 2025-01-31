@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name','last_name','email']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
     def get_short_name(self):
         return self.first_name
