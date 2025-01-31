@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sample_1 from './sample/Sample_1';
@@ -17,6 +16,7 @@ import Profile from './connection/tweet/Profile';
 import Notification from './connection/tweet/Notification';
 import Maps from './connection/tweet/Maps';
 import Main from './test/Main';
+import './App.css';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/sample_1" element={<Sample_1 />} />
+            <Route path="/sample_1" element={<Sample_1 />} />
         <Route path="/sample_1/:pk" element={<Sample_1 />} />
         <Route path="/sample_1_post" element={<Sample_1_Post />} />
         <Route path="/tweet" element={<Tweet />} />
