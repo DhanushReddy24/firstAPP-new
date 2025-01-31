@@ -57,7 +57,81 @@ function Feed() {
       tweet: tweetId,
       notification_type: 'TL',
     };
+    if (like === true) {
+      console.log('like');
+      setShowLikes((prevState) => ({
+        ...prevState,
+        [tweetId]: [
+          !prevState[tweetId] ? true : !prevState[tweetId][0],
+          prevState[tweetId]
+            ? prevState[tweetId][0]
+              ? prevState[tweetId][1]
+              : false
+            : false,
+        ],
+      }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId]
+          ? 1
+          : !showLikes[tweetId]
+            ? prevState[tweetId] + 1
+            : !showLikes[tweetId][0]
+              ? prevState[tweetId] + 1
+              : prevState[tweetId] - 1,
+      }));
+      updatedFormData['is_like'] = !showLikes[tweetId]
+        ? true
+        : !showLikes[tweetId][0];
+      notiFormData['message'] = !showLikes[tweetId]
+        ? 'Liked your tweet'
+        : !showLikes[tweetId][0]
+          ? 'Liked your tweet'
+          : 'Like cancelled for tweet';
+    } else {
+      console.log('dislike');
+      setShowLikes((prevState) => ({
+        ...prevState,
+        [tweetId]: [
+          prevState[tweetId]
+            ? prevState[tweetId][1]
+              ? prevState[tweetId][0]
+              : false
+            : false,
+          !prevState[tweetId] ? true : !prevState[tweetId][1],
+        ],
+      }));
+      setShowLikeCount((prevState) => ({
+        ...prevState,
+        [tweetId]: !showLikeCount[tweetId]
+          ? 0
+          : !showLikes[tweetId]
+            ? prevState[tweetId]
+            : !showLikes[tweetId][0]
+              ? prevState[tweetId]
+              : prevState[tweetId] - 1,
+      }));
+      updatedFormData['is_dislike'] = !showLikes[tweetId]
+        ? true
+        : !showLikes[tweetId][1];
+      notiFormData['message'] = !showLikes[tweetId]
+        ? 'Disliked your tweet'
+        : !showLikes[tweetId][1]
+          ? 'Disliked your tweet'
+          : 'Dislike cancelled for tweet';
+    }
 
+    try {
+      //console.log(updatedFormData)
+      let url = `connection/tweetlike/`;
+      let response = await utils.postData(url, updatedFormData);
+      console.log(response.status);
+      url = `connection/notification/`;
+      response = await utils.postData(url, notiFormData);
+      console.log(response.status);
+    } catch (error) {
+      console.error('Error while posting data:', error);
+    }
   };
 
   const fetchData = async () => {
