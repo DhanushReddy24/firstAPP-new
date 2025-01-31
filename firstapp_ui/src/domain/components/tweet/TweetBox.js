@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TweetBox.css';
 import { Avatar } from '@mui/material';
 import { Button } from '@mui/material';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import './TweetBox.css';
 
 function TweetBox() {
   const [userData, setuserData] = useState(() =>
@@ -67,6 +67,7 @@ function TweetBox() {
             <br />
           </div>
 
+          <Button className="tweetBox__button">
           <input
             type="file"
             name="image"
@@ -75,6 +76,7 @@ function TweetBox() {
             onChange={(e) => uploadPicture(e)}
             className="tweetBox__imageInput"
           ></input>
+          </Button>
           <br />
           <div className="buttons">
             <Button

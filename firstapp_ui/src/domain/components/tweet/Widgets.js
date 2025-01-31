@@ -8,8 +8,8 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Badge from '@mui/material/Badge';
-import Notification from './Notification';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import Notification from '../notifications/Notification';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 function Widgets() {
   const [showNotifications, setShowNotifications] = useState(false);

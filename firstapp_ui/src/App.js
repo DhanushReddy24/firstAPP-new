@@ -5,19 +5,19 @@ import Sample_1_Post from './sample/Sample_1_Post';
 import Welcome from './authentication/Welcome';
 import Login from './authentication/Login';
 import Register from './authentication/Register';
-import Tweet from './connection/tweet/Tweet';
-import Reply from './connection/tweet/Reply';
-import Chat from './connection/message/Chat';
-import InputBox from './connection/message/InputBox';
-import TweetBox from './connection/tweet/TweetBox';
-import ReplyBox from './connection/tweet/ReplyBox';
-import Explore from './connection/tweet/Explore';
-import Profile from './connection/tweet/Profile';
-import Notification from './connection/tweet/Notification';
-import Maps from './connection/tweet/Maps';
+import Tweet from './domain/components/tweet/Tweet';
+import Reply from './domain/components/tweet/Reply';
+import Chat from './domain/components/messages/Chat';
+import InputBox from './domain/components/messages/InputBox';
+import TweetBox from './domain/components/tweet/TweetBox';
+import ReplyBox from './domain/components/tweet/ReplyBox';
+import Explore from './domain/components/explore/Explore';
+import ProfilePage from './domain/components/profile/Profile';
+import Notification from './domain/components/notifications/Notification';
+import Maps from './domain/components/maps/Maps';
 import Main from './test/Main';
-import Jobs from './connection/tweet/jobs/Jobs';
-import JobListingForm from './connection/tweet/jobs/JobListing';
+import Jobs from './domain/components/jobs/Jobs';
+import JobListingForm from './domain/components/jobs/JobListing';
 import './App.css';
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
         <Route path='/jobs' element={<Jobs />} />
         <Route path='/jobs/job-listing-form' element={<JobListingForm />} />
         <Route path="/explore" element={<Explore />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route
           path="/notification"
           element={<Notification showNotifications={true} />}

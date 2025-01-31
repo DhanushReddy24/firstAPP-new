@@ -4,8 +4,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import './Explore.css';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
-import Sidebar from "./Sidebar";
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import Sidebar from "../../../common/AppNav/Sidebar";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

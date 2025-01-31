@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Post from './Post';
 import Reply from './Reply';
 import FlipMove from 'react-flip-move';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 import './Feed.css';
 
 function Feed() {

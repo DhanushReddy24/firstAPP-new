@@ -12,7 +12,7 @@ import ReactMapGL, {
 } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import PlaceIcon from '@mui/icons-material/Place';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 function Maps() {
   const [mapboxAccessToken, setmapboxAccessToken] = useState(
