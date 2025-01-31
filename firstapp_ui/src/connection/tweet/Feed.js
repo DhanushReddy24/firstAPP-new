@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
 import Reply from './Reply';
-import './Feed.css';
 import FlipMove from 'react-flip-move';
 import ApiDataIOManager from '../../common/ApiDataIOManager';
+import './Feed.css';
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -15,7 +15,23 @@ function Feed() {
   const [showReplies, setShowReplies] = useState({});
   const [showLikes, setShowLikes] = useState({});
   const [showLikeCount, setShowLikeCount] = useState({});
+  const [imageOrientation, setImageOrientation] = useState({});
   const utils = ApiDataIOManager();
+
+  const getImageOrientation = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        if (img.width > img.height) {
+          resolve("landscape");
+        } else {
+          resolve("portrait");
+        }
+      };
+      img.onerror = (err) => reject(err);
+      img.src = imageUrl;
+    });
+  };
 
   const toggleReplies = (tweetId) => {
     setShowReplies((prevState) => ({
@@ -41,7 +57,6 @@ function Feed() {
       tweet: tweetId,
       notification_type: 'TL',
     };
-
     if (like === true) {
       console.log('like');
       setShowLikes((prevState) => ({
@@ -124,16 +139,27 @@ function Feed() {
       let url = `connection/tweet/`;
       const response = await utils.fetchData(url);
       setPosts(response.data);
+      
+      response.data.forEach((post) => {
+        if (post.image) {
+          getImageOrientation(post.image).then((orientation) => {
+            setImageOrientation((prevState) => ({
+              ...prevState,
+              [post.id]: orientation,
+            }));
+          }).catch((err) => console.error("Error loading image:", err));
+        }
+      });
 
+      // Fetch like data
       url = `connection/tweetlike/`;
       const like_response = await utils.fetchData(url);
       setShowLikes(like_response.data);
-      console.log(showLikes);
 
+      // Fetch like count data
       url = `connection/tweetlikecount/`;
       const likecount_response = await utils.fetchData(url);
       setShowLikeCount(likecount_response.data);
-      console.log(showLikeCount);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -168,6 +194,7 @@ function Feed() {
               toggleLikes={(like) => toggleLikes(post.id, post.user, like)}
               likecount={showLikeCount[post.id] ? showLikeCount[post.id] : null}
               deleteTweet={deleteTweet}
+              imageOrientation={imageOrientation[post.id]}
             />
             <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
           </div>
