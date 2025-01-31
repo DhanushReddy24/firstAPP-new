@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const JobListingForm = () => {
+  const utils = ApiDataIOManager();
   const {
     register,
     handleSubmit,
@@ -15,8 +17,20 @@ const JobListingForm = () => {
     navigate("/jobs");
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("Job Listing Data:", data);
+    //event.preventDefault();
+    try {
+      console.log(data);
+      let url = `job/job/`;
+      const response = await utils.postData(url, data);
+      console.log(response.status);
+      if (response.status=201){
+        navigate('/jobs/');
+      }
+    } catch (error) {
+      console.error('Error while posting data:', error);
+    }
   };
 
   return (

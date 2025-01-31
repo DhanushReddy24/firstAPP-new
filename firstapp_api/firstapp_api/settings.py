@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'sample',
     'connection',
+    'jobs',
     'corsheaders',
     'cloudinary_storage'
 ]
