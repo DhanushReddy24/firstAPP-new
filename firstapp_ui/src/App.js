@@ -16,6 +16,8 @@ import Profile from './connection/tweet/Profile';
 import Notification from './connection/tweet/Notification';
 import Maps from './connection/tweet/Maps';
 import Main from './test/Main';
+import Jobs from './connection/tweet/jobs/Jobs';
+import JobListingForm from './connection/tweet/jobs/JobListing';
 import './App.css';
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
         <Route path="/tweetbox" element={<TweetBox />} />
         <Route path="/replybox" element={<ReplyBox />} />
         <Route path="/maps" element={<Maps />} />
+        <Route path='/jobs' element={<Jobs />} />
+        <Route path='/jobs/job-listing-form' element={<JobListingForm />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />
         <Route
