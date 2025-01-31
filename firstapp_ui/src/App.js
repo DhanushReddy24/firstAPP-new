@@ -17,6 +17,7 @@ import Notification from './connection/tweet/Notification';
 import Maps from './connection/tweet/Maps';
 import Main from './test/Main';
 import './App.css';
+import Jobs from './connection/tweet/jobs/Jobs';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/tweetbox" element={<TweetBox />} />
         <Route path="/replybox" element={<ReplyBox />} />
         <Route path="/maps" element={<Maps />} />
+        <Route path='/jobs' element={<Jobs />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />
         <Route
