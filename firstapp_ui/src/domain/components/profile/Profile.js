@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./Sidebar"; // Adjust the import path based on your folder structure
-import ApiDataIOManager from '../../common/ApiDataIOManager';
-
+import Sidebar from '../../../common/AppNav/Sidebar';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
   const utils = ApiDataIOManager();

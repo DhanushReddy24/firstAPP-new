@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 function ReplyBox({ tweetId, toggleRefresh }) {
   const [userData, setuserData] = useState(() =>

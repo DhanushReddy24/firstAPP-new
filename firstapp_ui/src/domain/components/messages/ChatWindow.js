@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './ChatWindow.css';
 import InputBox from './InputBox';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import './ChatWindow.css';
 
 function ChatWindow({ selectedChat }) {
   const chatMessages1 = [

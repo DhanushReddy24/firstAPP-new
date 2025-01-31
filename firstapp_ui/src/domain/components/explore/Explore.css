@@ -4,3 +4,7 @@
   align-items: center;
   height: 100vh; /* Adjust the height as needed */
 }
+
+.feed_center {
+  @apply flex justify-center items-center h-screen; /* Using Tailwind's utility classes */
+}

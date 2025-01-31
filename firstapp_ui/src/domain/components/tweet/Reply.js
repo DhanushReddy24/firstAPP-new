@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Reply.css';
 import ReplyBox from './ReplyBox';
-import ApiDataIOManager from '../../common/ApiDataIOManager';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 function Reply({ tweetId, showReplies }) {
   const [replies, setReplies] = useState([]);

@@ -16,3 +16,4 @@ class UserLocationSerializer(serializers.ModelSerializer):
 
     def get_firstname(self, obj):
         return obj.user.first_name
+        
