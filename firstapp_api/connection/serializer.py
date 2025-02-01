@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Tweet,TweetReply,Message,TweetLike,Notification
+from authentication.models import User
+from django.db.models import Count, Case, When, BooleanField, Subquery, OuterRef, Value, Q
 
 class TweetSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
@@ -64,3 +66,18 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = ['id','user','from_user','message','notification_type','is_read','created_at']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    posts_count = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = ['id','username','email','first_name','last_name','image', 'posts_count', 'likes_count']
+
+    def get_posts_count(self, obj):
+        return obj.tweets.count()
+    
+    def get_likes_count(self, obj):
+        TweetLike_data = TweetLike.objects.filter(Q(tweet__user=obj) & Q(is_like=True))
+        return TweetLike_data.count()

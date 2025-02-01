@@ -35,6 +35,7 @@ function App() {
           path="/reply"
           element={<Reply tweetId={1} showReplies={true} />}
         />
+        <Route path="/chat/:userId?" element={<Chat />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/inputbox" element={<InputBox selectedChat={6} />} />
         <Route path="/tweetbox" element={<TweetBox />} />
@@ -43,7 +44,7 @@ function App() {
         <Route path='/jobs' element={<Jobs />} />
         <Route path='/jobs/job-listing-form' element={<JobListingForm />} />
         <Route path="/explore" element={<Explore />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:userId?" element={<ProfilePage />} />
         <Route
           path="/notification"
           element={<Notification showNotifications={true} />}

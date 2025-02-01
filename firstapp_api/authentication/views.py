@@ -12,11 +12,12 @@ import base64
 # Create your views here.
 @api_view(['GET','PUT'])
 @permission_classes([IsAuthenticated])
-def UserAPIView(request):
+def UserAPIView(request, pk=None):
     print('login user')
     if request.method == 'GET':
         print('Get')
-        User_data = User.objects.get(id=request.user.id)
+        user_id = request.user.id if pk==None else pk
+        User_data = User.objects.get(id=user_id)
         User_data = UserSerializer(User_data)
         return Response(User_data.data)
     if request.method == 'PUT':

@@ -1,4 +1,5 @@
 import React, { forwardRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -16,6 +17,7 @@ const Post = forwardRef(
   (
     {
       id,
+      user_id,
       displayName,
       username,
       userimage,
@@ -47,7 +49,9 @@ const Post = forwardRef(
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
+        <Link to={`/profile/${user_id}`}>
           <Avatar src={completeUserImageUrl} />
+        </Link>
         </div>
 
         <div className="post__body">

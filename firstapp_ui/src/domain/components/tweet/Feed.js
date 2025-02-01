@@ -181,6 +181,7 @@ function Feed() {
             <Post
               key={post.id}
               id={post.id}
+              user_id= {post.user}
               displayName={post.firstname}
               username={post.username}
               userimage={post.userimage}

@@ -5,15 +5,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 import './ChatList.css';
 
-function ChatList({ onSelectChat }) {
+function ChatList({ onSelectChat, userId }) {
   const chatList1 = [
     { id: 1, first_name: 'Friend 1', lastMessage: '29/08/2023' },
     { id: 2, first_name: 'Friend 2', lastMessage: '27/08/2023' },
     // ... more chat items
   ];
-  //const { chatList1, loading } = FetchData(`${apiDomain}/user/users/");
   const [chatList, setchatList] = useState([]);
-  const [activeChat, setActiveChat] = useState(null);
+  const [activeChat, setActiveChat] = useState(userId || null);
   const [userData, setuserData] = useState(() =>
     localStorage.getItem('userData')
       ? JSON.parse(localStorage.getItem('userData'))
@@ -61,23 +60,26 @@ function ChatList({ onSelectChat }) {
       </div>
 
       <div className="chat-list-items">
-        {chatList.map((chat) => (
-          <div
-            key={chat.id}
-            className={`chat-list-item ${chat.id === activeChat ? 'active' : ''}`}
-            onClick={() => handleChatClick(chat)}
-          >
-            <img
-              src={`${chat.image}`}
-              alt="Profile"
-              className="profile-image"
-            />
-            <div className="chat-info">
-              <h4>{chat.first_name}</h4>
-              <p>{chat.lastMessage}</p>
+        {chatList.map((chat) => {
+          //console.log('Chat ID:', typeof chat.id, 'Active Chat:', typeof activeChat)
+          return (
+            <div
+              key={chat.id}
+              className={`chat-list-item ${String(chat.id) === String(activeChat)? 'active' : ''}`}
+              onClick={() => handleChatClick(chat)}
+            >
+              <img
+                src={`${chat.image}`}
+                alt="Profile"
+                className="profile-image"
+              />
+              <div className="chat-info">
+                <h4>{chat.first_name}</h4>
+                <p>{chat.lastMessage}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   );

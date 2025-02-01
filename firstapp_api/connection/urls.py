@@ -15,6 +15,6 @@ urlpatterns = [
     path('tweetlikecount/', TweetLikeCountAPIView, name='tweetlike'),
     path('notification/', NotificationAPIView, name='notification'),
     path('notificationcount/', NotificationCountAPIView, name='notificationcount'),
-    path('profile/', ProfileAPIView, name='profile'),
+    path('profile/<int:user>', ProfileAPIView, name='profile'),
     path('usertweetstats/<int:user>/', UserTweetStatsAPIView, name='usertweetstats'),
 ]

@@ -14,6 +14,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', LogoutAPIView, name='logout'),
     path('details/', UserAPIView, name='details'),
+    path('details/<int:pk>', UserAPIView, name='details'),
     path('users/', UsersAPIView, name='users'),
     path('userlocation/', UserLocationAPIView, name='userlocation'),
     path('userlocation/<int:pk>/', UserLocationAPIView, name='userlocation'),

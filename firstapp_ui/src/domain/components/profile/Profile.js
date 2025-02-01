@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from '../../../common/AppNav/Sidebar';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
+  let { userId } = useParams(); // Get userId from the URL parameters
   const utils = ApiDataIOManager();
   const [userData, setuserData] = useState(() =>
   localStorage.getItem('userData')
@@ -11,12 +12,13 @@ const ProfilePage = () => {
     : { id: null }
   ); 
   const [posts, setPosts] = useState([]);
-  const [statdata, setStatdata] = useState([]);
+  const [profiledata, setProfiledata] = useState([]);
+  userId = userId || userData.id;
 
 
-  const fetchPostData = async () => {
+  const fetchPostData = async (userID) => {
     try {
-      let url = `connection/tweet/${userData.id}`;
+      let url = `connection/tweet/${userId}`;
       const response = await utils.fetchData(url);
       let data = await response.data;
       setPosts(data);
@@ -30,20 +32,20 @@ const ProfilePage = () => {
     fetchPostData();
   }, []);
   
-  const fetchUserStatData = async () => {
+  const fetchProfileData = async () => {
     try {
-      let url = `connection/usertweetstats/${userData.id}`;
+      let url = `connection/profile/${userId}`;
       const response = await utils.fetchData(url);
       let data = await response.data;
-      setStatdata(data);
-      console.log(statdata);
+      setProfiledata(data);
+      console.log(profiledata);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    fetchUserStatData();
+    fetchProfileData();
   }, []);
 
   useEffect(() => {
@@ -93,7 +95,7 @@ const ProfilePage = () => {
               <div className="relative">
                 <img
                   alt="Profile"
-                  src={userData?.image}
+                  src={profiledata?.image}
                   className="inline-block size-30 rounded-full ring-2 ring-white w-20 h-20 object-cover"
                 />
                 <label
@@ -112,13 +114,13 @@ const ProfilePage = () => {
                 />
               </div>
               <div>
-                <h1 className="text-lg font-semibold">{userData?.first_name} {userData?.last_name}</h1>
-                <p className="text-sm text-gray-500">@{userData?.username}</p>
+                <h1 className="text-lg font-semibold">{profiledata?.first_name} {profiledata?.last_name}</h1>
+                <p className="text-sm text-gray-500">@{profiledata?.username}</p>
               </div>
             </div>
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => navigate("/chat")} // Correct placement of the function call
+              onClick={() => navigate(`/chat/${userId}`)} // Correct placement of the function call
             >
               Message
             </button>
@@ -133,7 +135,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Posts</h2>
-              <p className="text-xl font-bold">{statdata.posts}</p>
+              <p className="text-xl font-bold">{profiledata.posts_count}</p>
             </div>
             <div>
               <h2 className="text-gray-600">Collections</h2>
@@ -141,7 +143,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Likes</h2>
-              <p className="text-xl font-bold">{statdata.likes}</p>
+              <p className="text-xl font-bold">{profiledata.likes_count}</p>
             </div>
           </div>
         </div>

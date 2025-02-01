@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from authentication.models import User
 from authentication.serializer import UserSerializer
 from .models import Tweet,TweetReply,Message,TweetLike, Notification
-from .serializer import TweetSerializer,TweetSerializer_Post,TweetReplySerializer,MessageSerializer,TweetLikeSerializer, NotificationSerializer
+from .serializer import TweetSerializer,TweetSerializer_Post,TweetReplySerializer,MessageSerializer,TweetLikeSerializer, NotificationSerializer, ProfileSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -227,13 +227,12 @@ def TweetDeleteAPIView(request, pk):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def ProfileAPIView(request):
+def ProfileAPIView(request,user):
     if request.method == 'GET':
         print('Get')
-        users_data = User.objects.get(id=request.user.id)
-        users_data = UserSerializer(users_data)
-        return Response(users_data.data, status=200)
-    
+        profile_data = User.objects.get(id=user)
+        profile_data = ProfileSerializer(profile_data)
+        return Response(profile_data.data, status=200)
     else:
         return Response('No data', status=200)
 
