@@ -2,6 +2,7 @@ from django.db import models
 from authentication.models import User
 
 class Job(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     title = models.CharField(max_length=255, blank=False)
     company = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=255, blank=False)

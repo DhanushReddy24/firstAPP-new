@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState }  from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const JobListingForm = () => {
+  const [userData, setuserData] = useState(() =>
+    localStorage.getItem('userData')
+      ? JSON.parse(localStorage.getItem('userData'))
+      : { id: null }
+  );
   const utils = ApiDataIOManager();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({defaultValues: {
+    user: userData.id || "",
+  }});
 
   const navigate = useNavigate();
 

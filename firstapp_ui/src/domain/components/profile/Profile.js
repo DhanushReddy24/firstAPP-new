@@ -9,11 +9,10 @@ const ProfilePage = () => {
   localStorage.getItem('userData')
     ? JSON.parse(localStorage.getItem('userData'))
     : { id: null }
-);  const [formData, setFormData] = useState({
-    image: null,
-  });
+  ); 
   const [posts, setPosts] = useState([]);
   const [statdata, setStatdata] = useState([]);
+
 
   const fetchPostData = async () => {
     try {
@@ -47,6 +46,9 @@ const ProfilePage = () => {
     fetchUserStatData();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("userData", JSON.stringify(userData));
+  }, [userData]);
     
   const handlePhotoChange = async (event) => {
     event.preventDefault();
@@ -59,7 +61,13 @@ const ProfilePage = () => {
       console.log('image',formData?.image);
       let url = `user/details/`;
       const response = await utils.putData(url, formData);
-      console.log(response.status);
+      console.log(response.status, formData.get("image"));
+      if (response.status==201){
+        setuserData((prev) => ({
+          ...prev,
+          image: response.data.image,
+        }));
+      }
       //event.target.reset();
       //setFormData({ ...formData, ['image']: null });
     } catch (error) {
