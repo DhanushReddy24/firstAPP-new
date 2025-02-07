@@ -41,8 +41,8 @@ function App() {
         <Route path="/tweetbox" element={<TweetBox />} />
         <Route path="/replybox" element={<ReplyBox />} />
         <Route path="/maps" element={<Maps />} />
-        <Route path='/jobs' element={<Jobs />} />
-        <Route path='/jobs/job-listing-form' element={<JobListingForm />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/jobs/job-listing-form" element={<JobListingForm />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile/:userId?" element={<ProfilePage />} />
         <Route

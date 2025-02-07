@@ -16,6 +16,7 @@ function Feed() {
   const [showLikes, setShowLikes] = useState({});
   const [showLikeCount, setShowLikeCount] = useState({});
   const [imageOrientation, setImageOrientation] = useState({});
+  const [commentCounts, setCommentCounts] = useState({});
   const utils = ApiDataIOManager();
 
   const getImageOrientation = (imageUrl) => {
@@ -23,9 +24,9 @@ function Feed() {
       const img = new Image();
       img.onload = () => {
         if (img.width > img.height) {
-          resolve("landscape");
+          resolve('landscape');
         } else {
-          resolve("portrait");
+          resolve('portrait');
         }
       };
       img.onerror = (err) => reject(err);
@@ -139,15 +140,17 @@ function Feed() {
       let url = `connection/tweet/`;
       const response = await utils.fetchData(url);
       setPosts(response.data);
-      
+
       response.data.forEach((post) => {
         if (post.image) {
-          getImageOrientation(post.image).then((orientation) => {
-            setImageOrientation((prevState) => ({
-              ...prevState,
-              [post.id]: orientation,
-            }));
-          }).catch((err) => console.error("Error loading image:", err));
+          getImageOrientation(post.image)
+            .then((orientation) => {
+              setImageOrientation((prevState) => ({
+                ...prevState,
+                [post.id]: orientation,
+              }));
+            })
+            .catch((err) => console.error('Error loading image:', err));
         }
       });
 
@@ -163,6 +166,13 @@ function Feed() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  };
+
+  const updateCommentCount = (tweetId, count) => {
+    setCommentCounts((prevState) => ({
+      ...prevState,
+      [tweetId]: count,
+    }));
   };
 
   useEffect(() => {
@@ -181,7 +191,7 @@ function Feed() {
             <Post
               key={post.id}
               id={post.id}
-              user_id= {post.user}
+              user_id={post.user}
               displayName={post.firstname}
               username={post.username}
               userimage={post.userimage}
@@ -196,8 +206,13 @@ function Feed() {
               likecount={showLikeCount[post.id] ? showLikeCount[post.id] : null}
               deleteTweet={deleteTweet}
               imageOrientation={imageOrientation[post.id]}
+              commentCount={commentCounts[post.id] || 0}
             />
-            <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
+            <Reply
+              tweetId={post.id}
+              showReplies={showReplies[post.id]}
+              updateCommentCount={(count) => updateCommentCount(post.id, count)}
+            />
           </div>
         ))}
       </FlipMove>

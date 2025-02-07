@@ -65,7 +65,7 @@ function ChatList({ onSelectChat, userId }) {
           return (
             <div
               key={chat.id}
-              className={`chat-list-item ${String(chat.id) === String(activeChat)? 'active' : ''}`}
+              className={`chat-list-item ${String(chat.id) === String(activeChat) ? 'active' : ''}`}
               onClick={() => handleChatClick(chat)}
             >
               <img
@@ -78,7 +78,7 @@ function ChatList({ onSelectChat, userId }) {
                 <p>{chat.lastMessage}</p>
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </div>

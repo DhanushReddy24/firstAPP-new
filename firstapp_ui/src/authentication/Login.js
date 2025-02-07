@@ -7,7 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const CLIENT_ID = '95906387495-no134p459qjt0ct2fie4iq7bi2dse79u.apps.googleusercontent.com';
+const CLIENT_ID =
+  '95906387495-no134p459qjt0ct2fie4iq7bi2dse79u.apps.googleusercontent.com';
 
 // gapi.load('auth2', () => {
 //   gapi.auth2.init({
@@ -84,12 +85,16 @@ function Login() {
   return (
     <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
-        <h2 className="text-center text-2xl font-bold text-gray-900">Sign in to your account</h2>
+        <h2 className="text-center text-2xl font-bold text-gray-900">
+          Sign in to your account
+        </h2>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           {/* Username */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Username</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Username
+            </label>
             <input
               type="text"
               name="username"
@@ -99,20 +104,28 @@ function Login() {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-3 py-2"
             />
           </div>
-       
+
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
             <div className="mt-1 relative">
               <input
                 type={values.showPassword ? 'text' : 'password'}
                 name="password"
                 value={values.password}
-                onChange={(e) => setValues({ ...values, password: e.target.value })}
+                onChange={(e) =>
+                  setValues({ ...values, password: e.target.value })
+                }
                 required
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-3 py-2 pr-10"
               />
               <span className="absolute inset-y-0 right-3 flex items-center">
-                <IconButton onClick={() => setValues({ ...values, showPassword: !values.showPassword })}>
+                <IconButton
+                  onClick={() =>
+                    setValues({ ...values, showPassword: !values.showPassword })
+                  }
+                >
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </span>
@@ -120,7 +133,9 @@ function Login() {
           </div>
 
           <div className="text-right text-sm">
-            <a href="#" className="text-indigo-600 hover:underline">Forgot password?</a>
+            <a href="#" className="text-indigo-600 hover:underline">
+              Forgot password?
+            </a>
           </div>
 
           <button
@@ -133,12 +148,18 @@ function Login() {
 
         <div className="mt-6 flex justify-center">
           <GoogleOAuthProvider clientId={CLIENT_ID}>
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleFailure} />
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleFailure}
+            />
           </GoogleOAuthProvider>
         </div>
 
         <p className="mt-6 text-center text-sm text-gray-500">
-          Not a member? <a href="/register/" className="text-indigo-600 hover:underline">Register</a>
+          Not a member?{' '}
+          <a href="/register/" className="text-indigo-600 hover:underline">
+            Register
+          </a>
         </p>
       </div>
     </div>
