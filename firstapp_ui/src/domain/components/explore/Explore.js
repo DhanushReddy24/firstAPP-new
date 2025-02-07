@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Search } from '@mui/icons-material';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
-import Sidebar from "../../../common/AppNav/Sidebar";
+import Sidebar from '../../../common/AppNav/Sidebar';
 
 export default function Explore() {
   const [posts, setPosts] = useState([]);

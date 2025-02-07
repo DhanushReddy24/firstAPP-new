@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import './Reply.css';
 import ReplyBox from './ReplyBox';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import './Reply.css';
 
-function Reply({ tweetId, showReplies }) {
+function Reply({ tweetId, showReplies, updateCommentCount }) {
   const [replies, setReplies] = useState([]);
-  const [Refresh, setRefresh] = useState(true);
+  const [refresh, setRefresh] = useState(true);
   const utils = ApiDataIOManager();
 
-  const toggleRefresh = (tweetId) => {
-    setRefresh(!Refresh);
+  const toggleRefresh = () => {
+    setRefresh((prev) => !prev);
   };
 
   const fetchReplies = async () => {
     try {
-      let url = `connection/reply/${tweetId}/`;
-      const response = await utils.fetchData(url);
+      const response = await utils.fetchData(`connection/reply/${tweetId}/`);
       setReplies(response.data);
+      updateCommentCount(response.data.length);
     } catch (error) {
       console.error('Error fetching replies:', error);
     }
@@ -24,14 +24,12 @@ function Reply({ tweetId, showReplies }) {
 
   useEffect(() => {
     fetchReplies();
-  }, [Refresh]);
+  }, [refresh]);
 
   return (
     <div className="tweet-replies">
       {showReplies && (
         <span>
-          <h2 className="replies-heading">Replies:</h2>
-          <ReplyBox tweetId={tweetId} toggleRefresh={toggleRefresh} />
           <ul className="replies-list">
             {replies.map((reply) => (
               <li key={reply.id} className="reply-item">
@@ -44,6 +42,7 @@ function Reply({ tweetId, showReplies }) {
               </li>
             ))}
           </ul>
+          <ReplyBox tweetId={tweetId} toggleRefresh={toggleRefresh} />
         </span>
       )}
     </div>

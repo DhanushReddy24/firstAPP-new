@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import ApiDataIOManager from "../../../common/ApiDataIOManager";
-import Sidebar from "../../../common/AppNav/Sidebar";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder"; // MUI Icon
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import Sidebar from '../../../common/AppNav/Sidebar';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'; // MUI Icon
 
 export default function Jobs() {
   const navigate = useNavigate();
@@ -16,25 +16,25 @@ export default function Jobs() {
         const response = await utils.fetchData(url);
         setJobs(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
     fetchPostData();
   }, []);
 
   const handleNavigate = () => {
-    navigate("/jobs/job-listing-form");
+    navigate('/jobs/job-listing-form');
   };
 
   // Function to generate dynamic colors
   const getColor = (type) => {
     const colors = [
-      "bg-indigo-100 text-indigo-600",
-      "bg-green-100 text-green-600",
-      "bg-yellow-100 text-yellow-600",
-      "bg-red-100 text-red-600",
-      "bg-blue-100 text-blue-600",
-      "bg-purple-100 text-purple-600",
+      'bg-indigo-100 text-indigo-600',
+      'bg-green-100 text-green-600',
+      'bg-yellow-100 text-yellow-600',
+      'bg-red-100 text-red-600',
+      'bg-blue-100 text-blue-600',
+      'bg-purple-100 text-purple-600',
     ];
     return colors[type.length % colors.length]; // Pick based on string length
   };
@@ -66,7 +66,7 @@ export default function Jobs() {
             <div
               key={job.id}
               className="p-6 rounded-2xl shadow-md relative"
-              style={{ backgroundColor: "#f9f9ff" }} // Light touch background
+              style={{ backgroundColor: '#f9f9ff' }} // Light touch background
             >
               {/* Bookmark Icon */}
               <div className="absolute top-4 right-4 cursor-pointer">
@@ -83,10 +83,14 @@ export default function Jobs() {
 
               {/* Dynamic Colored Badges */}
               <div className="flex flex-wrap gap-2 mt-3">
-                <span className={`px-3 py-1 rounded-full text-xs ${getColor(job.jobType)}`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs ${getColor(job.jobType)}`}
+                >
                   {job.jobType}
                 </span>
-                <span className={`px-3 py-1 rounded-full text-xs ${getColor(job.location)}`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs ${getColor(job.location)}`}
+                >
                   {job.location}
                 </span>
               </div>

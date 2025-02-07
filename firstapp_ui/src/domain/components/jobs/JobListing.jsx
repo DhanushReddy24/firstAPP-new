@@ -1,6 +1,6 @@
-import React, { useState }  from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const JobListingForm = () => {
@@ -14,25 +14,27 @@ const JobListingForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({defaultValues: {
-    user: userData.id || "",
-  }});
+  } = useForm({
+    defaultValues: {
+      user: userData.id || '',
+    },
+  });
 
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    navigate("/jobs");
+    navigate('/jobs');
   };
 
-  const onSubmit = async(data) => {
-    console.log("Job Listing Data:", data);
+  const onSubmit = async (data) => {
+    console.log('Job Listing Data:', data);
     //event.preventDefault();
     try {
       console.log(data);
       let url = `job/job/`;
       const response = await utils.postData(url, data);
       console.log(response.status);
-      if (response.status=201){
+      if ((response.status = 201)) {
         navigate('/jobs/');
       }
     } catch (error) {
@@ -53,7 +55,7 @@ const JobListingForm = () => {
           </label>
           <input
             type="text"
-            {...register("title", { required: "Job title is required" })}
+            {...register('title', { required: 'Job title is required' })}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Enter job title"
           />
@@ -68,7 +70,7 @@ const JobListingForm = () => {
           </label>
           <input
             type="text"
-            {...register("company", { required: "Company name is required" })}
+            {...register('company', { required: 'Company name is required' })}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Enter company name"
           />
@@ -82,8 +84,8 @@ const JobListingForm = () => {
             Job Description
           </label>
           <textarea
-            {...register("description", {
-              required: "Job description is required",
+            {...register('description', {
+              required: 'Job description is required',
             })}
             rows="4"
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
@@ -99,7 +101,7 @@ const JobListingForm = () => {
             Job Type
           </label>
           <select
-            {...register("jobType", { required: "Please select a job type" })}
+            {...register('jobType', { required: 'Please select a job type' })}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="">Select Job Type</option>
@@ -118,7 +120,7 @@ const JobListingForm = () => {
             Location
           </label>
           <select
-            {...register("location", { required: "Please select a location" })}
+            {...register('location', { required: 'Please select a location' })}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="">Select Location</option>
@@ -139,9 +141,9 @@ const JobListingForm = () => {
           </label>
           <input
             type="number"
-            {...register("salary", {
-              required: "Salary is required",
-              min: { value: 10000, message: "Salary must be at least $10,000" },
+            {...register('salary', {
+              required: 'Salary is required',
+              min: { value: 10000, message: 'Salary must be at least $10,000' },
             })}
             className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Enter salary amount"
@@ -152,21 +154,21 @@ const JobListingForm = () => {
         </div>
 
         <div className="flex justify-end space-x-4 mt-6">
-  <button
-    type="submit"
-    className="px-6 py-2 w-full sm:w-auto bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
-  >
-    Post Job
-  </button>
+          <button
+            type="submit"
+            className="px-6 py-2 w-full sm:w-auto bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+          >
+            Post Job
+          </button>
 
-  <button
-    type="button"
-    onClick={handleCancel}
-    className="px-6 py-2 w-full sm:w-auto bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition"
-  >
-    Cancel
-  </button>
-</div>
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="px-6 py-2 w-full sm:w-auto bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

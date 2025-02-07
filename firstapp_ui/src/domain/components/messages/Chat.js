@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import ChatList from './ChatList';
 import ChatWindow from './ChatWindow';
 import './Chat.css';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
-
 
 function Chat() {
   const { userId } = useParams();
@@ -27,10 +26,12 @@ function Chat() {
     fetchUserData(userId);
   }, [userId]);
 
-
   return (
     <div className="chat-container">
-      <ChatList onSelectChat={(chatId) => setSelectedChat(chatId)}  userId={userId}/>
+      <ChatList
+        onSelectChat={(chatId) => setSelectedChat(chatId)}
+        userId={userId}
+      />
       <ChatWindow selectedChat={selectedChat} />
     </div>
   );

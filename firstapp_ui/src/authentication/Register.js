@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ApiDataIOManager from "../common/ApiDataIOManager";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ApiDataIOManager from '../common/ApiDataIOManager';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 
 function Register() {
   const [formData, setFormData] = useState({
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    re_password: "",
-    dob: "",
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    re_password: '',
+    dob: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,15 +31,15 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (formData.password !== formData.re_password) {
-      alert("Passwords do not match!");
+      alert('Passwords do not match!');
       return;
     }
     try {
       const url = `user/auth/users/`;
       await utils.postData(url, formData);
-      navigate("/login/");
+      navigate('/login/');
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
@@ -129,7 +129,7 @@ function Register() {
             </label>
             <div className="relative flex items-center">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={onChange}
@@ -156,7 +156,7 @@ function Register() {
             </label>
             <div className="relative flex items-center">
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? 'text' : 'password'}
                 name="re_password"
                 value={formData.re_password}
                 onChange={onChange}
@@ -186,8 +186,10 @@ function Register() {
         </form>
 
         <p className="text-sm text-gray-600 text-center mt-4">
-          Already have an account?{" "}
-          <a href="/login/" className="text-blue-500 hover:underline">Login</a>
+          Already have an account?{' '}
+          <a href="/login/" className="text-blue-500 hover:underline">
+            Login
+          </a>
         </p>
       </div>
     </div>

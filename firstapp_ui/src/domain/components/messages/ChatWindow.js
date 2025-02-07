@@ -10,7 +10,7 @@ function ChatWindow({ selectedChat }) {
     { id: 1, text: 'Hi', time: '29/08/2023', sender: 'me' },
     { id: 2, text: 'Hello', time: '27/08/2023', sender: 'him' },
   ];
-  console.log('selected-Chat', selectedChat)
+  console.log('selected-Chat', selectedChat);
   const [userData, setuserData] = useState(() =>
     localStorage.getItem('userData')
       ? JSON.parse(localStorage.getItem('userData'))
