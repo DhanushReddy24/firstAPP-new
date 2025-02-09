@@ -3,48 +3,43 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
-  let { userId } = useParams();
+  const { userId: paramUserId } = useParams();
   const utils = ApiDataIOManager();
-  const [userData, setuserData] = useState(() =>
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState(() =>
     localStorage.getItem('userData')
       ? JSON.parse(localStorage.getItem('userData'))
       : { id: null }
   );
   const [posts, setPosts] = useState([]);
-  const [profiledata, setProfiledata] = useState([]);
-  userId = userId || userData.id;
-
-  const fetchPostData = async (userID) => {
-    try {
-      let url = `connection/tweet/${userId}`;
-      const response = await utils.fetchData(url);
-      let data = await response.data;
-      setPosts(data);
-      console.log(posts);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  const [profileData, setProfileData] = useState({});
+  const userId = paramUserId || userData.id;
 
   useEffect(() => {
-    fetchPostData();
-  }, []);
+    const fetchProfileData = async () => {
+      try {
+        const profileUrl = `connection/profile/${userId}`;
+        const profileResponse = await utils.fetchData(profileUrl);
+        setProfileData(profileResponse.data);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    };
 
-  const fetchProfileData = async () => {
-    try {
-      let url = `connection/profile/${userId}`;
-      const response = await utils.fetchData(url);
-      let data = await response.data;
-      setProfiledata(data);
-      console.log(profiledata);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    const fetchPostData = async () => {
+      try {
+        const postsUrl = `connection/tweet/${userId}`;
+        const postsResponse = await utils.fetchData(postsUrl);
+        setPosts(postsResponse.data);
+      } catch (error) {
+        console.error('Error fetching posts data:', error);
+      }
+    };
 
-  useEffect(() => {
     fetchProfileData();
-  }, []);
+    fetchPostData();
+  }, [userId, utils]);
 
   useEffect(() => {
     localStorage.setItem('userData', JSON.stringify(userData));
@@ -52,46 +47,38 @@ const ProfilePage = () => {
 
   const handlePhotoChange = async (event) => {
     event.preventDefault();
-    //setFormData({ ...formData, [event.target.name]: event.target.files[0] });
-
     const formData = new FormData();
     formData.append('image', event.target.files[0]);
 
     try {
-      console.log('image', formData?.image);
-      let url = `user/details/`;
+      const url = `user/details/`;
       const response = await utils.putData(url, formData);
-      console.log(response.status, formData.get('image'));
-      if (response.status == 201) {
-        setuserData((prev) => ({
+      if (response.status === 201) {
+        setUserData((prev) => ({
           ...prev,
           image: response.data.image,
         }));
       }
-      //event.target.reset();
-      //setFormData({ ...formData, ['image']: null });
     } catch (error) {
-      console.error('Error while posting data:', error);
+      console.error('Error while updating profile photo:', error);
     }
   };
 
-  const navigate = useNavigate();
-
   return (
-    <div className="bg-gray-100 min-h-screen flex">
-      <div className="w-3/4">
+    <div className="bg-gray-100 min-h-screen flex justify-center overflow-hidden">
+      <div className="w-full max-w-4xl">
         <div className="bg-white shadow">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <img
                   alt="Profile"
-                  src={profiledata?.image}
-                  className="inline-block size-30 rounded-full ring-2 ring-white w-20 h-20 object-cover"
+                  src={profileData?.image || 'default-profile.png'}
+                  className="inline-block rounded-full ring-2 ring-white w-20 h-20 object-cover"
                 />
                 <label
                   htmlFor="profilePhotoInput"
-                  className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1 cursor-pointer"
+                  className="absolute bottom-0 right-0 bg-gray-500 text-white rounded-full p-1 cursor-pointer"
                 >
                   📷
                 </label>
@@ -106,16 +93,16 @@ const ProfilePage = () => {
               </div>
               <div>
                 <h1 className="text-lg font-semibold">
-                  {profiledata?.first_name} {profiledata?.last_name}
+                  {profileData?.first_name} {profileData?.last_name}
                 </h1>
                 <p className="text-sm text-gray-500">
-                  @{profiledata?.username}
+                  @{profileData?.username}
                 </p>
               </div>
             </div>
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => navigate(`/chat/${userId}`)} // Correct placement of the function call
+              onClick={() => navigate(`/chat/${userId}`)}
             >
               Message
             </button>
@@ -130,7 +117,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Posts</h2>
-              <p className="text-xl font-bold">{profiledata.posts_count}</p>
+              <p className="text-xl font-bold">{profileData.posts_count}</p>
             </div>
             <div>
               <h2 className="text-gray-600">Collections</h2>
@@ -138,7 +125,7 @@ const ProfilePage = () => {
             </div>
             <div>
               <h2 className="text-gray-600">Likes</h2>
-              <p className="text-xl font-bold">{profiledata.likes_count}</p>
+              <p className="text-xl font-bold">{profileData.likes_count}</p>
             </div>
           </div>
         </div>
@@ -155,18 +142,19 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4">
+        <div className="container mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
-            <div key={post.id} className="post-wrapper">
-              <div className="bg-white shadow rounded-md overflow-hidden">
-                <img
-                  src={post.image}
-                  alt="Photo 1"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <p className="text-gray-600">{post.tweet}</p>
-                </div>
+            <div
+              key={post.id}
+              className="bg-white shadow rounded-md overflow-hidden"
+            >
+              <img
+                src={post.image || 'default-post.png'}
+                alt="Post"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <p className="text-gray-600">{post.tweet}</p>
               </div>
             </div>
           ))}

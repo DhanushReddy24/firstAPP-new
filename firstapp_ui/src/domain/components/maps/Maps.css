@@ -1,12 +1,12 @@
-.Map {
-  width: 98vw;
-  height: 98vh;
-  position: absolute;
-  top: 5vw;
-  left: 5vw;
+.map-container {
+  width: calc(100vw - 234px);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 234px;
+  overflow: hidden;
 }
 
 .Marker {
-  left: 10px;
   position: absolute;
 }
