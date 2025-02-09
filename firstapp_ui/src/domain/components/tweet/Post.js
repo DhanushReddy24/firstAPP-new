@@ -1,11 +1,8 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import RepeatIcon from '@mui/icons-material/Repeat';
-import ReplyIcon from '@mui/icons-material/Reply';
-import PublishIcon from '@mui/icons-material/Publish';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -30,6 +27,7 @@ const Post = forwardRef(
       toggleLikes,
       likecount,
       deleteTweet,
+      commentCount,
     },
     ref
   ) => {
@@ -38,13 +36,15 @@ const Post = forwardRef(
     const [showOptions, setShowOptions] = useState(false);
     const [imageClass, setImageClass] = useState('');
 
-    const getImageAspectClass = (url) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => {
-        setImageClass(img.width > img.height ? 'landscape' : 'portrait');
-      };
-    };
+    useEffect(() => {
+      if (postimage) {
+        const img = new Image();
+        img.src = postimage;
+        img.onload = () => {
+          setImageClass(img.width > img.height ? 'landscape' : 'portrait');
+        };
+      }
+    }, [postimage]);
 
     return (
       <div className="post" ref={ref}>
@@ -56,7 +56,6 @@ const Post = forwardRef(
 
         <div className="post__body">
           <div className="post__header">
-            {/* Username & Verified Badge on the Left */}
             <div className="post__headerText" style={{ flexGrow: 1 }}>
               <h3>
                 {displayName}{' '}
@@ -67,7 +66,6 @@ const Post = forwardRef(
               </h3>
             </div>
 
-            {/* Delete Toggle Button on the Right */}
             <div className="relative">
               <IconButton
                 onClick={() => setShowOptions((prev) => !prev)}
@@ -92,27 +90,19 @@ const Post = forwardRef(
             </div>
           </div>
 
-          {/* Post Text */}
           <div className="post__headerDescription">
             <p>{text}</p>
           </div>
 
-          {/* Post Image */}
           {postimage && (
             <img
               src={completePostImageUrl}
               alt="post"
               className={`post__image ${imageClass}`}
-              onLoad={() => getImageAspectClass(completePostImageUrl)}
             />
           )}
 
-          {/* Post Footer */}
           <div className="post__footer">
-            <ChatBubbleOutlineIcon fontSize="small" />
-            <RepeatIcon fontSize="small" />
-
-            {/* Like & Dislike Buttons */}
             <div className="likeicons">
               <span onClick={() => toggleLikes(true)}>
                 {isLike ? (
@@ -137,10 +127,11 @@ const Post = forwardRef(
                 )}
               </span>
             </div>
-
-            <PublishIcon fontSize="small" />
-            <span onClick={toggleReplies}>
-              <ReplyIcon fontSize="small" />
+            <span onClick={toggleReplies} className="relative">
+              <ChatBubbleOutlineIcon fontSize="small" />
+              {commentCount > 0 && (
+                <span className="notification-badge">{commentCount}</span>
+              )}
             </span>
           </div>
         </div>

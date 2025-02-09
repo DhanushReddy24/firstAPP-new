@@ -74,6 +74,22 @@
   padding: 4px;
 }
 
+.notification-badge {
+  position: absolute;
+  top: -9px;
+  right: -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+}
+
 .post__image {
   max-width: 100%;
   max-height: 500px;

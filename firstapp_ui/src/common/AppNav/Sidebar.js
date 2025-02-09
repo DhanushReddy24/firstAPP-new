@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import SidebarOption from './SidebarOption';
 import HomeIcon from '@mui/icons-material/Home';
@@ -13,6 +12,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, IconButton } from '@mui/material';
 import WebhookIcon from '@mui/icons-material/Webhook';
+import './Sidebar.css';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);

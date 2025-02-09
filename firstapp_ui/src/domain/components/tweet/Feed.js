@@ -16,6 +16,7 @@ function Feed() {
   const [showLikes, setShowLikes] = useState({});
   const [showLikeCount, setShowLikeCount] = useState({});
   const [imageOrientation, setImageOrientation] = useState({});
+  const [commentCounts, setCommentCounts] = useState({});
   const utils = ApiDataIOManager();
 
   const getImageOrientation = (imageUrl) => {
@@ -167,6 +168,13 @@ function Feed() {
     }
   };
 
+  const updateCommentCount = (tweetId, count) => {
+    setCommentCounts((prevState) => ({
+      ...prevState,
+      [tweetId]: count,
+    }));
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -198,8 +206,13 @@ function Feed() {
               likecount={showLikeCount[post.id] ? showLikeCount[post.id] : null}
               deleteTweet={deleteTweet}
               imageOrientation={imageOrientation[post.id]}
+              commentCount={commentCounts[post.id] || 0}
             />
-            <Reply tweetId={post.id} showReplies={showReplies[post.id]} />
+            <Reply
+              tweetId={post.id}
+              showReplies={showReplies[post.id]}
+              updateCommentCount={(count) => updateCommentCount(post.id, count)}
+            />
           </div>
         ))}
       </FlipMove>
