@@ -53,7 +53,7 @@ function Widgets() {
         </Badge>
         <SearchIcon className="text-gray-500 ml-2" />
         <input
-          placeholder="Search Twitter"
+          placeholder="Search Hooks App"
           type="text"
           className="border-none bg-gray-100 ml-2 outline-none"
         />
