@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
+import './Notification.css';
 
 function Notification({
   showNotifications,
