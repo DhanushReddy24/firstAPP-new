@@ -7,11 +7,16 @@ function ApiDataIOManager() {
 
   const getAuthTokens = () => {
     const authTokens = localStorage.getItem('authTokens');
-    return authTokens ? JSON.parse(authTokens) : { refresh: null, access: null, expirationTime: null };
+    return authTokens
+      ? JSON.parse(authTokens)
+      : { refresh: null, access: null, expirationTime: null };
   };
 
   const isTokenValid = (authTokens) => {
-    return authTokens.access != null && new Date().getTime() < authTokens.expirationTime;
+    return (
+      authTokens.access != null &&
+      new Date().getTime() < authTokens.expirationTime
+    );
   };
 
   const handleAuthError = () => {
@@ -48,14 +53,21 @@ function ApiDataIOManager() {
   const postData = async (url, data) => {
     try {
       const authTokens = getAuthTokens();
-      if (isTokenValid(authTokens) || url === 'user/token/' || url === 'user/auth/users/') {
+      if (
+        isTokenValid(authTokens) ||
+        url === 'user/token/' ||
+        url === 'user/auth/users/'
+      ) {
         console.log('Posting data');
         const apiUrl = `${apiDomain}/${url}`;
         console.log(apiUrl);
-        const headers = url === 'user/token/' || url === 'user/auth/users/' ? {} : {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `JWT ${authTokens.access}`,
-        };
+        const headers =
+          url === 'user/token/' || url === 'user/auth/users/'
+            ? {}
+            : {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `JWT ${authTokens.access}`,
+              };
         const post_response = await axios.post(apiUrl, data, { headers });
         console.log('Post Status: ', post_response.status);
         return post_response;

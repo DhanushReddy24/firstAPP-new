@@ -174,7 +174,9 @@ function Maps() {
           >
             <PlaceIcon
               fontSize="large"
-              style={{ color: userLocation.user !== userData.id ? 'red' : 'blue' }}
+              style={{
+                color: userLocation.user !== userData.id ? 'red' : 'blue',
+              }}
               onMouseEnter={() => handleMarkerEnter(userLocation)}
               onMouseLeave={handleMarkerLeave}
             />
