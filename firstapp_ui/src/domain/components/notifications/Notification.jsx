@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
-function Notification({ showNotifications, changeNotificationsCount, onClose }) {
+function Notification({
+  showNotifications,
+  changeNotificationsCount,
+  onClose,
+}) {
   const [notifications, setNotifications] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const utils = ApiDataIOManager();
@@ -35,7 +39,10 @@ function Notification({ showNotifications, changeNotificationsCount, onClose }) 
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
         if (typeof onClose === 'function') {
           onClose();
         }
@@ -54,7 +61,10 @@ function Notification({ showNotifications, changeNotificationsCount, onClose }) 
   }, [showNotifications, onClose]);
 
   return (
-    <div ref={notificationRef} className={`notification ${showNotifications ? 'block' : 'hidden'}`}>
+    <div
+      ref={notificationRef}
+      className={`notification ${showNotifications ? 'block' : 'hidden'}`}
+    >
       <div className="notification-popup fixed top-12 right-2 w-72 bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50">
         {notifications.map((notification) => (
           <div key={notification.id} className="notification-item mb-4">
