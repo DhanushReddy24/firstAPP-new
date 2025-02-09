@@ -10,7 +10,9 @@ function SidebarOption({ active, text, Icon, to, isOpen }) {
 
   return (
     <Link to={to} style={linkStyle}>
-      <div className={`sidebarOption ${active && isOpen ? 'sidebarOption--active' : ''} ${!isOpen ? 'sidebarOption--closed' : ''}`}>
+      <div
+        className={`sidebarOption ${active && isOpen ? 'sidebarOption--active' : ''} ${!isOpen ? 'sidebarOption--closed' : ''}`}
+      >
         <Icon className="sidebarOption__icon" />
         {isOpen && <h2 className="sidebarOption__text">{text}</h2>}
       </div>
