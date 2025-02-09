@@ -49,9 +49,9 @@ const Post = forwardRef(
     return (
       <div className="post" ref={ref}>
         <div className="post__avatar">
-        <Link to={`/profile/${user_id}`}>
-          <Avatar src={completeUserImageUrl} />
-        </Link>
+          <Link to={`/profile/${user_id}`}>
+            <Avatar src={completeUserImageUrl} />
+          </Link>
         </div>
 
         <div className="post__body">
@@ -61,14 +61,18 @@ const Post = forwardRef(
               <h3>
                 {displayName}{' '}
                 <span className="post__headerSpecial">
-                  {verified && <VerifiedUserIcon className="post__badge" />} @{username}
+                  {verified && <VerifiedUserIcon className="post__badge" />} @
+                  {username}
                 </span>
               </h3>
             </div>
 
             {/* Delete Toggle Button on the Right */}
             <div className="relative">
-              <IconButton onClick={() => setShowOptions((prev) => !prev)} size="small">
+              <IconButton
+                onClick={() => setShowOptions((prev) => !prev)}
+                size="small"
+              >
                 <MoreHorizIcon fontSize="small" />
               </IconButton>
 
@@ -112,7 +116,10 @@ const Post = forwardRef(
             <div className="likeicons">
               <span onClick={() => toggleLikes(true)}>
                 {isLike ? (
-                  <ThumbUpIcon fontSize="small" className="favorite-icon-like" />
+                  <ThumbUpIcon
+                    fontSize="small"
+                    className="favorite-icon-like"
+                  />
                 ) : (
                   <ThumbUpOffAltIcon fontSize="small" />
                 )}
@@ -121,7 +128,10 @@ const Post = forwardRef(
               <div className="likeicons-separator"></div>
               <span onClick={() => toggleLikes(false)}>
                 {isdisLike ? (
-                  <ThumbDownIcon fontSize="small" className="favorite-icon-like" />
+                  <ThumbDownIcon
+                    fontSize="small"
+                    className="favorite-icon-like"
+                  />
                 ) : (
                   <ThumbDownOffAltIcon fontSize="small" />
                 )}

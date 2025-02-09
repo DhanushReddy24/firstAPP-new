@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
-import Sidebar from '../../../common/AppNav/Sidebar';
+import { useParams, useNavigate } from 'react-router-dom';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
-  let { userId } = useParams(); // Get userId from the URL parameters
+  let { userId } = useParams();
   const utils = ApiDataIOManager();
   const [userData, setuserData] = useState(() =>
-  localStorage.getItem('userData')
-    ? JSON.parse(localStorage.getItem('userData'))
-    : { id: null }
-  ); 
+    localStorage.getItem('userData')
+      ? JSON.parse(localStorage.getItem('userData'))
+      : { id: null }
+  );
   const [posts, setPosts] = useState([]);
   const [profiledata, setProfiledata] = useState([]);
   userId = userId || userData.id;
-
 
   const fetchPostData = async (userID) => {
     try {
@@ -31,7 +29,7 @@ const ProfilePage = () => {
   useEffect(() => {
     fetchPostData();
   }, []);
-  
+
   const fetchProfileData = async () => {
     try {
       let url = `connection/profile/${userId}`;
@@ -49,22 +47,22 @@ const ProfilePage = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem('userData', JSON.stringify(userData));
   }, [userData]);
-    
+
   const handlePhotoChange = async (event) => {
     event.preventDefault();
     //setFormData({ ...formData, [event.target.name]: event.target.files[0] });
 
     const formData = new FormData();
-    formData.append("image", event.target.files[0]); 
+    formData.append('image', event.target.files[0]);
 
     try {
-      console.log('image',formData?.image);
+      console.log('image', formData?.image);
       let url = `user/details/`;
       const response = await utils.putData(url, formData);
-      console.log(response.status, formData.get("image"));
-      if (response.status==201){
+      console.log(response.status, formData.get('image'));
+      if (response.status == 201) {
         setuserData((prev) => ({
           ...prev,
           image: response.data.image,
@@ -80,14 +78,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   return (
-
     <div className="bg-gray-100 min-h-screen flex">
-      {/* Sidebar */}
-      <div className="w-1/4 bg-white shadow">
-        <Sidebar />
-      </div>
-
-      {/* Main Content */}
       <div className="w-3/4">
         <div className="bg-white shadow">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -106,7 +97,7 @@ const ProfilePage = () => {
                 </label>
                 <input
                   id="profilePhotoInput"
-                  name = "image"
+                  name="image"
                   type="file"
                   accept="image/*"
                   className="hidden"
@@ -114,8 +105,12 @@ const ProfilePage = () => {
                 />
               </div>
               <div>
-                <h1 className="text-lg font-semibold">{profiledata?.first_name} {profiledata?.last_name}</h1>
-                <p className="text-sm text-gray-500">@{profiledata?.username}</p>
+                <h1 className="text-lg font-semibold">
+                  {profiledata?.first_name} {profiledata?.last_name}
+                </h1>
+                <p className="text-sm text-gray-500">
+                  @{profiledata?.username}
+                </p>
               </div>
             </div>
             <button
@@ -153,29 +148,30 @@ const ProfilePage = () => {
             <button className="text-blue-500 font-bold border-b-2 border-blue-500 pb-1">
               Photos
             </button>
-            <button className="text-gray-600 hover:text-blue-500">Videos</button>
+            <button className="text-gray-600 hover:text-blue-500">
+              Videos
+            </button>
             <button className="text-gray-600 hover:text-blue-500">Likes</button>
           </div>
         </div>
 
-        {/* Photo Gallery */}
         <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4">
-        {posts.map((post) => (
-          <div key={post.id} className="post-wrapper">
-            <div className="bg-white shadow rounded-md overflow-hidden">
-            <img
-              src={post.image}
-              alt="Photo 1"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <p className="text-gray-600">{post.tweet}</p>
+          {posts.map((post) => (
+            <div key={post.id} className="post-wrapper">
+              <div className="bg-white shadow rounded-md overflow-hidden">
+                <img
+                  src={post.image}
+                  alt="Photo 1"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <p className="text-gray-600">{post.tweet}</p>
+                </div>
+              </div>
             </div>
-          </div>
-          </div>
-        ))}
+          ))}
         </div>
-      </div>  
+      </div>
     </div>
   );
 };

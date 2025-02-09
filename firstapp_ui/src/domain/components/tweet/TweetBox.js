@@ -41,7 +41,7 @@ function TweetBox() {
       console.log(response.status);
       event.target.reset();
       setFormData({ ...formData, ['tweet']: '', ['image']: null });
-      if (response.status=200){
+      if ((response.status = 200)) {
         navigate('/tweet/');
       }
     } catch (error) {
@@ -68,14 +68,14 @@ function TweetBox() {
           </div>
 
           <Button className="tweetBox__button">
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            placeholder="Optional: select image"
-            onChange={(e) => uploadPicture(e)}
-            className="tweetBox__imageInput"
-          ></input>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              placeholder="Optional: select image"
+              onChange={(e) => uploadPicture(e)}
+              className="tweetBox__imageInput"
+            ></input>
           </Button>
           <br />
           <div className="buttons">

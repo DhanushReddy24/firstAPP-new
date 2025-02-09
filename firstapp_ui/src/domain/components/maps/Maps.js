@@ -78,7 +78,7 @@ function Maps() {
       response = await utils.fetchData(url);
       data = await response.data;
       setStart(data);
-      if (data.user){
+      if (data.user) {
         setviewPort((prevViewport) => ({
           ...prevViewport,
           latitude: data.latitude,

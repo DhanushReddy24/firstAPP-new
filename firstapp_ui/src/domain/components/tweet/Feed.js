@@ -23,9 +23,9 @@ function Feed() {
       const img = new Image();
       img.onload = () => {
         if (img.width > img.height) {
-          resolve("landscape");
+          resolve('landscape');
         } else {
-          resolve("portrait");
+          resolve('portrait');
         }
       };
       img.onerror = (err) => reject(err);
@@ -139,15 +139,17 @@ function Feed() {
       let url = `connection/tweet/`;
       const response = await utils.fetchData(url);
       setPosts(response.data);
-      
+
       response.data.forEach((post) => {
         if (post.image) {
-          getImageOrientation(post.image).then((orientation) => {
-            setImageOrientation((prevState) => ({
-              ...prevState,
-              [post.id]: orientation,
-            }));
-          }).catch((err) => console.error("Error loading image:", err));
+          getImageOrientation(post.image)
+            .then((orientation) => {
+              setImageOrientation((prevState) => ({
+                ...prevState,
+                [post.id]: orientation,
+              }));
+            })
+            .catch((err) => console.error('Error loading image:', err));
         }
       });
 
@@ -181,7 +183,7 @@ function Feed() {
             <Post
               key={post.id}
               id={post.id}
-              user_id= {post.user}
+              user_id={post.user}
               displayName={post.firstname}
               username={post.username}
               userimage={post.userimage}
