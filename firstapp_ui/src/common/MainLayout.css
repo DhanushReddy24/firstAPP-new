@@ -1,0 +1,14 @@
+.main-layout {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 18px;
+  margin-left: 198px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar--closed + .main-content {
+  margin-left: 60px;
+}

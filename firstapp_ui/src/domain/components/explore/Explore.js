@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Search } from '@mui/icons-material';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
-import Sidebar from '../../../common/AppNav/Sidebar';
 
 export default function Explore() {
   const [posts, setPosts] = useState([]);
@@ -24,14 +23,7 @@ export default function Explore() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex">
-      {/* Sidebar */}
-      <div className="w-1/4 bg-white shadow-lg">
-        <Sidebar />
-      </div>
-
-      {/* Main Content */}
       <Box sx={{ width: '100%', padding: 2 }} className="overflow-auto">
-        {/* Search Bar */}
         <div className="flex items-center mb-4">
           <div className="relative w-full">
             <input
@@ -43,7 +35,6 @@ export default function Explore() {
           </div>
         </div>
 
-        {/* Grid Layout for Posts */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {posts.map((post) => {
             const completePostImageUrl = `${post.image}`;

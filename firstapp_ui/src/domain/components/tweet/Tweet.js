@@ -1,5 +1,4 @@
 import React from 'react';
-import Sidebar from '../../../common/AppNav/Sidebar';
 import Feed from './Feed';
 import Widgets from './Widgets';
 import './Tweet.css';
@@ -7,7 +6,6 @@ import './Tweet.css';
 function Tweet() {
   return (
     <div className="Tweet">
-      <Sidebar />
       <Feed />
       <Widgets />
     </div>

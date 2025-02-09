@@ -18,6 +18,7 @@ import Maps from './domain/components/maps/Maps';
 import Main from './test/Main';
 import Jobs from './domain/components/jobs/Jobs';
 import JobListingForm from './domain/components/jobs/JobListing';
+import MainLayout from './common/MainLayout';
 import './App.css';
 
 function App() {
@@ -27,29 +28,142 @@ function App() {
         <Route path="" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/sample_1" element={<Sample_1 />} />
-        <Route path="/sample_1/:pk" element={<Sample_1 />} />
-        <Route path="/sample_1_post" element={<Sample_1_Post />} />
-        <Route path="/tweet" element={<Tweet />} />
+        <Route
+          path="/sample_1"
+          element={
+            <MainLayout>
+              <Sample_1 />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/sample_1/:pk"
+          element={
+            <MainLayout>
+              <Sample_1 />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/sample_1_post"
+          element={
+            <MainLayout>
+              <Sample_1_Post />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/tweet"
+          element={
+            <MainLayout>
+              <Tweet />
+            </MainLayout>
+          }
+        />
         <Route
           path="/reply"
-          element={<Reply tweetId={1} showReplies={true} />}
+          element={
+            <MainLayout>
+              <Reply tweetId={1} showReplies={true} />
+            </MainLayout>
+          }
         />
-        <Route path="/chat/:userId?" element={<Chat />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/inputbox" element={<InputBox selectedChat={6} />} />
-        <Route path="/tweetbox" element={<TweetBox />} />
-        <Route path="/replybox" element={<ReplyBox />} />
-        <Route path="/maps" element={<Maps />} />
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/jobs/job-listing-form" element={<JobListingForm />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/profile/:userId?" element={<ProfilePage />} />
+        <Route
+          path="/chat/:userId?"
+          element={
+            <MainLayout>
+              <Chat />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <MainLayout>
+              <Chat />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/inputbox"
+          element={
+            <MainLayout>
+              <InputBox selectedChat={6} />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/tweetbox"
+          element={
+            <MainLayout>
+              <TweetBox />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/replybox"
+          element={
+            <MainLayout>
+              <ReplyBox />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/maps"
+          element={
+            <MainLayout>
+              <Maps />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/jobs"
+          element={
+            <MainLayout>
+              <Jobs />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/jobs/job-listing-form"
+          element={
+            <MainLayout>
+              <JobListingForm />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <MainLayout>
+              <Explore />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/profile/:userId?"
+          element={
+            <MainLayout>
+              <ProfilePage />
+            </MainLayout>
+          }
+        />
         <Route
           path="/notification"
-          element={<Notification showNotifications={true} />}
+          element={
+            <MainLayout>
+              <Notification showNotifications={true} />
+            </MainLayout>
+          }
         />
-        <Route path="/main" element={<Main />} />
+        <Route
+          path="/main"
+          element={
+            <MainLayout>
+              <Main />
+            </MainLayout>
+          }
+        />
       </Routes>
     </div>
   );

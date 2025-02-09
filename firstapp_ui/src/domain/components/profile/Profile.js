@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Sidebar from '../../../common/AppNav/Sidebar';
 import ApiDataIOManager from '../../../common/ApiDataIOManager';
 
 const ProfilePage = () => {
-  let { userId } = useParams(); // Get userId from the URL parameters
+  let { userId } = useParams();
   const utils = ApiDataIOManager();
   const [userData, setuserData] = useState(() =>
     localStorage.getItem('userData')
@@ -80,12 +79,6 @@ const ProfilePage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex">
-      {/* Sidebar */}
-      <div className="w-1/4 bg-white shadow">
-        <Sidebar />
-      </div>
-
-      {/* Main Content */}
       <div className="w-3/4">
         <div className="bg-white shadow">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -162,7 +155,6 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Photo Gallery */}
         <div className="container mx-auto px-4 py-6 grid grid-cols-3 gap-4">
           {posts.map((post) => (
             <div key={post.id} className="post-wrapper">
