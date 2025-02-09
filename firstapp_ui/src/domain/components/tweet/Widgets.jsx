@@ -41,15 +41,8 @@ function Widgets() {
   return (
     <div className="widgets">
       <div className="widgets__input flex items-center bg-gray-100 p-2 rounded-full mt-2 ml-5 fixed z-10">
-        <Badge
-          badgeContent={notificationsCount}
-          color="error"
-          overlap="circular"
-        >
-          <NotificationsNoneIcon
-            className="text-gray-500 cursor-pointer"
-            onClick={toggleNotification}
-          />
+        <Badge badgeContent={notificationsCount} color="error" overlap="circular">
+          <NotificationsNoneIcon className="text-gray-500 cursor-pointer" onClick={toggleNotification} />
         </Badge>
         <SearchIcon className="text-gray-500 ml-2" />
         <input
@@ -78,6 +71,7 @@ function Widgets() {
       <Notification
         showNotifications={showNotifications}
         changeNotificationsCount={changeNotificationsCount}
+        onClose={() => setShowNotifications(false)}
       />
     </div>
   );
